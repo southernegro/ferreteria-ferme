@@ -1,0 +1,6 @@
+CUENTA - CLAVE - TIPO CUENTA
+sarredondo - ferreteriaferme - Empleado
+mrosas - ferreteriaferme - Vendedor
+fmeneses - ferreteriaferme - Proveedor
+sbusta - ferreteriaferme - Cliente
+ferme - ferreteraferme - Administrador
