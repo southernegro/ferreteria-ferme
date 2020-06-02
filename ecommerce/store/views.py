@@ -37,6 +37,11 @@ from .forms import  ProfileForm, CustomUserForm
 #
 #    return render(request, 'accounts/register.html', data)
 
+def userList(request):
+    users = Profile.objects.all()
+    context = {'users':users}
+    return render(request, 'admin/user_list.html', context)
+
 def registerPage(request):
 	form = UserCreationForm
 	profile = ProfileForm
