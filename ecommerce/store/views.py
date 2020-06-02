@@ -9,47 +9,34 @@ from .models import *
 from .forms import  ProfileForm, CustomUserForm
 
 #def registerPage(request):
-#    data = {
-#        'form': CustomUserForm(),
-#        'profile': ProfileForm()
-#    }
-#    if request.method == 'POST':
-#        formulario = CustomUserForm(request.POST)
-#        profile_form = ProfileForm(request.POST)
-#        
-#        if formulario.is_valid() and profile_form.is_valid():
-#            new_user = formulario.save()
-#            profile = profile_form.save(commit=False)
-#            profile.user = new_user
-#            profile.save()
-#            #autenticar el usuario y redirigirlo
-#            username=formulario.cleaned_data['username']
-#            password=formulario.cleaned_data['password1']
-#            #autentificamos credenciales del usuario
-#            user = authenticate(username=username, password=password)
-#            #logueamos el usuario
-#            login(request, user)
-#
-#            return redirect('')
-#            
-#        data['form']=formulario
-#        data['profile']=profile_form
-#
-#    return render(request, 'accounts/register.html', data)
+#   form = CustomUserForm
+#   profile = ProfileForm
+#   if request.method == 'POST':
+#       form = CustomUserForm(request.POST)
+#       if form.is_valid():
+#           new_user = form.save()
+#       profile = ProfileForm(request.POST)
+#       if profile.is_valid():
+#           profile.user = new_user
+#           profile.save()
+#   context = {'form':form, 'profile':profile}
+#   return render(request, 'accounts/login.html')
 
 def registerPage(request):
-	form = CustomUserForm
-	profile = ProfileForm
-	if request.method == 'POST':
-		form = CustomUserForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-		profile = ProfileForm(request.POST)
-		if profile.is_valid():
-			profile.user = new_user
-			profile.save()
-	context = {'form':form, 'profile':profile}
-	return render(request, 'accounts/register.html', context)
+    form = CustomUserForm
+    profile = ProfileForm
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            profile = ProfileForm(request.POST)
+            if profile.is_valid():
+                profile.user = new_user.id
+                print(profile.user)
+                profile.save()
+    context = {'form':form, 'profile':profile}
+    return render(request, 'accounts/register.html', context)
+
 
 def loginPage(request):
     if request.method == 'POST':
