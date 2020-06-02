@@ -38,16 +38,16 @@ from .forms import  ProfileForm, CustomUserForm
 #    return render(request, 'accounts/register.html', data)
 
 def registerPage(request):
-	form = UserCreationForm
+	form = CustomUserForm
 	profile = ProfileForm
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+		form = CustomUserForm(request.POST)
 		if form.is_valid():
 			new_user = form.save()
 		profile = ProfileForm(request.POST)
 		if profile.is_valid():
 			profile.user = new_user
-			profile.save
+			profile.save()
 	context = {'form':form, 'profile':profile}
 	return render(request, 'accounts/register.html', context)
 

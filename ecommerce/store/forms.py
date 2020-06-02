@@ -12,7 +12,7 @@ class CustomUserForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['name','last_name', 'phone_number', 'email', 'tipo']
+        fields = ['name','last_name', 'phone_number', 'email']
         widgets={
             'name': forms.TextInput(attrs={'placeholder': 'Nombre...'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Apellido...'}),

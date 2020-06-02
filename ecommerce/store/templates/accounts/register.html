@@ -130,13 +130,21 @@
 				 			<input class="btn login_btn" type="submit" value="Register Account">
 				   		</div>
 					</form>
-					<!---<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+					<!--<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
 						<h2>Registro usuarios</h2>
 						<form class="container py-3" action="" method="POST" enctype="multipart/form-data">
 							{% csrf_token %}
 							<table>
 								{{ form.as_table }}
-								{{ profile.as_table }}
+								{{ form.username }}
+								{{ form.email }}
+								{{ form.password1 }}
+								{{ form.password2 }}
+								-{{ profile.as_table }}
+								{{ profile.name }}
+								{{ profile.last_name }}
+								{{ profile.phone_number }}
+								{{ profile.email }}
 							</table> 
 							<div class="py-4">
 								<input class="btn btn-primary" type="reset" value="Limpiar">
@@ -169,6 +177,7 @@
 		form_fields[2].placeholder='Email..';
 		form_fields[3].placeholder='Enter password...';
 		form_fields[4].placeholder='Re-enter Password...';
+		form_fields[7].placeholder='Telefono...';
 
 
 		for (var field in form_fields){	
