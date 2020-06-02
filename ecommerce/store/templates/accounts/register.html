@@ -75,7 +75,7 @@
 				</div>
 				<div class="d-flex justify-content-center form_container">
 
-					<form method="POST" action="">
+					<form method="POST" action="" enctype="multipart/form-data">
                         {% csrf_token %}
 						<div class="input-group mb-3">
 							<div class="input-group-append">
@@ -101,11 +101,52 @@
 							</div>
 							{{form.password2}}
 						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{profile.name}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{profile.last_name}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{profile.phone_number}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{profile.email}}
+						</div>
 
 				   		<div class="d-flex justify-content-center mt-3 login_container">
 				 			<input class="btn login_btn" type="submit" value="Register Account">
 				   		</div>
 					</form>
+					<!---<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+						<h2>Registro usuarios</h2>
+						<form class="container py-3" action="" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<table>
+								{{ form.as_table }}
+								{{ profile.as_table }}
+							</table> 
+							<div class="py-4">
+								<input class="btn btn-primary" type="reset" value="Limpiar">
+								<input class="btn btn-success" type="submit" value="Registrar">
+							</div> 
+							
+						</form>
+					
+						{{ mensaje }}
+					</div>-->
 				</div>
         
                 {{form.errors}}
@@ -124,7 +165,7 @@
 
 		//Query All input fields
 		var form_fields = document.getElementsByTagName('input')
-		form_fields[1].placeholder='Username..';
+		form_fields[1].placeholder='Usuario..';
 		form_fields[2].placeholder='Email..';
 		form_fields[3].placeholder='Enter password...';
 		form_fields[4].placeholder='Re-enter Password...';
