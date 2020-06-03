@@ -6,7 +6,7 @@ from django.contrib import messages
 import json
 import datetime
 from .models import *
-from .forms import  ProfileForm, CustomUserForm, ClientForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
 from .utils import cookieCart, cartData, guestOrder
 
 #def registerPage(request):
@@ -170,3 +170,21 @@ def processOrder(request):
             zipcode=data['shipping']['zipcode'],
         )
     return JsonResponse('Pago realizado', safe=False)
+
+def adm_productos(request):
+    return render(request, 'store/adm-producto.html', {})
+
+def agregar_producto(request):
+    data={
+    'form': ProductoForm()
+    }
+    if request.method=='POST':
+        formulario = ProductoForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            #formulario = formulario.save(commit=False)
+            #formulario.user = request.user
+            formulario.save()
+            data['mensaje']='Producto agregado con éxito'
+        data['form']=formulario
+    return render(request, 'store/agregar-producto.html', data)
+
