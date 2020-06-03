@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm
-from .models import Profile
+from .models import Profile, Cliente
 
 class CustomUserForm(UserCreationForm):
     class Meta:
@@ -19,3 +19,8 @@ class ProfileForm(ModelForm):
             'phone_numer': forms.TextInput(attrs={'placeholder': 'Telefono...'}),
             'email': forms.TextInput(attrs={'placeholder': 'Correo...'}),
         }
+
+class ClientForm(ModelForm):
+    class Meta:
+        model = Cliente
+        fields = []
