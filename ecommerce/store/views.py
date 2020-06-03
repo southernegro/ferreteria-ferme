@@ -142,7 +142,7 @@ def updateItems(request):
     return JsonResponse('Producto agregado', safe=False)
 
 def processOrder(request):
-    print('Data:', request.body)
+    #print('Data:', request.body)
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
 
