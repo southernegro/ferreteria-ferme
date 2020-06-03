@@ -8,6 +8,7 @@ import datetime
 from .models import *
 from .forms import  ProfileForm, CustomUserForm
 
+
 #def registerPage(request):
 #    data = {
 #        'form': CustomUserForm(),
@@ -43,18 +44,29 @@ def userList(request):
     return render(request, 'admin/user_list.html', context)
 
 def registerPage(request):
-	form = UserCreationForm
-	profile = ProfileForm
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-		profile = ProfileForm(request.POST)
-		if profile.is_valid():
-			profile.user = new_user
-			profile.save
-	context = {'form':form, 'profile':profile}
-	return render(request, 'accounts/register.html', context)
+    data = {
+        'form': CustomUserForm(),
+        'profile': ProfileForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            #logueamos el usuario
+            login(request, user)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data)
 
 def loginPage(request):
     if request.method == 'POST':

@@ -2,7 +2,7 @@
 <html>
     
 <head>
-	<title>Login</title>
+	<title>Registro</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -71,7 +71,7 @@
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
-					<h3 id="form-title">REGISTER ACCOUNT</h3>
+					<h3 id="form-title">REGISTRAR CUENTA</h3>
 				</div>
 				<div class="d-flex justify-content-center form_container">
 
@@ -82,12 +82,6 @@
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
 							{{form.username}}
-						</div>
-						<div class="input-group mb-2">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
-							</div>
-							{{form.email}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
@@ -130,29 +124,12 @@
 				 			<input class="btn login_btn" type="submit" value="Register Account">
 				   		</div>
 					</form>
-					<!---<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
-						<h2>Registro usuarios</h2>
-						<form class="container py-3" action="" method="POST" enctype="multipart/form-data">
-							{% csrf_token %}
-							<table>
-								{{ form.as_table }}
-								{{ profile.as_table }}
-							</table> 
-							<div class="py-4">
-								<input class="btn btn-primary" type="reset" value="Limpiar">
-								<input class="btn btn-success" type="submit" value="Registrar">
-							</div> 
-							
-						</form>
-					
-						{{ mensaje }}
-					</div>-->
 				</div>
         
                 {{form.errors}}
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+						¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="ml-2">Login</a>
 					</div>
 				</div>
 			</div>
@@ -166,14 +143,15 @@
 		//Query All input fields
 		var form_fields = document.getElementsByTagName('input')
 		form_fields[1].placeholder='Usuario..';
-		form_fields[2].placeholder='Email..';
-		form_fields[3].placeholder='Enter password...';
-		form_fields[4].placeholder='Re-enter Password...';
+		form_fields[2].placeholder='Enter password...';
+		form_fields[3].placeholder='Re-enter Password...';
+		form_fields[6].placeholder='Telefono...';
 
 
 		for (var field in form_fields){	
 			form_fields[field].className += ' form-control'
 		}
+
 	</script>
 </body>
 </html>

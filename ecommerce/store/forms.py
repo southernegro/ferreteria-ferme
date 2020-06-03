@@ -7,12 +7,12 @@ from .models import Profile
 class CustomUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2']
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['name','last_name', 'phone_number', 'email', 'tipo']
+        fields = ['name','last_name', 'phone_number', 'email']
         widgets={
             'name': forms.TextInput(attrs={'placeholder': 'Nombre...'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Apellido...'}),
