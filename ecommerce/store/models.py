@@ -26,7 +26,11 @@ class Cliente(models.Model):
     client_id = models.CharField(max_length=200, null=True)
     
     def __str__(self):
-        return self.profile.name
+        perfil='Sin Perfil Asociado'
+        if self.profile is None:
+            return perfil
+        else:
+            return self.profile.name
     
     @property
     def is_client(self):
