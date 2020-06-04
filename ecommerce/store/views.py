@@ -7,6 +7,8 @@ import json
 import datetime
 from .models import *
 from .forms import  ProfileForm, CustomUserForm
+from django_tables2 import SingleTableView
+from .tables import ProfileTable
 
 #def registerPage(request):
 #    data = {
@@ -35,12 +37,14 @@ from .forms import  ProfileForm, CustomUserForm
 #        data['form']=formulario
 #        data['profile']=profile_form
 #
-#    return render(request, 'accounts/register.html', data)
+#    return render(request, 'accounts/register.html', data) 
 
-def userList(request):
+
+def users(request):
     users = Profile.objects.all()
-    context = {'users':users}
-    return render(request, 'admin/user_list.html', context)
+    table_class = ProfileTable
+    context = {'users':users, 'table':table_class}
+    return render(request, 'admin/users.html', context)
 
 def registerPage(request):
 	form = UserCreationForm
