@@ -1,0 +1,23 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <h2>Agregar Producto</h2>
+    <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table> 
+        <div class="py-4">
+            <input class="btn btn-primary" type="reset" value="Limpiar">
+            <input class="btn btn-success" type="submit" value="Agregar">
+            <a class="btn btn-primary" href="{% url 'store'%}">Visualizar Productos</a>
+        </div> 
+        
+    </form>
+
+    {{ mensaje }}
+</div>
+
+{% endblock content %}

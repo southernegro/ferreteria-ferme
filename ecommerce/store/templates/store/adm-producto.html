@@ -1,4 +1,34 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+
+<section>
+    <div class="row">
+		<div class="col-lg-4">
+			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/add.png' %}"></a>
+			<div class="box-element product">
+				<h6><strong>Agregar Productos</strong></h6>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/edit.png' %}"></a>
+			<div class="box-element product">
+				<h6><strong>Modificar Productos</strong></h6>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/delete.png' %}"></a>
+			<div class="box-element product">
+				<h6><strong>Eliminar Productos</strong></h6>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/search.png' %}"></a>
+			<div class="box-element product">
+				<h6><strong>Buscar Productos</strong></h6>
+			</div>
+		</div>
+	</div>
+</section>
+
 {% endblock content %}

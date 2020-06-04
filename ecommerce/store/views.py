@@ -6,9 +6,10 @@ from django.contrib import messages
 import json
 import datetime
 from .models import *
-from .forms import  ProfileForm, CustomUserForm
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
+from .utils import cookieCart, cartData, guestOrder
 
 #def registerPage(request):
 #    data = {
@@ -47,18 +48,36 @@ def users(request):
     return render(request, 'admin/users.html', context)
 
 def registerPage(request):
-	form = UserCreationForm
-	profile = ProfileForm
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-		profile = ProfileForm(request.POST)
-		if profile.is_valid():
-			profile.user = new_user
-			profile.save
-	context = {'form':form, 'profile':profile}
-	return render(request, 'accounts/register.html', context)
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'client': ClientForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        client = ClientForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            client = client.save(commit=False)
+            client.profile = profile
+            client.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            #logueamos el usuario
+            login(request, user)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data)
+
 
 def loginPage(request):
     if request.method == 'POST':
@@ -81,22 +100,9 @@ def logoutUser(request):
 
 
 def store(request):
-    if request.user.is_authenticated:
-        tipo = request.user.profile.tipo
-        if(tipo == 'Administrator' or tipo == 'Cliente' or tipo == 'Vendedor'):
-            usuario = request.user.profile
-            order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-            items = order.orderitems_set.all()
-            cartItems = order.get_cart_items
-        elif(tipo == 'Empleado' or tipo == 'Proveedor'):
-            items = []
-            order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-            cartItems = order['get_cart_items']
-    else:
-        #Create Empty cart for now for none-logged in users
-        items = []
-        order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-        cartItems = order['get_cart_items']
+
+    data = cartData(request)
+    cartItems = data['cartItems']
     
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
@@ -104,30 +110,20 @@ def store(request):
 
 def cart(request):
 
-    if request.user.is_authenticated:
-        usuario = request.user.profile
-        order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-        items = order.orderitems_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-        cartItems = order['get_cart_items']
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
         
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
 def checkout(request):
-    if request.user.is_authenticated:
-        usuario = request.user.profile
-        order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-        items = order.orderitems_set.all()
-        cartItems = order.get_cart_items
-    else:
-        #Create Empty cart for now for none-logged in users
-        items = []
-        order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-        cartItems = order['get_cart_items']
+        
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
@@ -166,60 +162,42 @@ def processOrder(request):
     if request.user.is_authenticated:
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-        total  = float(data['form']['total'])
-        order.transaction_id = transaction_id
 
-        if total == order.get_cart_total:
-            order.complete = True
-        order.save()
-
-        if order.shipping == True:
-            ShippingAddress.objects.create(
-                usuario=usuario,
-                order=order,
-                address=data['shipping']['address'],
-                city=data['shipping']['city'],
-                state=data['shipping']['state'],
-                zipcode=data['shipping']['zipcode'],
-            )
     else:
-        print('Usuario no registrado')
+       usuario, order = guestOrder(request, data)
+
+    total  = float(data['form']['total'])
+    order.transaction_id = transaction_id
+
+    if total == order.get_cart_total:
+        order.complete = True
+    order.save()
+
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            usuario=usuario,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
     return JsonResponse('Pago realizado', safe=False)
 
-#def registrar_usuario(request):
-#
-#    data = {
-#        'form': CustomUserForm(),
-#        'profile': ProfileForm(),
-#        'cliente': ClienteForm()
-#    }
-#
-#    if request.method=='POST':
-#        formulario = CustomUserForm(request.POST)
-#        profile_form = ProfileForm(request.POST)
-#        cliente_form = ClienteForm(request.POST)
-#        
-#        if formulario.is_valid() and profile_form.is_valid() and cliente_form.is_valid():
-#            new_user = formulario.save()
-#            profile = profile_form.save(commit=False)
-#            cliente = cliente_form.save(commit=False)
-#            profile.user = new_user
-#            profile.save()
-#            cliente.user = new_profile
-#            cliente.save()
-#            #autenticar el usuario y redirigirlo
-#            username=formulario.cleaned_data['username']
-#            password=formulario.cleaned_data['password1']
-#            #autentificamos credenciales del usuario
-#            user = authenticate(username=username, password=password)
-#            #logueamos el usuario
-#            login(request, user)
-#
-#            return redirect(to='index')
-#            
-#        data['form']=formulario
-#        data['profile']=profile_form
-#        data['cliente']=cliente_form
-#
-#    return render(request, 'registration/registrar.html', data)
-#
+def adm_productos(request):
+    return render(request, 'store/adm-producto.html', {})
+
+def agregar_producto(request):
+    data={
+    'form': ProductoForm()
+    }
+    if request.method=='POST':
+        formulario = ProductoForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            #formulario = formulario.save(commit=False)
+            #formulario.user = request.user
+            formulario.save()
+            data['mensaje']='Producto agregado con éxito'
+        data['form']=formulario
+    return render(request, 'store/agregar-producto.html', data)
+

@@ -28,6 +28,25 @@
 			return cookieValue;
 		}
 		var csrftoken = getToken('csrftoken');
+
+
+		function getCookie(name){
+			var cookieArr = document.cookie.split(";");
+			for (var i = 0; i < cookieArr.length; i++) {
+				var cookiePair = cookieArr[i].split("=");
+				if(name == cookiePair[0].trim()){
+					return decodeURIComponent(cookiePair[1]);	
+				}
+			}
+			return null;
+	}
+		var cart = JSON.parse(getCookie('cart'))
+		if (cart == undefined) {
+			cart = {}
+			console.log('Carro creado')
+			document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
 	</script>
 
 </head>
@@ -52,7 +71,7 @@
 	        		<a class="nav-link" href="{% url 'store' %}">Adm. Boleta<span class="sr-only"></span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-product">
-	        		<a class="nav-link" href="{% url 'store' %}">Adm. Producto<span class="sr-only"></span></a>
+	        		<a class="nav-link" href="{% url 'adm-producto' %}">Adm. Producto<span class="sr-only"></span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-order">
 	        		<a class="nav-link" href="{% url 'store' %}">Adm. Orden de Compra <span class="sr-only"></span></a>
