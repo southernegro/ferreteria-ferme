@@ -16,7 +16,7 @@ from .forms import  ProfileForm, CustomUserForm
 #    if request.method == 'POST':
 #        formulario = CustomUserForm(request.POST)
 #        profile_form = ProfileForm(request.POST)
-#        
+#
 #        if formulario.is_valid() and profile_form.is_valid():
 #            new_user = formulario.save()
 #            profile = profile_form.save(commit=False)
@@ -31,7 +31,7 @@ from .forms import  ProfileForm, CustomUserForm
 #            login(request, user)
 #
 #            return redirect('')
-#            
+#
 #        data['form']=formulario
 #        data['profile']=profile_form
 #
@@ -50,6 +50,19 @@ def registerPage(request):
 			profile.save
 	context = {'form':form, 'profile':profile}
 	return render(request, 'accounts/register.html', context)
+
+def editPage(request, id):
+	usuario = User.objects.get(id=id)
+	data = {
+		'form': CustomUserForm(instance=usuario)
+	}
+	if request.method == 'POST':
+		formulario = CustomUserForm(data=request.POST, instance=usuario)
+		if formulario.is_valid():
+			formulario.save()
+			data['mensaje']='Usuario modificado correctamente'
+		data['form']=CustomUserForm(instance=User.objects.get(id=id))
+	return render(request,'accounts/edit.html', data)
 
 def loginPage(request):
     if request.method == 'POST':
@@ -88,7 +101,7 @@ def store(request):
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
-    
+
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
@@ -104,7 +117,7 @@ def cart(request):
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
-        
+
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
@@ -141,7 +154,7 @@ def updateItems(request):
         orderItems.quantity = (orderItems.quantity + 1)
     elif action == 'remove':
         orderItems.quantity = (orderItems.quantity - 1)
-    
+
     orderItems.save()
 
     if orderItems.quantity <= 0:
@@ -189,7 +202,7 @@ def processOrder(request):
 #        formulario = CustomUserForm(request.POST)
 #        profile_form = ProfileForm(request.POST)
 #        cliente_form = ClienteForm(request.POST)
-#        
+#
 #        if formulario.is_valid() and profile_form.is_valid() and cliente_form.is_valid():
 #            new_user = formulario.save()
 #            profile = profile_form.save(commit=False)
@@ -207,7 +220,7 @@ def processOrder(request):
 #            login(request, user)
 #
 #            return redirect(to='index')
-#            
+#
 #        data['form']=formulario
 #        data['profile']=profile_form
 #        data['cliente']=cliente_form
