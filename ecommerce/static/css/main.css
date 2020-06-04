@@ -1,8 +1,8 @@
 #logo {
     display: inline-block;
     vertical-align: top;
-    width: 200px;
-    height: 70px;
+    width: 150px;
+    height: 60px;
     margin-right: 5px;
     /*margin-top: 15px;    /* if you want it vertically middle of the navbar. */
 }
