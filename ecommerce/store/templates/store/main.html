@@ -35,7 +35,7 @@
 			for (var i = 0; i < cookieArr.length; i++) {
 				var cookiePair = cookieArr[i].split("=");
 				if(name == cookiePair[0].trim()){
-					return decodeURIComponent(cookiePair[1]);	
+					return decodeURIComponent(cookiePair[1]);
 				}
 			}
 			return null;
@@ -77,11 +77,11 @@
 	        		<a class="nav-link" href="{% url 'store' %}">Adm. Orden de Compra <span class="sr-only"></span></a>
 				  </li>
 				  <li class="nav-item active" id="adm-users">
-	        		<a class="nav-link" href="{% url 'store' %}">Usuarios <span class="sr-only"></span></a>
+	        		<a class="nav-link" href="{% url 'edit' user.id %}">Usuarios <span class="sr-only"></span></a>
 	      		</li>
 			</ul>
 		</div>
-		
+
 	    <div class="form-inline my-2 my-lg-0">
 
 			{% if user.is_authenticated  %}
@@ -92,8 +92,8 @@
 			  <a href="{% url 'login' %}"class="btn btn-warning">Login</a>
 			{% endif %}
 
-			
-			
+
+
 	     	<a href="{% url 'cart' %}">
 	    		<img  id="cart-icon" src="{% static 'img/cart.png' %}">
 	    	</a>
@@ -148,7 +148,7 @@
 
 		}
 		else if (is_admin == 'True'){
-			
+
 		}else{
 			document.getElementById('adm-facturation').innerHTML = ''
 			document.getElementById('adm-bill').innerHTML = ''
@@ -156,6 +156,6 @@
 			document.getElementById('adm-order').innerHTML = ''
 			document.getElementById('adm-users').innerHTML = ''
 		}
-	</script> 
+	</script>
 </body>
 </html>

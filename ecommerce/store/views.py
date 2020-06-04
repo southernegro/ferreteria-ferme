@@ -19,7 +19,7 @@ from .utils import cookieCart, cartData, guestOrder
 #    if request.method == 'POST':
 #        formulario = CustomUserForm(request.POST)
 #        profile_form = ProfileForm(request.POST)
-#        
+#
 #        if formulario.is_valid() and profile_form.is_valid():
 #            new_user = formulario.save()
 #            profile = profile_form.save(commit=False)
@@ -34,11 +34,11 @@ from .utils import cookieCart, cartData, guestOrder
 #            login(request, user)
 #
 #            return redirect('')
-#            
+#
 #        data['form']=formulario
 #        data['profile']=profile_form
 #
-#    return render(request, 'accounts/register.html', data) 
+#    return render(request, 'accounts/register.html', data)
 
 
 def users(request):
@@ -65,7 +65,7 @@ def registerPage(request):
             #if client.is_valid():
             client = client.save(commit=False)
             client.profile = profile
-            client.save() 
+            client.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
@@ -78,6 +78,18 @@ def registerPage(request):
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
 
+def editPage(request, id):
+	usuario = User.objects.get(id=id)
+	data = {
+		'form': CustomUserForm(instance=usuario)
+	}
+	if request.method == 'POST':
+		formulario = CustomUserForm(data=request.POST, instance=usuario)
+		if formulario.is_valid():
+			formulario.save()
+			data['mensaje']='Usuario modificado correctamente'
+		data['form']=CustomUserForm(instance=User.objects.get(id=id))
+	return render(request,'accounts/edit.html', data)
 
 def loginPage(request):
     if request.method == 'POST':
@@ -103,7 +115,7 @@ def store(request):
 
     data = cartData(request)
     cartItems = data['cartItems']
-    
+
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
@@ -114,12 +126,12 @@ def cart(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-        
+
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
 def checkout(request):
-        
+
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -146,7 +158,7 @@ def updateItems(request):
         orderItems.quantity = (orderItems.quantity + 1)
     elif action == 'remove':
         orderItems.quantity = (orderItems.quantity - 1)
-    
+
     orderItems.save()
 
     if orderItems.quantity <= 0:
@@ -200,4 +212,3 @@ def agregar_producto(request):
             data['mensaje']='Producto agregado con éxito'
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
-
