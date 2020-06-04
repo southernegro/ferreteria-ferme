@@ -79,4 +79,5 @@ def guestOrder(request, data):
             order=order,
             quantity=item['quantity']
             )
+    order.complete = True
     return usuario, order

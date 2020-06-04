@@ -154,7 +154,7 @@ def updateItems(request):
 
     return JsonResponse('Producto agregado', safe=False)
 
-def processOrder(request):
+def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda como completada
     #print('Data:', request.body)
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)

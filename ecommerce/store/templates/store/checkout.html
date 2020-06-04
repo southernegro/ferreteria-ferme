@@ -101,7 +101,8 @@
 
 		function submitFormData(){
 			console.log('Botón pagar clickeado')
-			console.log(user.id)
+			console.log('{{ user.id }} {{ order.complete }} ')
+
 
 			var userFormData = {
 				'name':null,
@@ -136,14 +137,12 @@
 					'Content-Type':'application/json',
 					'X-CSRFToken':csrftoken,
 				},
-				//console.log(body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}));
 				body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
 			})
-			//.then((response) => response.json())
-		    .then((response) =>{
-		    	console.log('Success:', response)
-    			return response;//.json();
-			})
+			.then((response) => response)//.json())
+			// TODO:
+			// La orden de compra no se guarda como completada
+			// pero al usar .json() si se guarda, pero solo con un usuario
 			.then((data) => {
 				console.log('Success:', data)
 				alert('Transaction Completed')
@@ -151,9 +150,6 @@
 			document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 				window.location.href = "{% url 'store' %}"
 			})
-
-			//console.log('Shipping Info:', shippingInfo)
-			//console.log('User Info:', userFormData)
 		}
 	</script>
 {% endblock content %}
