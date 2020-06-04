@@ -6,34 +6,10 @@ from django.contrib import messages
 import json
 import datetime
 from .models import *
+from django_tables2 import SingleTableView
+from .tables import ProfileTable
 from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
 from .utils import cookieCart, cartData, guestOrder
-
-#def registerPage(request):
-#    data = {
-#       'form': CustomUserForm(),
-#        'profile': ProfileForm()
-#    }
-#    if request.method=='POST':
-#        form = CustomUserForm(request.POST)
-#        profile = ProfileForm(request.POST)
-#        if form.is_valid() and profile.is_valid():
-#            new_user = form.save()
-#            profile = profile.save(commit=False)
-#            profile.user = new_user
-#            profile.save()
-            #autenticar el usuario y redirigirlo
-#           username=form.cleaned_data['username']
-#            password=form.cleaned_data['password1']
-            #autentificamos credenciales del usuario
-#            user = authenticate(username=username, password=password)
-            #logueamos el usuario
-#            login(request, user)
-#            return redirect(to='store')
-#        data['form']=form
-#        data['profile']=profile
-#    return render(request, 'accounts/register.html', data)
-
 
 #def registerPage(request):
 #    data = {
@@ -62,12 +38,14 @@ from .utils import cookieCart, cartData, guestOrder
 #        data['form']=formulario
 #        data['profile']=profile_form
 #
-#    return render(request, 'accounts/register.html', data)
+#    return render(request, 'accounts/register.html', data) 
 
-def userList(request):
+
+def users(request):
     users = Profile.objects.all()
-    context = {'users':users}
-    return render(request, 'admin/user_list.html', context)
+    table_class = ProfileTable
+    context = {'users':users, 'table':table_class}
+    return render(request, 'admin/users.html', context)
 
 def registerPage(request):
     data = {
