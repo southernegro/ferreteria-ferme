@@ -25,5 +25,6 @@ urlpatterns = [
 	path('adm-producto/', views.adm_productos, name="adm-producto"),
 	path('agregar-producto/', views.agregar_producto, name="agregar-producto"),
 	path('admin/users/',views.users, name='users'),
-
+	path("admin/users/edit$<int:id>" ,views.editUser, name='edit_user'),
+	path("admin/users/delete$<int:id>",views.deleteUser, name='delete_user'),
 ]

@@ -51,6 +51,16 @@ def users(request):
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
+        
+def editUser(request, id):
+    user_id=id
+    context = {'user_id': user_id}
+    return render(request, 'admin/users/edit_user.html', context)
+
+def deleteUser(request, id):
+    user_id=id
+    context = {'user_id': user_id}
+    return render(request, 'admin/users/delete_user.html', context)    
 
 def registerPage(request):
     data = {

@@ -2,10 +2,11 @@ import django_tables2 as tables
 from .models import Profile
 from django_tables2.utils import A
 
+
 TEMPLATE_EDIT = '''
     <div>
         <row>
-            <button href=users type="button" class="btn btn-info col-12 tbl_icon edit">Editar</button>
+            <button href={% url 'edit_user' record.pk %} type="button" class="btn btn-info btn-sm col-12 tbl_icon edit">Editar</button>
         </row>
     </div>
 '''
@@ -13,7 +14,7 @@ TEMPLATE_EDIT = '''
 TEMPLATE_DELETE = '''
     <div>
         <row>
-            <button href=users type="button" class="btn btn-danger col-12 tbl_icon edit">Borrar</button>
+            <button href={% url 'delete_user' record.pk %} type="button" class="btn btn-danger btn-sm col-12 tbl_icon edit">Borrar</button>
         </row>
     </div>
 '''
