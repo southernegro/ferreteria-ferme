@@ -139,7 +139,7 @@
 				},
 				body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
 			})
-			.then((response) => response)//.json())
+			.then((response) => response.json())//Por el momento sirve Json, falta validar complete y id ORDER
 			// TODO:
 			// La orden de compra no se guarda como completada
 			// pero al usar .json() si se guarda, pero solo con un usuario

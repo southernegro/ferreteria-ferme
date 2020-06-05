@@ -45,6 +45,7 @@ def cartData(request):
         transaction_id = datetime.datetime.now().timestamp() #!!!!
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)#, transaction_id=transaction_id)
+        order.complete=True
         boleta = Boleta.objects.get_or_create(
         order=order,
         n_boleta=transaction_id
