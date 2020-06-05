@@ -10,6 +10,7 @@ from django_tables2 import SingleTableView
 from .tables import ProfileTable
 from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
 from .utils import cookieCart, cartData, guestOrder
+import django_tables2 as tables
 
 #def registerPage(request):
 #    data = {
@@ -40,11 +41,15 @@ from .utils import cookieCart, cartData, guestOrder
 #
 #    return render(request, 'accounts/register.html', data) 
 
+class TableView(tables.SingleTableView):
+    table_class = ProfileTable
+    queryset = Profile.objects.all()
+    template_name = 'admin/users.html'
 
 def users(request):
     users = Profile.objects.all()
-    table_class = ProfileTable
-    context = {'users':users, 'table':table_class}
+    table = ProfileTable( users )
+    context = {'table': table}
     return render(request, 'admin/users.html', context)
 
 def registerPage(request):
