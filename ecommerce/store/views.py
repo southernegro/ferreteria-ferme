@@ -79,21 +79,31 @@ def registerPage(request):
     return render(request, 'accounts/register.html', data)
 
 def editPage(request, id):
-	usuario = User.objects.get(id=id)
-	data = {
-		'form': CustomUserForm(instance=usuario),
-        # 'profile': ProfileForm(instance=perfil)
-	}
-	if request.method == 'POST':
-		formulario = CustomUserForm(data=request.POST, instance=usuario)
-        # perfil = ProfileForm(data=request.POST, instance=perfil)
+    usuario = User.objects.get(id=id)
+    perfil = request.user.profile
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(id=id))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'accounts/edit.html', data)
 
-		if formulario.is_valid():
-			formulario.save()
-            # profile.save()
-			data['mensaje']='Usuario modificado correctamente'
-		data['form']=CustomUserForm(instance=User.objects.get(id=id))
-	return render(request,'accounts/edit.html', data)
+def deletePage(request, id):
+    usuario = User.objects.get(id=id)
+    #usuario.delete()
+    return redirect(to='store')
+
+    return render(request, 'accounts/delete.html', data)
 
 def loginPage(request):
     if request.method == 'POST':
