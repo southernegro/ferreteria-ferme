@@ -81,12 +81,16 @@ def registerPage(request):
 def editPage(request, id):
 	usuario = User.objects.get(id=id)
 	data = {
-		'form': CustomUserForm(instance=usuario)
+		'form': CustomUserForm(instance=usuario),
+        # 'profile': ProfileForm(instance=perfil)
 	}
 	if request.method == 'POST':
 		formulario = CustomUserForm(data=request.POST, instance=usuario)
+        # perfil = ProfileForm(data=request.POST, instance=perfil)
+
 		if formulario.is_valid():
 			formulario.save()
+            # profile.save()
 			data['mensaje']='Usuario modificado correctamente'
 		data['form']=CustomUserForm(instance=User.objects.get(id=id))
 	return render(request,'accounts/edit.html', data)
