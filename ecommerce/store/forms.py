@@ -7,7 +7,7 @@ from .models import Profile, Cliente, Producto
 class CustomUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -17,7 +17,6 @@ class ProfileForm(ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Nombre...'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Apellido...'}),
             'phone_numer': forms.TextInput(attrs={'placeholder': 'Telefono...'}),
-            'email': forms.TextInput(attrs={'placeholder': 'Correo...'}),
         }
 
 class ClientForm(ModelForm):
