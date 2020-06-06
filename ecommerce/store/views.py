@@ -8,38 +8,10 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
-#def registerPage(request):
-#    data = {
-#        'form': CustomUserForm(),
-#        'profile': ProfileForm()
-#    }
-#    if request.method == 'POST':
-#        formulario = CustomUserForm(request.POST)
-#        profile_form = ProfileForm(request.POST)
-#        
-#        if formulario.is_valid() and profile_form.is_valid():
-#            new_user = formulario.save()
-#            profile = profile_form.save(commit=False)
-#            profile.user = new_user
-#            profile.save()
-#            #autenticar el usuario y redirigirlo
-#            username=formulario.cleaned_data['username']
-#            password=formulario.cleaned_data['password1']
-#            #autentificamos credenciales del usuario
-#            user = authenticate(username=username, password=password)
-#            #logueamos el usuario
-#            login(request, user)
-#
-#            return redirect('')
-#            
-#        data['form']=formulario
-#        data['profile']=profile_form
-#
-#    return render(request, 'accounts/register.html', data) 
 
 class TableView(tables.SingleTableView):
     table_class = ProfileTable
@@ -57,12 +29,6 @@ def editUser(request, id):
     context = {'user_id': user_id}
     return render(request, 'admin/users/edit_user.html', context)
 
-#def deleteUser(request, id):
-#    user_id=id
-#    context = {'user_id': user_id}
-#    return render(request, 'admin/users/delete_user.html', context) 
-
-#--------SERGIO VISTAS-----------#
 def listUser(request):
     users = Profile.objects.all()
     data={
@@ -93,8 +59,119 @@ def editUser(request, pk):
             return redirect(to='store')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
-    return render(request,'admin/edit_user.html', data)   
-#-------------------------------#
+    return render(request,'admin/edit_user.html', data)
+    
+def registerClient(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'client': ClientForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        client = ClientForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            client = client.save(commit=False)
+            client.profile = profile
+            client.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data)
+def registerSeller(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'seller': SellerForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        seller = SellerForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            seller = seller.save(commit=False)
+            seller.profile = profile
+            seller.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data)
+def registerSupplier(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'supplier': SupplierForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        supplier = SupplierForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            supplier = supplier.save(commit=False)
+            supplier.profile = profile
+            supplier.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data)
+def registerEmployee(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'employee': EmployeeForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        employee = EmployeeForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            employee = employee.save(commit=False)
+            employee.profile = profile
+            employee.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register.html', data) 
 
 def registerPage(request):
     data = {
