@@ -57,10 +57,44 @@ def editUser(request, id):
     context = {'user_id': user_id}
     return render(request, 'admin/users/edit_user.html', context)
 
-def deleteUser(request, id):
-    user_id=id
-    context = {'user_id': user_id}
-    return render(request, 'admin/users/delete_user.html', context)    
+#def deleteUser(request, id):
+#    user_id=id
+#    context = {'user_id': user_id}
+#    return render(request, 'admin/users/delete_user.html', context) 
+
+#--------SERGIO VISTAS-----------#
+def listUser(request):
+    users = Profile.objects.all()
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+
+def deleteUser(request, pk):
+    user = User.objects.get(pk=pk)
+    user.delete()
+    return redirect(to='store')
+
+def editUser(request, pk):
+    usuario = User.objects.get(pk=pk)
+    perfil = request.user.profile
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'admin/edit_user.html', data)   
+#-------------------------------#
 
 def registerPage(request):
     data = {

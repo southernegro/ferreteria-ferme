@@ -1,0 +1,44 @@
+{% extends 'store/main.html'%}
+
+{% load static %}
+{% block javascript %}
+
+    <script src="{% static 'js/confirmacion.js' %}"></script>
+
+{% endblock %}
+{% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <h2 class="pt-2 pb-4">Listado Usuarios</h2>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+
+            <tr>
+                <td scope="row">{{u.user.id}}</td>
+                <td scope="row">{{u.user.username}}</td>
+                <td scope="row">{{u.name}}</td>
+                <td scope="row">{{u.last_name}}</td>
+                <td scope="row">{{u.phone_number}}</td>
+                <td scope="row">{{u.email}}</td>
+                <td scope="row">{{u.tipo}}</td>
+
+                <td scope="row"><a class="btn btn-danger" href="{% url 'edit_user' pk=u.user.id %}"><i class="far fa-trash-alt fa-2x"></i></a></td>
+                <td scope="row"><a class="btn btn-danger" href="{% url 'delete_user' pk=u.user.id %}"><i class="far fa-trash-alt fa-2x"></i></a></td>
+            </tr>
+    
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
