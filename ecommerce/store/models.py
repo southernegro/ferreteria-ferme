@@ -223,4 +223,4 @@ class Boleta(models.Model):
     total = models.CharField(max_length=200, null=False)
 
     def __str__(self):
-        return self.n_boleta
+        return 'Boleta: ' + self.n_boleta

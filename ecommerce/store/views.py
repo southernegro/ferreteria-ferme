@@ -161,6 +161,15 @@ def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda
     if request.user.is_authenticated:
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
+        #order = Order.objects.create(
+        #usuario=usuario,
+        #complete=True,
+        #transaction_id=transaction_id
+        #)
+        #boleta = Boleta.objects.get_or_create(
+        #order=order,
+        #n_boleta=transaction_id
+        #)
     else:
        usuario, order = guestOrder(request, data)
 
@@ -170,7 +179,7 @@ def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda
 
     if total == order.get_cart_total:
         order.complete = True
-        print(order.complete)
+    print(order.complete)
     order.save()
 
     if order.shipping == True:
