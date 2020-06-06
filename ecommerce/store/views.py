@@ -77,7 +77,7 @@ def deleteUser(request, pk):
 
 def editUser(request, pk):
     usuario = User.objects.get(pk=pk)
-    perfil = request.user.profile
+    perfil = Profile.objects.get(user_id=pk)
     data = {
         'form': CustomUserForm(instance=usuario),
         'profile': ProfileForm(instance=perfil)
