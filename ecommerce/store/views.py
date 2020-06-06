@@ -160,18 +160,36 @@ def updateItems(request):
     return JsonResponse('Producto agregado', safe=False)
 
 def processOrder(request):
-    #print('Data:', request.body)
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    total  = float(data['form']['total'])
 
     if request.user.is_authenticated:
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-
+        if usuario.tipo == 'Vendedor':
+            boleta = Boleta.objects.get_or_create(
+            order=order,
+            n_boleta=transaction_id,
+            total=total,
+            vendedor = usuario.name
+        )
+        else:
+            boleta = Boleta.objects.get_or_create(
+            order=order,
+            n_boleta=transaction_id,
+            total=total,
+            vendedor = 'Tienda Ferme'
+        )
     else:
        usuario, order = guestOrder(request, data)
+       boleta = Boleta.objects.get_or_create(
+        order=order,
+        n_boleta=transaction_id,
+        total=total,
+        vendedor = 'Tienda Ferme'
+        )
 
-    total  = float(data['form']['total'])
     order.transaction_id = transaction_id
 
     if total == order.get_cart_total:
