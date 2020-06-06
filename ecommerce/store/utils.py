@@ -42,14 +42,14 @@ def cookieCart(request):
 
 def cartData(request):
     if request.user.is_authenticated:
-        transaction_id = datetime.datetime.now().timestamp() #!!!!
+        #transaction_id = datetime.datetime.now().timestamp() #!!!!
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)#, transaction_id=transaction_id)
-        order.complete=True
-        boleta = Boleta.objects.get_or_create(
-        order=order,
-        n_boleta=transaction_id
-        )
+        #order.complete=True
+        #boleta = Boleta.objects.get_or_create(
+        #order=order,
+        #n_boleta=transaction_id
+        #)
         items = order.orderitems_set.all()
         cartItems = order.get_cart_items
     else:
@@ -64,7 +64,7 @@ def guestOrder(request, data):
     print('COOKIES', request.COOKIES)
     name = data['form']['name']
     email = data['form']['email']
-    transaction_id = datetime.datetime.now().timestamp() #!!!!
+    #transaction_id = datetime.datetime.now().timestamp() #!!!!
 
     cookieData = cookieCart(request)
     items = cookieData['items']
@@ -78,12 +78,12 @@ def guestOrder(request, data):
     order = Order.objects.create(
         usuario=usuario,
         complete=True,
-        transaction_id=transaction_id
+        #transaction_id=transaction_id,
         )
-    boleta = Boleta.objects.get_or_create(
-        order=order,
-        n_boleta=transaction_id
-        )
+    #boleta = Boleta.objects.get_or_create(
+     #   order=order,
+      #  n_boleta=transaction_id
+       # )
     for item in items:
         product = Producto.objects.get(id=item['product']['id'])
         orderItem = OrderItems.objects.create(

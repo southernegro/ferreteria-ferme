@@ -166,6 +166,8 @@ def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda
         #complete=True,
         #transaction_id=transaction_id
         #)
+        
+        #VER LUEGO 
         #boleta = Boleta.objects.get_or_create(
         #order=order,
         #n_boleta=transaction_id
@@ -179,7 +181,6 @@ def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda
 
     if total == order.get_cart_total:
         order.complete = True
-    print(order.complete)
     order.save()
 
     if order.shipping == True:
@@ -191,6 +192,7 @@ def processOrder(request): #TODO: Revisar porque la orden de compra no se guarda
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
+    #cart = {}
     return JsonResponse('Pago realizado', safe=False)
 
 def adm_productos(request):
