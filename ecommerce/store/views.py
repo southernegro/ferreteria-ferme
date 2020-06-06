@@ -87,7 +87,7 @@ def registerClient(request):
             return redirect(to='store')
         data['form']=form
         data['profile']=profile
-    return render(request, 'accounts/register.html', data)
+    return render(request, 'accounts/register_client.html', data)
 def registerSeller(request):
     data = {
        'form': CustomUserForm(),
@@ -115,7 +115,7 @@ def registerSeller(request):
             return redirect(to='store')
         data['form']=form
         data['profile']=profile
-    return render(request, 'accounts/register.html', data)
+    return render(request, 'accounts/register_seller.html', data)
 def registerSupplier(request):
     data = {
        'form': CustomUserForm(),
@@ -143,7 +143,7 @@ def registerSupplier(request):
             return redirect(to='store')
         data['form']=form
         data['profile']=profile
-    return render(request, 'accounts/register.html', data)
+    return render(request, 'accounts/register_supplier.html', data)
 def registerEmployee(request):
     data = {
        'form': CustomUserForm(),
@@ -171,7 +171,7 @@ def registerEmployee(request):
             return redirect(to='store')
         data['form']=form
         data['profile']=profile
-    return render(request, 'accounts/register.html', data) 
+    return render(request, 'accounts/register_employee.html', data) 
 
 def registerPage(request):
     data = {
