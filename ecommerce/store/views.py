@@ -24,10 +24,10 @@ def users(request):
     context = {'table': table}
     return render(request, 'admin/users.html', context)
         
-def editUser(request, id):
-    user_id=id
-    context = {'user_id': user_id}
-    return render(request, 'admin/users/edit_user.html', context)
+#def editUser(request, id):
+#    user_id=id
+#    context = {'user_id': user_id}
+#    return render(request, 'admin/users/edit_user.html', context)
 
 def listUser(request):
     users = Profile.objects.all()
