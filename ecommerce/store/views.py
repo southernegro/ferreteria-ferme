@@ -374,17 +374,12 @@ def processOrder(request):
     return JsonResponse('Pago realizado', safe=False)
 #Administracion de Productos
 def adm_productos(request):
-<<<<<<< HEAD
     prods = Producto.objects.all()
     data={
         'prods': prods
     }
     return render(request, 'store/adm-producto.html', data)
 
-=======
-    return render(request, 'store/adm-producto.html', {})
-#Registro Productos
->>>>>>> master
 def agregar_producto(request):
     data={
     'form': ProductoForm()
