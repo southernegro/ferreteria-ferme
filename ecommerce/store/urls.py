@@ -10,6 +10,8 @@ urlpatterns = [
 	path('login/', views.loginPage, name="login"),
 	#path('register/', views.registerPage, name="register"),
 	path('register/', views.registerPage, name="register"),
+	path('edit/<id>/', views.editPage, name="edit"),
+	path('delete/', views.deletePage, name="delete"),
 	path('logout/', views.registerPage, name="logout"),
 
 	path('cart/', views.cart, name="cart"),
@@ -28,8 +30,11 @@ urlpatterns = [
 	path("admin/users/edit/<pk>" ,views.editUser, name='edit_user'),
 	path("admin/users/delete/<pk>",views.deleteUser, name='delete_user'),
 
+<<<<<<< HEAD
+=======
 	path("admin/users/registerclient",views.registerClient, name='register_client'),
 	path("admin/users/registerseller",views.registerSeller, name='register_seller'),
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
+>>>>>>> master
 ]

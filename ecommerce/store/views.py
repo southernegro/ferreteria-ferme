@@ -12,6 +12,37 @@ from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, Selle
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
+<<<<<<< HEAD
+#def registerPage(request):
+#    data = {
+#        'form': CustomUserForm(),
+#        'profile': ProfileForm()
+#    }
+#    if request.method == 'POST':
+#        formulario = CustomUserForm(request.POST)
+#        profile_form = ProfileForm(request.POST)
+#
+#        if formulario.is_valid() and profile_form.is_valid():
+#            new_user = formulario.save()
+#            profile = profile_form.save(commit=False)
+#            profile.user = new_user
+#            profile.save()
+#            #autenticar el usuario y redirigirlo
+#            username=formulario.cleaned_data['username']
+#            password=formulario.cleaned_data['password1']
+#            #autentificamos credenciales del usuario
+#            user = authenticate(username=username, password=password)
+#            #logueamos el usuario
+#            login(request, user)
+#
+#            return redirect('')
+#
+#        data['form']=formulario
+#        data['profile']=profile_form
+#
+#    return render(request, 'accounts/register.html', data)
+=======
+>>>>>>> master
 
 #Borrar esta vista
 class TableView(tables.SingleTableView):
@@ -222,7 +253,38 @@ def registerPage(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
+<<<<<<< HEAD
+
+def editPage(request, id):
+    usuario = User.objects.get(id=id)
+    perfil = request.user.profile
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(id=id))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'accounts/edit.html', data)
+
+def deletePage(request):
+    user = request.user
+    user.delete()
+    return redirect(to='store')
+
+    return render(request, 'accounts/delete.html', data)
+
+=======
 #Log In
+>>>>>>> master
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
