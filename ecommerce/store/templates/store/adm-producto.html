@@ -1,34 +1,57 @@
-{% extends 'store/main.html' %}
+{% extends 'store/main.html'%}
+
 {% load static %}
+{% block javascript %}
+
+    <script src="{% static 'js/confirmacion.js' %}"></script>
+
+{% endblock %}
 {% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <h2 class="pt-2 pb-4">Catálogo</h2>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">SKU</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Despacho Disponible</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Familia</th>
+                <th scope="col">Tipo de Producto</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in prods %}
 
-<section>
-    <div class="row">
-		<div class="col-lg-4">
-			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/add.png' %}"></a>
-			<div class="box-element product">
-				<h6><strong>Agregar Productos</strong></h6>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/edit.png' %}"></a>
-			<div class="box-element product">
-				<h6><strong>Modificar Productos</strong></h6>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/delete.png' %}"></a>
-			<div class="box-element product">
-				<h6><strong>Eliminar Productos</strong></h6>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<a class="btn btn-primary" href="{% url 'agregar-producto'%}"><img class="thumbnail" src="{% static 'img/search.png' %}"></a>
-			<div class="box-element product">
-				<h6><strong>Buscar Productos</strong></h6>
-			</div>
-		</div>
-	</div>
-</section>
+            <tr>
+                <td scope="row">{{p.id}}</td>
+                {% if p.image %}
+                    <td scope="row"><img src="{{ p.image.url }}" class="card-img-top" alt="imagen"></td>
+                    {% else %}
+                    <td scope="row"><img src="{% static 'img/captura.png' %}" class="card-img-top" alt="imagen"></td>
+                {% endif %} 
+                <td scope="row">{{p.name}}</td>
+                <td scope="row">{{p.sku}}</td>
+                <td scope="row">${{p.price}} CLP</td>
+                <td scope="row">{{p.despacho}}</td>
+                <td scope="row">{{p.stock}}</td>
+                <td scope="row">{{p.proveedor}}</td>
+                <td scope="row">{{p.familia}}</td>
+                <td scope="row">{{p.tipo}}</td>
 
-{% endblock content %}
+            </tr>
+    
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-primary" href="{% url 'agregar-producto'%}">
+        <i class="fa fa-user-plus"></i>Agregar Nuevo Producto</a>
+
+</div>
+{% endblock %}
