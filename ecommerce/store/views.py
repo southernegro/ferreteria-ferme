@@ -34,7 +34,9 @@ def listUser(request):
 #Eliminar usuario desde tabla
 def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
+    perfil = Profile.objects.get(user_id=pk)
     user.delete()
+    profile.delete()
     return redirect(to='store')
 #Editar usuario desde tabla
 def editUser(request, pk):
