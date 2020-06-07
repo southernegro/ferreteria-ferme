@@ -18,7 +18,7 @@ urlpatterns = [
 	path('process_order/', views.processOrder, name="process_order"),
 
 
-	path('reset_password/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"), name="reset_password"),	
+	path('reset_password/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"), name="reset_password"),
 	path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="accounts/password_reset_sent.html"), name="password_reset_done"),
 	path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_form.html"), name="password_reset_confirm"),
 	path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password_reset_done.html"), name="password_reset_complete"),
@@ -27,8 +27,12 @@ urlpatterns = [
 	path('admin/listado_usuarios/',views.listUser, name='listado_usuarios'),
 	path("admin/users/edit/<pk>" ,views.editUser, name='edit_user'),
 	path("admin/users/delete/<pk>",views.deleteUser, name='delete_user'),
+<<<<<<< HEAD
 	path("admin/users/registerclient",views.registerClient, name='register_client'),
 	path("admin/users/registerseller",views.registerSeller, name='register_seller'),
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
 ]
+=======
+]
+>>>>>>> master
