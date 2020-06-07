@@ -36,9 +36,11 @@
                 <td scope="row">{{u.tipo}}</td>
 
                 <td scope="row"><a class="btn btn-outline-info" href="{% url 'edit_user' pk=u.user.id %}">
-                    <i class="far  fa-edit  fa-2x"></i></a></td>
+                    <i class="far fa-edit fa-2x"></i></a>
+                </td>
                 <td scope="row"><a class="btn btn-danger" href="{% url 'delete_user' pk=u.user.id %}">
-                    <i class="far fa-trash-alt fa-2x"></i></a></td>
+                    <i class="far fa-trash-alt fa-2x"></i></a>
+                </td>
             </tr>
     
             {% endfor %}

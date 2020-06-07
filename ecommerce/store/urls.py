@@ -10,6 +10,8 @@ urlpatterns = [
 	path('login/', views.loginPage, name="login"),
 	#path('register/', views.registerPage, name="register"),
 	path('register/', views.registerPage, name="register"),
+	path('edit/<id>/', views.editPage, name="edit"),
+	path('delete/', views.deletePage, name="delete"),
 	path('logout/', views.registerPage, name="logout"),
 
 	path('cart/', views.cart, name="cart"),
@@ -24,9 +26,9 @@ urlpatterns = [
 	path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password_reset_done.html"), name="password_reset_complete"),
 	path('adm-producto/', views.adm_productos, name="adm-producto"),
 	path('agregar-producto/', views.agregar_producto, name="agregar-producto"),
-	path('admin/listado_usuarios/',views.listUser, name='listado_usuarios'),
-	path("admin/users/edit/<pk>" ,views.editUser, name='edit_user'),
-	path("admin/users/delete/<pk>",views.deleteUser, name='delete_user'),
+	path('admin/listado_usuarios/',views.listUser, name="listado_usuarios"),
+	path('admin/users/edit/<pk>' ,views.editUser, name='edit_user'),
+	path('admin/users/delete/<pk>',views.deleteUser, name='delete_user'),
 
 	path("admin/users/registerclient",views.registerClient, name='register_client'),
 	path("admin/users/registerseller",views.registerSeller, name='register_seller'),
