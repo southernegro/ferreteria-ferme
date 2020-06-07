@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Cliente, Producto
+from .models import Profile, Cliente, Producto, Seller, Supplier, Employee
 
 class CustomUserForm(UserCreationForm):
     class Meta:
@@ -22,6 +22,18 @@ class ProfileForm(ModelForm):
 class ClientForm(ModelForm):
     class Meta:
         model = Cliente
+        fields = []
+class SellerForm(ModelForm):
+    class Meta:
+        model = Seller
+        fields = []
+class SupplierForm(ModelForm):
+    class Meta:
+        model = Supplier
+        fields = []
+class EmployeeForm(ModelForm):
+    class Meta:
+        model = Employee
         fields = []
 
 class ProductoForm(ModelForm):

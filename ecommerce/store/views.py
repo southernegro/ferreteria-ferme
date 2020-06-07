@@ -8,10 +8,11 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
+<<<<<<< HEAD
 #def registerPage(request):
 #    data = {
 #        'form': CustomUserForm(),
@@ -40,18 +41,188 @@ import django_tables2 as tables
 #        data['profile']=profile_form
 #
 #    return render(request, 'accounts/register.html', data)
+=======
+>>>>>>> master
 
+#Borrar esta vista
 class TableView(tables.SingleTableView):
     table_class = ProfileTable
     queryset = Profile.objects.all()
     template_name = 'admin/users.html'
-
+#Borrar
 def users(request):
     users = Profile.objects.all()
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
+#Listado Usuarios        
+def listUser(request):
+    users = Profile.objects.all()
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+#Eliminar usuario desde tabla
+def deleteUser(request, pk):
+    user = User.objects.get(pk=pk)
+    user.delete()
+    return redirect(to='store')
+#Editar usuario desde tabla
+def editUser(request, pk):
+    usuario = User.objects.get(pk=pk)
+    perfil = Profile.objects.get(user_id=usuario.id)
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'admin/edit_user.html', data)
+#Registrar Cliente
+def registerClient(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'client': ClientForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        client = ClientForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            client = client.save(commit=False)
+            client.profile = profile
+            client.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register_client.html', data)
+#Registrar Vendedor
+def registerSeller(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'seller': SellerForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        seller = SellerForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            seller = seller.save(commit=False)
+            seller.profile = profile
+            seller.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register_seller.html', data)
+#Registrar Proveedor
+def registerSupplier(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'supplier': SupplierForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        supplier = SupplierForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            supplier = supplier.save(commit=False)
+            supplier.profile = profile
+            supplier.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register_supplier.html', data)
+#Registrar Empleado
+def registerEmployee(request):
+    data = {
+       'form': CustomUserForm(),
+        'profile': ProfileForm(),
+        'employee': EmployeeForm()
+    }
+    if request.method=='POST':
+        form = CustomUserForm(request.POST)
+        profile = ProfileForm(request.POST)
+        employee = EmployeeForm(request.POST)
+        if form.is_valid() and profile.is_valid():
+            new_user = form.save()
+            profile = profile.save(commit=False)
+            profile.user = new_user
+            profile.save()
+            #if client.is_valid():
+            employee = employee.save(commit=False)
+            employee.profile = profile
+            employee.save() 
+            #autenticar el usuario y redirigirlo
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            #autentificamos credenciales del usuario
+            user = authenticate(username=username, password=password)
+            return redirect(to='store')
+        data['form']=form
+        data['profile']=profile
+    return render(request, 'accounts/register_employee.html', data)
 
+def editLoggedUser(request, pk):
+    usuario = User.objects.get(pk=pk)
+    perfil = request.user.profile
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'admin/edit_user.html', data)
+#Registro de usuario
 def registerPage(request):
     data = {
        'form': CustomUserForm(),
@@ -82,6 +253,7 @@ def registerPage(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
+<<<<<<< HEAD
 
 def editPage(request, id):
     usuario = User.objects.get(id=id)
@@ -110,6 +282,9 @@ def deletePage(request):
 
     return render(request, 'accounts/delete.html', data)
 
+=======
+#Log In
+>>>>>>> master
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -124,12 +299,11 @@ def loginPage(request):
             messages.info('Usuario o Contraseña incorrectos')
     context= {}
     return render(request, 'accounts/login.html', context)
-
+#Log Out
 def logoutUser(request):
     logout(request)
     return redirect('')
-
-
+#Pagina Principal
 def store(request):
 
     data = cartData(request)
@@ -138,7 +312,7 @@ def store(request):
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
-
+#Carrito de Compra
 def cart(request):
 
     data = cartData(request)
@@ -148,7 +322,7 @@ def cart(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
-
+#Check Out
 def checkout(request):
 
     data = cartData(request)
@@ -158,7 +332,7 @@ def checkout(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
-
+#Actualizar productos del carro
 def updateItems(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -184,7 +358,7 @@ def updateItems(request):
         orderItems.delete()
 
     return JsonResponse('Producto agregado', safe=False)
-
+#Generar Venta
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
@@ -232,10 +406,10 @@ def processOrder(request):
             zipcode=data['shipping']['zipcode'],
         )
     return JsonResponse('Pago realizado', safe=False)
-
+#Administracion de Productos
 def adm_productos(request):
     return render(request, 'store/adm-producto.html', {})
-
+#Registro Productos
 def agregar_producto(request):
     data={
     'form': ProductoForm()
