@@ -11,7 +11,7 @@ urlpatterns = [
 	#path('register/', views.registerPage, name="register"),
 	path('register/', views.registerPage, name="register"),
 	path('edit/<id>/', views.editPage, name="edit"),
-	path('delete/<id>/', views.deletePage, name="delete"),
+	path('delete/', views.deletePage, name="delete"),
 	path('logout/', views.registerPage, name="logout"),
 
 	path('cart/', views.cart, name="cart"),

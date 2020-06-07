@@ -98,9 +98,9 @@ def editPage(request, id):
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'accounts/edit.html', data)
 
-def deletePage(request, id):
-    usuario = User.objects.get(id=id)
-    #usuario.delete()
+def deletePage(request):
+    user = request.user
+    user.delete()
     return redirect(to='store')
 
     return render(request, 'accounts/delete.html', data)

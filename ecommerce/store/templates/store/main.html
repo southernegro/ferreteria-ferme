@@ -83,8 +83,11 @@
 	        		<a class="nav-link" href="{% url 'store' %}">Adm. Orden de Compra <span class="sr-only"></span></a>
 				  </li>
 				  <li class="nav-item active" id="adm-users">
-	        		<a class="nav-link" href="{% url 'edit' user.id %}">Mi Cuenta<span class="sr-only"></span></a>
-	      		</li>
+	        		<a class="nav-link" href="{% url 'edit' user.id %}">Usuarios<span class="sr-only"></span></a>
+	      	</li>
+					<li class="nav-item active" id="cuenta">
+						<a class="nav-link" href="{% url 'edit' user.id %}">Mi Cuenta<span class="sr-only"></span></a>
+					</li>
 			</ul>
 		</div>
 
