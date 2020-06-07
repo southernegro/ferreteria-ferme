@@ -1,4 +1,5 @@
 import json
+import datetime
 from .models import *
 
 def cookieCart(request):
@@ -57,6 +58,7 @@ def guestOrder(request, data):
     print('COOKIES', request.COOKIES)
     name = data['form']['name']
     email = data['form']['email']
+    #transaction_id = datetime.datetime.now().timestamp() #!!!!
 
     cookieData = cookieCart(request)
     items = cookieData['items']
@@ -71,6 +73,10 @@ def guestOrder(request, data):
         usuario=usuario,
         complete=False,
         )
+    #boleta = Boleta.objects.get_or_create(
+     #  order=order,
+      #n_boleta=transaction_id
+     #)
 
     for item in items:
         product = Producto.objects.get(id=item['product']['id'])

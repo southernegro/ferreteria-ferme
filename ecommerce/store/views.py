@@ -10,6 +10,7 @@ from django_tables2 import SingleTableView
 from .tables import ProfileTable
 from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm
 from .utils import cookieCart, cartData, guestOrder
+import django_tables2 as tables
 
 #def registerPage(request):
 #    data = {
@@ -40,11 +41,15 @@ from .utils import cookieCart, cartData, guestOrder
 #
 #    return render(request, 'accounts/register.html', data)
 
+class TableView(tables.SingleTableView):
+    table_class = ProfileTable
+    queryset = Profile.objects.all()
+    template_name = 'admin/users.html'
 
 def users(request):
     users = Profile.objects.all()
-    table_class = ProfileTable
-    context = {'users':users, 'table':table_class}
+    table = ProfileTable( users )
+    context = {'table': table}
     return render(request, 'admin/users.html', context)
 
 def registerPage(request):
@@ -181,18 +186,36 @@ def updateItems(request):
     return JsonResponse('Producto agregado', safe=False)
 
 def processOrder(request):
-    #print('Data:', request.body)
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    total  = float(data['form']['total'])
 
     if request.user.is_authenticated:
         usuario = request.user.profile
         order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
-
+        if usuario.tipo == 'Vendedor':
+            boleta = Boleta.objects.get_or_create(
+            order=order,
+            n_boleta=transaction_id,
+            total=total,
+            vendedor = usuario.name
+        )
+        else:
+            boleta = Boleta.objects.get_or_create(
+            order=order,
+            n_boleta=transaction_id,
+            total=total,
+            vendedor = 'Tienda Ferme'
+        )
     else:
        usuario, order = guestOrder(request, data)
+       boleta = Boleta.objects.get_or_create(
+        order=order,
+        n_boleta=transaction_id,
+        total=total,
+        vendedor = 'Tienda Ferme'
+        )
 
-    total  = float(data['form']['total'])
     order.transaction_id = transaction_id
 
     if total == order.get_cart_total:

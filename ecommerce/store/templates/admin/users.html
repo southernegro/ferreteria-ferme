@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% extends 'admin/main_admin.html' %}
 {% load static %}
 {% load render_table from django_tables2 %}
+{% block content %}
 <html>
 <head>
 	<title>Ferreteria FERME</title><!--jajajajaj-->
@@ -33,46 +35,13 @@
 
 </head>
 <body>
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" href="{% url 'store' %}">FERME</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-
-	  	<!--TO DO: Cambiar href de cada <li> y crear template para cada uno-->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    	<ul class="navbar-nav mr-auto">
-	      		<li class="nav-item active">
-	        		<a class="nav-link" href="{% url 'store' %}">Home <span class="sr-only">(current)</span></a>
-		  		  </li>
-			</ul>
-		</div>
-		
-	    <div class="form-inline my-2 my-lg-0">
-
-			{% if user.is_authenticated  %}
-			  Hola {{ user.profile.tipo }} {{ user.profile.name }}!
-			  <a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
-			{% else %}
-  			<p>You are not logged in</p>
-			  <a href="{% url 'login' %}"class="btn btn-warning">Login</a>
-			{% endif %}
-	     	<a href="{% url 'cart' %}">
-	    		<img  id="cart-icon" src="{% static 'img/cart.png' %}">
-	    	</a>
-	    	<p id="cart-total">{{cartItems}}</p>
-
-	    </div>
-	  </div>
-  </nav>
   <div class='row' >   
     <div class='col-1 title'> </div><div class='col-11-md'>Listado de usuarios</div>
 	</div>
 	<div class='row'>
 		<div class='col-1'></div>
 		<div class='col-11'>
-			{% render_table users %}
+			{% render_table table %}
 		</div>
 		</div>
 	</div>
@@ -93,3 +62,4 @@
 	</script>
 </body>
 </html>
+{% endblock content %}

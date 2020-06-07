@@ -215,3 +215,12 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+class Boleta(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    n_boleta = models.CharField(max_length=200, null=False)
+    vendedor = models.CharField(default="Tienda Ferme", max_length=200, null=False)
+    total = models.CharField(max_length=200, null=False)
+
+    def __str__(self):
+        return 'Boleta: ' + self.n_boleta
