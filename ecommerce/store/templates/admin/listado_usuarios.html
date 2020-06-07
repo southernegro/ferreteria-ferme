@@ -25,6 +25,7 @@
         </thead>
         <tbody>
             {% for u in users %}
+            {% if u.user %}
 
             <tr>
                 <td scope="row">{{u.user.id}}</td>
@@ -42,7 +43,7 @@
                     <i class="far fa-trash-alt fa-2x"></i></a>
                 </td>
             </tr>
-    
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

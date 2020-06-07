@@ -81,12 +81,14 @@
 		  		<li class="nav-item active" id="adm-order">
 	        		<a class="nav-link" href="{% url 'store' %}">Ordenes de Compra<span class="sr-only"></span></a>
 				  </li>
-					<li class="nav-item active" id="adm-usuarios">
+					<li class="nav-item active" id="adm-users">
 	        		<a class="nav-link" href="{% url 'listado_usuarios' %}">Usuarios<span class="sr-only"></span></a>
 	        	  </li>
+	        	  {% if user.is_authenticated %}
 	        	  	<li class="nav-item active" id="cuenta">
 						<a class="nav-link" href="{% url 'edit' user.id %}">Mi Cuenta<span class="sr-only"></span></a>
 					</li>
+				   {% endif %}
 			</ul>
 		</div>
 
