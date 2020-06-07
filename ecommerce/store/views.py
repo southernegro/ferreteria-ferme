@@ -13,37 +13,33 @@ from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
 
+#Borrar esta vista
 class TableView(tables.SingleTableView):
     table_class = ProfileTable
     queryset = Profile.objects.all()
     template_name = 'admin/users.html'
-
+#Borrar
 def users(request):
     users = Profile.objects.all()
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
-        
-def editUser(request, id):
-    user_id=id
-    context = {'user_id': user_id}
-    return render(request, 'admin/users/edit_user.html', context)
-
+#Listado Usuarios        
 def listUser(request):
     users = Profile.objects.all()
     data={
         'users': users
     }
     return render(request, 'admin/listado_usuarios.html', data)
-
+#Eliminar usuario desde tabla
 def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
     user.delete()
     return redirect(to='store')
-
+#Editar usuario desde tabla
 def editUser(request, pk):
     usuario = User.objects.get(pk=pk)
-    perfil = Profile.objects.get(user_id=pk)
+    perfil = Profile.objects.get(user_id=usuario.id)
     data = {
         'form': CustomUserForm(instance=usuario),
         'profile': ProfileForm(instance=perfil)
@@ -60,7 +56,7 @@ def editUser(request, pk):
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
-    
+#Registrar Cliente
 def registerClient(request):
     data = {
        'form': CustomUserForm(),
@@ -88,6 +84,7 @@ def registerClient(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_client.html', data)
+#Registrar Vendedor
 def registerSeller(request):
     data = {
        'form': CustomUserForm(),
@@ -116,6 +113,7 @@ def registerSeller(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_seller.html', data)
+#Registrar Proveedor
 def registerSupplier(request):
     data = {
        'form': CustomUserForm(),
@@ -144,6 +142,7 @@ def registerSupplier(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_supplier.html', data)
+#Registrar Empleado
 def registerEmployee(request):
     data = {
        'form': CustomUserForm(),
@@ -171,32 +170,9 @@ def registerEmployee(request):
             return redirect(to='store')
         data['form']=form
         data['profile']=profile
-    return render(request, 'accounts/register_employee.html', data) 
+    return render(request, 'accounts/register_employee.html', data)
 
-# def editUser(request, id):
-#     user_id=id
-#     context = {'user_id': user_id}
-#     return render(request, 'admin/users/edit_user.html', context)
-
-#def deleteUser(request, id):
-#    user_id=id
-#    context = {'user_id': user_id}
-#    return render(request, 'admin/users/delete_user.html', context)
-
-#--------SERGIO VISTAS-----------#
-def listUser(request):
-    users = Profile.objects.all()
-    data={
-        'users': users
-    }
-    return render(request, 'admin/listado_usuarios.html', data)
-
-def deleteUser(request, pk):
-    user = User.objects.get(pk=pk)
-    user.delete()
-    return redirect(to='store')
-
-def editUser(request, pk):
+def editLoggedUser(request, pk):
     usuario = User.objects.get(pk=pk)
     perfil = request.user.profile
     data = {
@@ -215,8 +191,7 @@ def editUser(request, pk):
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
-#-------------------------------#
-
+#Registro de usuario
 def registerPage(request):
     data = {
        'form': CustomUserForm(),
@@ -247,8 +222,7 @@ def registerPage(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
-
-
+#Log In
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -263,12 +237,11 @@ def loginPage(request):
             messages.info('Usuario o Contraseña incorrectos')
     context= {}
     return render(request, 'accounts/login.html', context)
-
+#Log Out
 def logoutUser(request):
     logout(request)
     return redirect('')
-
-
+#Pagina Principal
 def store(request):
 
     data = cartData(request)
@@ -277,7 +250,7 @@ def store(request):
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
-
+#Carrito de Compra
 def cart(request):
 
     data = cartData(request)
@@ -287,7 +260,7 @@ def cart(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
-
+#Check Out
 def checkout(request):
 
     data = cartData(request)
@@ -297,7 +270,7 @@ def checkout(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
-
+#Actualizar productos del carro
 def updateItems(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -323,7 +296,7 @@ def updateItems(request):
         orderItems.delete()
 
     return JsonResponse('Producto agregado', safe=False)
-
+#Generar Venta
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
@@ -371,10 +344,10 @@ def processOrder(request):
             zipcode=data['shipping']['zipcode'],
         )
     return JsonResponse('Pago realizado', safe=False)
-
+#Administracion de Productos
 def adm_productos(request):
     return render(request, 'store/adm-producto.html', {})
-
+#Registro Productos
 def agregar_producto(request):
     data={
     'form': ProductoForm()
