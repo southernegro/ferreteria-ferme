@@ -20,7 +20,7 @@ import django_tables2 as tables
 #    if request.method == 'POST':
 #        formulario = CustomUserForm(request.POST)
 #        profile_form = ProfileForm(request.POST)
-#        
+#
 #        if formulario.is_valid() and profile_form.is_valid():
 #            new_user = formulario.save()
 #            profile = profile_form.save(commit=False)
@@ -35,11 +35,11 @@ import django_tables2 as tables
 #            login(request, user)
 #
 #            return redirect('')
-#            
+#
 #        data['form']=formulario
 #        data['profile']=profile_form
 #
-#    return render(request, 'accounts/register.html', data) 
+#    return render(request, 'accounts/register.html', data)
 
 class TableView(tables.SingleTableView):
     table_class = ProfileTable
@@ -51,6 +51,50 @@ def users(request):
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
+
+# def editUser(request, id):
+#     user_id=id
+#     context = {'user_id': user_id}
+#     return render(request, 'admin/users/edit_user.html', context)
+
+#def deleteUser(request, id):
+#    user_id=id
+#    context = {'user_id': user_id}
+#    return render(request, 'admin/users/delete_user.html', context)
+
+#--------SERGIO VISTAS-----------#
+def listUser(request):
+    users = Profile.objects.all()
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+
+def deleteUser(request, pk):
+    user = User.objects.get(pk=pk)
+    user.delete()
+    return redirect(to='store')
+
+def editUser(request, pk):
+    usuario = User.objects.get(pk=pk)
+    perfil = request.user.profile
+    data = {
+        'form': CustomUserForm(instance=usuario),
+        'profile': ProfileForm(instance=perfil)
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(data=request.POST, instance=usuario)
+        profile = ProfileForm(data=request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            profile.save()
+            data['mensaje']='Usuario modificado correctamente'
+            login(request, usuario)
+            return redirect(to='store')
+        data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
+        data['profile']=ProfileForm(instance=perfil)
+    return render(request,'admin/edit_user.html', data)
+#-------------------------------#
 
 def registerPage(request):
     data = {
@@ -70,7 +114,7 @@ def registerPage(request):
             #if client.is_valid():
             client = client.save(commit=False)
             client.profile = profile
-            client.save() 
+            client.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
@@ -108,7 +152,7 @@ def store(request):
 
     data = cartData(request)
     cartItems = data['cartItems']
-    
+
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
@@ -119,12 +163,12 @@ def cart(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-        
+
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
 def checkout(request):
-        
+
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -151,7 +195,7 @@ def updateItems(request):
         orderItems.quantity = (orderItems.quantity + 1)
     elif action == 'remove':
         orderItems.quantity = (orderItems.quantity - 1)
-    
+
     orderItems.save()
 
     if orderItems.quantity <= 0:
@@ -205,4 +249,3 @@ def agregar_producto(request):
             data['mensaje']='Producto agregado con éxito'
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
-
