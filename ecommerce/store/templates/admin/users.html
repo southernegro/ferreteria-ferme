@@ -35,17 +35,22 @@
 
 </head>
 <body>
-  <div class='row' >   
-    <div class='col-1 title'> </div><div class='col-11-md'>Listado de usuarios</div>
+    <div class='row' >   
+		<div class='col-4' id=tittle>
+			<h1>Listado de usuarios</h1>
+		</div>
+    </div>
+	<div class='row'>
+		<div class=col-12>
+			<h1></h1>
+		</div>
 	</div>
 	<div class='row'>
-		<div class='col-1'></div>
-		<div class='col-11'>
+		<div class='col-12'>
 			{% render_table table %}
 		</div>
-		</div>
 	</div>
-	<div class='col-1'></div>
+	
 
   <div id='toolbar'>
     

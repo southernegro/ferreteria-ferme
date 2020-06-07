@@ -19,6 +19,11 @@
                 <th scope="col">Telefono</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Tipo</th>
+<<<<<<< HEAD
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+=======
+>>>>>>> master
             </tr>
         </thead>
         <tbody>
@@ -33,12 +38,31 @@
                 <td scope="row">{{u.email}}</td>
                 <td scope="row">{{u.tipo}}</td>
 
+<<<<<<< HEAD
+                <td scope="row"><a class="btn btn-outline-info" href="{% url 'edit_user' pk=u.user.id %}">
+                    <i class="far  fa-edit  fa-2x"></i></a></td>
+                <td scope="row"><a class="btn btn-danger" href="{% url 'delete_user' pk=u.user.id %}">
+                    <i class="far fa-trash-alt fa-2x"></i></a></td>
+=======
                 <td scope="row"><a class="btn btn-danger" href="{% url 'edit_user' pk=u.user.id %}"><i class="far fa-trash-alt fa-2x"></i></a></td>
                 <td scope="row"><a class="btn btn-danger" href="{% url 'delete_user' pk=u.user.id %}"><i class="far fa-trash-alt fa-2x"></i></a></td>
+>>>>>>> master
             </tr>
     
             {% endfor %}
         </tbody>
     </table>
+<<<<<<< HEAD
+    <a class="btn btn-outline-primary" href="{% url 'register_client'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Cliente</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_seller'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Vendedor</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_supplier'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Proveedor</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_employee'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Empleado</a>
+
+=======
+>>>>>>> master
 </div>
 {% endblock %}
