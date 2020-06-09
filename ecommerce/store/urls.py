@@ -26,6 +26,7 @@ urlpatterns = [
 	path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password_reset_done.html"), name="password_reset_complete"),
 	path('adm-producto/', views.adm_productos, name="adm-producto"),
 	path('agregar-producto/', views.agregar_producto, name="agregar-producto"),
+	path("adm-producto/delete/<pk>",views.eliminar_producto, name='eliminar_producto'),
 	path('admin/listado_usuarios/',views.listUser, name="listado_usuarios"),
 	path('admin/users/edit/<pk>' ,views.editUser, name='edit_user'),
 	path('admin/users/delete/<pk>',views.deleteUser, name='delete_user'),
@@ -34,4 +35,5 @@ urlpatterns = [
 	path("admin/users/registerseller",views.registerSeller, name='register_seller'),
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
+
 ]
