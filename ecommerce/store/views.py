@@ -24,7 +24,7 @@ def users(request):
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
-#Listado Usuarios        
+#Listado Usuarios
 def listUser(request):
     users = Profile.objects.all()
     data={
@@ -58,6 +58,22 @@ def editUser(request, pk):
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
+
+
+
+def editProductPage(request, id):
+    producto = Producto.objects.get(id=id)
+    data = {
+        'form': ProductoForm(instance=producto)
+    }
+    if request.method == 'POST':
+        formulario = ProductoForm(data=request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to='adm-producto')
+        data['form']=ProductoForm(instance=Producto.objects.get(id=id))
+    return render(request,'admin/edit-product.html', data)
+
 #Registrar Cliente
 def registerClient(request):
     data = {
@@ -76,7 +92,7 @@ def registerClient(request):
             profile.save()
             client = client.save(commit=False)
             client.profile = profile
-            client.save() 
+            client.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
@@ -105,7 +121,7 @@ def registerSeller(request):
             #if client.is_valid():
             seller = seller.save(commit=False)
             seller.profile = profile
-            seller.save() 
+            seller.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
@@ -134,7 +150,7 @@ def registerSupplier(request):
             #if client.is_valid():
             supplier = supplier.save(commit=False)
             supplier.profile = profile
-            supplier.save() 
+            supplier.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
@@ -163,7 +179,7 @@ def registerEmployee(request):
             #if client.is_valid():
             employee = employee.save(commit=False)
             employee.profile = profile
-            employee.save() 
+            employee.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
