@@ -35,7 +35,7 @@
                     <td scope="row"><img src="{{ p.image.url }}" class="card-img-top" alt="imagen"></td>
                     {% else %}
                     <td scope="row"><img src="{% static 'img/captura.png' %}" class="card-img-top" alt="imagen"></td>
-                {% endif %} 
+                {% endif %}
                 <td scope="row">{{p.name}}</td>
                 <td scope="row">{{p.sku}}</td>
                 <td scope="row">${{p.price}} CLP</td>
@@ -44,9 +44,13 @@
                 <td scope="row">{{p.proveedor}}</td>
                 <td scope="row">{{p.familia}}</td>
                 <td scope="row">{{p.tipo}}</td>
+                <td scope="row">
+                  <a class="btn btn-outline-info" href="{% url 'edit-product' id=p.id %}">
+                      <i class="far fa-edit fa-2x"></i></a>
+                </td>
 
             </tr>
-    
+
             {% endfor %}
         </tbody>
     </table>
