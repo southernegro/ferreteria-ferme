@@ -117,35 +117,142 @@
 
             {% endblock content %}
     </div>
-	<footer class="page-footer font-small teal pt-4 bg-dark">
-		<div class="container-fluid text-center text-md-left">
-		  <div class="row">
-			<div class="col-md-6 mt-md-0 mt-3">
-			  <h5 class="text-uppercase font-weight-bold">Quienes Somos.</h5>
-			  <p>Ferreterias Ferme son un negocio familiar que a pasado de generacion en generacion,
-				 donde nuestra prioridad es que nuestros clientes tengan la mejor experiencia a la hora de comprar,
-				 no se que wea poner seba porfa rellena el footer :).
-			  </p>
-			</div>
-			<hr class="clearfix w-100 d-md-none pb-3">
-			<div class="col-md-3 mb-md-0 mb-3">
-			</div>
-			<div class="col-md-3 mb-md-0 mb-3">
-			  <h5 class="text-uppercase font-weight-bold">Contactenos.</h5>
-			  <p>
-					Numero de contacto: +569123456789
-			  </p>
-			  <p>
-					Correo electronico: contacto@ferme.cl
-			  </p>
-			</div>
-		  </div>
-		</div>
-		<div class="footer-copyright text-center py-3">© 2020 Copyright:
-		  <a > Ferreterias Ferme</a>
-		</div>
-	</footer>
+	<!-- Footer -->
+<footer class="page-footer font-small unique-color-dark">
 
+  <div style="background-color: #4f868c;">
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row py-4 d-flex align-items-center">
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+          <h6 class="mb-0">Contáctanos en R.R.S.S!</h6>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+          <!-- Facebook -->
+          <a class="fb-ic">
+            <i class="fab fa-facebook-f white-text mr-4"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fab fa-twitter white-text mr-4"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fab fa-google-plus-g white-text mr-4"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fab fa-linkedin-in white-text mr-4"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram white-text"> </i>
+          </a>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+
+    </div>
+  </div>
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left mt-5">
+
+    <!-- Grid row -->
+    <div class="row mt-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+        <!-- Content -->
+        <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme.png' %}" id="logo"/></a>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>FERME es una empresa familiar dedicada a la venta de productos de ferretería, orientada principalmente a dar un servicio a dueños o dueñas de casa que han obtenido recientemente su propiedad. </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Products</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="#!">Cátalogo</a>
+        </p>
+        <p>
+          <a href="#!">Familias de Productos</a>
+        </p>
+        <p>
+          <a href="#!">Ofertas</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="{% url 'edit' user.id %}">Mi Cuenta</a>
+        </p>
+        <p>
+          <a href="{% url 'register' %}">Regístrate</a>
+        </p>
+        <p>
+          <a href="#!">Trabaja con Nosotros</a>
+        </p>
+        <p>
+          <a href="#!">Acceso Proveedores</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i> Santiago Centro, San Diego 5505, RM</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> contactoferme@gmail.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> + 56 9 8877 6655</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="#!"> Proyecto Portafolio de Título, Duoc UC.</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
@@ -153,6 +260,7 @@
 
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+	<script type="text/javascript" src="{% static 'js/bootstrap-confirmation.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/delete.js' %}"></script>
 
@@ -192,6 +300,11 @@
 			document.getElementById('adm-order').innerHTML = ''
 			document.getElementById('adm-users').innerHTML = ''
 		}
+
+		$('[data-toggle=confirmation]').confirmation({
+		  rootSelector: '[data-toggle=confirmation]',
+		  // other options
+		});
 	</script>
 </body>
 </html>

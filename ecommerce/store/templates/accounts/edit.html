@@ -51,7 +51,7 @@
 	        <div class="d-flex justify-content-center h-100">
 	            <div class="user_card">
 	                <div class="d-flex justify-content-center">
-	                    <h3 class="form-tittle">MODIFY ACCOUNT</h3>
+	                    <h3 class="form-tittle">MODIFICAR CUENTA</h3>
 	                </div>
 	                <form method="POST" action="" enctype="multipart/form-data">
 	                    {% csrf_token %}
@@ -100,6 +100,9 @@
 	                       <div class="d-flex justify-content-center mt-3 login_container">
 	                         <input class="btn btn-outline-success" type="submit" value="Editar Usuario">
 	                       </div>
+	                       	  <div class="alert alert-warning" role="alert">
+							  <strong>OJO!</strong> Si deseas cambiar tu clave, escribe tu nueva clave en ambos campos. Si no deseas cambiar tu clave, escribe la que actualmente utilizas para confirmar los demás cambios.
+							</div>
 	                </form>
 	            </div>
 	        </div>
