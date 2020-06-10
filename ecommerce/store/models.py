@@ -161,6 +161,7 @@ class Producto(models.Model):
             else:
                 cod_fecha_venc = self.fecha_exp.value_to_string()
             sku_prod = cod_prov+cod_fam+cod_fecha_venc
+            self.sku = sku_prod
         return sku_prod
 
 class Order(models.Model):

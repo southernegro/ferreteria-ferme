@@ -39,5 +39,5 @@ class EmployeeForm(ModelForm):
 class ProductoForm(ModelForm):
     class Meta:
         model = Producto
-        fields = ['name', 'sku', 'price', 'despacho', 'fecha_exp', 
+        fields = ['name', 'price', 'despacho', 'fecha_exp', 
         'stock', 'critic_stock', 'image', 'proveedor', 'familia', 'tipo_producto']
