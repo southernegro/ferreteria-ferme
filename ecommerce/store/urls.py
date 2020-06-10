@@ -34,4 +34,8 @@ urlpatterns = [
 	path("admin/users/registerseller",views.registerSeller, name='register_seller'),
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
+
+	path("adm-factura",views.terceraIFacturas, name='adm-factura'),
+	path("adm-boleta",views.terceraIBoletas, name='adm-boleta'),
+	path("adm-ordencompra",views.terceraIOrdenesCompra, name='adm-ordencompra'),
 ]

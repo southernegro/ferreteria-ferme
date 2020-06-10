@@ -395,3 +395,15 @@ def agregar_producto(request):
             data['mensaje']='Producto agregado con éxito'
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
+#3Iteracion
+def terceraIFacturas(request):
+    data = {}
+    return render(request, 'store/adm-factura.html', data)
+
+def terceraIBoletas(request):
+    data = {}
+    return render(request, 'store/adm-factura.html', data)
+
+def terceraIOrdenesCompra(request):
+    data = {}
+    return render(request, 'store/adm-factura.html', data)    

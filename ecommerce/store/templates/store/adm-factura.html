@@ -1,4 +1,16 @@
-{% extends 'store/main.html' %}
+{% extends 'store/main.html'%}
 {% load static %}
 {% block content %}
+<body>
+  <img class="card-img" src="{% static 'img/mantenimiento.png' %}" alt="Card image" style="height: 300px; width: 300px; margin-left: 35%">
+<div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+</div>
+<br>
+<div class="alert alert-info" role="alert">
+    <strong>EN PROCESO.</strong> No hay acceso al módulo.
+    Pronto disponible en entrega N°3 y final.
+</div>
+</body>
+
 {% endblock content %}
