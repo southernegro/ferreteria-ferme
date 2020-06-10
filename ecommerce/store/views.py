@@ -24,7 +24,7 @@ def users(request):
     table = ProfileTable( users )
     context = {'table': table}
     return render(request, 'admin/users.html', context)
-#Listado Usuarios        
+#Listado Usuarios
 def listUser(request):
     users = Profile.objects.all()
     data={
@@ -36,8 +36,8 @@ def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
     perfil = Profile.objects.get(user_id=pk)
     user.delete()
-    profile.delete()
-    return redirect(to='store')
+    perfil.delete()
+    return redirect(to='listado_usuarios')
 #Editar usuario desde tabla
 def editUser(request, pk):
     usuario = User.objects.get(pk=pk)
@@ -54,10 +54,26 @@ def editUser(request, pk):
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
             login(request, usuario)
-            return redirect(to='store')
+            return redirect(to='listado_usuarios')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
+
+
+
+def editProductPage(request, id):
+    producto = Producto.objects.get(id=id)
+    data = {
+        'form': ProductoForm(instance=producto)
+    }
+    if request.method == 'POST':
+        formulario = ProductoForm(data=request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to='adm-producto')
+        data['form']=ProductoForm(instance=Producto.objects.get(id=id))
+    return render(request,'admin/edit-product.html', data)
+
 #Registrar Cliente
 def registerClient(request):
     data = {
@@ -76,13 +92,13 @@ def registerClient(request):
             profile.save()
             client = client.save(commit=False)
             client.profile = profile
-            client.save() 
+            client.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
             #autentificamos credenciales del usuario
             user = authenticate(username=username, password=password)
-            return redirect(to='store')
+            return redirect(to='listado_usuarios')
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_client.html', data)
@@ -105,13 +121,13 @@ def registerSeller(request):
             #if client.is_valid():
             seller = seller.save(commit=False)
             seller.profile = profile
-            seller.save() 
+            seller.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
             #autentificamos credenciales del usuario
             user = authenticate(username=username, password=password)
-            return redirect(to='store')
+            return redirect(to='listado_usuarios')
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_seller.html', data)
@@ -134,13 +150,13 @@ def registerSupplier(request):
             #if client.is_valid():
             supplier = supplier.save(commit=False)
             supplier.profile = profile
-            supplier.save() 
+            supplier.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
             #autentificamos credenciales del usuario
             user = authenticate(username=username, password=password)
-            return redirect(to='store')
+            return redirect(to='listado_usuarios')
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_supplier.html', data)
@@ -163,13 +179,13 @@ def registerEmployee(request):
             #if client.is_valid():
             employee = employee.save(commit=False)
             employee.profile = profile
-            employee.save() 
+            employee.save()
             #autenticar el usuario y redirigirlo
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
             #autentificamos credenciales del usuario
             user = authenticate(username=username, password=password)
-            return redirect(to='store')
+            return redirect(to='listado_usuarios')
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_employee.html', data)
@@ -395,6 +411,7 @@ def agregar_producto(request):
             data['mensaje']='Producto agregado con éxito'
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
+
 #3Iteracion
 def terceraIFacturas(request):
     data = {}
@@ -407,3 +424,8 @@ def terceraIBoletas(request):
 def terceraIOrdenesCompra(request):
     data = {}
     return render(request, 'store/adm-factura.html', data)    
+
+def eliminar_producto(request, pk):
+    producto = Producto.objects.get(pk=pk)
+    producto.delete()
+    return redirect(to='adm-producto')   
