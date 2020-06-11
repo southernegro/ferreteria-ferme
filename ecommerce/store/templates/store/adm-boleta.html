@@ -1,16 +1,51 @@
 {% extends 'store/main.html'%}
-{% load static %}
-{% block content %}
-<body>
-  <img class="card-img" src="{% static 'img/mantenimiento.png' %}" alt="Card image" style="height: 300px; width: 300px; margin-left: 35%">
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-</div>
-<br>
-<div class="alert alert-info" role="alert">
-    <strong>EN PROCESO.</strong> No hay acceso al módulo.
-    Pronto disponible en entrega N°3 y final.
-</div>
-</body>
 
-{% endblock content %}
+{% load static %}
+{% block javascript %}
+
+    <script src="{% static 'js/confirmacion.js' %}"></script>
+
+{% endblock %}
+{% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <h2 class="pt-2 pb-4">Boletas</h2>
+    <table class="table ">
+        <thead>
+            <tr>
+            	<th scope="col">ID de Boleta</th>
+                <th scope="col">ID de Venta</th>
+                <th scope="col">N° de Boleta</th>
+                <th scope="col">Vendedor</th>
+                <th scope="col">Total</th>
+                <th scope="col">Cantidad de Productos</th>
+                <th scope="col">Modificar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in bills %}
+
+            <tr>
+            	<td scope="row">{{b.id}}</td>
+                <td scope="row">{{b.order.id}}</td>
+                <td scope="row">{{b.order.transaction_id}}</td>
+                <td scope="row">{{b.vendedor}}</td>
+                <td scope="row">${{b.total}} CLP</td>
+                <td scope="row">{{b.order.get_cart_items}}</td>
+                <td scope="row">
+                  <a class="btn btn-outline-info" href="{% url 'edit_bill' pk=b.id %}">
+                      <i class="far fa-edit fa-2x"></i></a>
+                </td>
+                <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta boleta?" href="{% url 'delete_bill' pk=b.id %}" target="_blank">Eliminar</a>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-primary" href="#">
+        <i class="fa fa-user-plus"></i>Agregar Nuevo Producto</a>
+
+</div>
+{% endblock %}

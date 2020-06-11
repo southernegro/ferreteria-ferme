@@ -8,7 +8,7 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
@@ -438,3 +438,32 @@ def eliminar_producto(request, pk):
     producto = Producto.objects.get(pk=pk)
     producto.delete()
     return redirect(to='adm-producto')
+
+#Listado Boleta
+def adm_boletas(request):
+    bills = Boleta.objects.all()
+    context={
+        'bills': bills,
+    }
+    return render(request, 'store/adm-boleta.html', context)
+
+#Eliminar/Anular Boleta desde tabla
+def delete_bill(request, pk):
+    bill = Boleta.objects.get(pk=pk)
+    bill.delete()
+    return redirect(to='adm-boleta')
+
+#Editar boleta desde tabla
+def edit_bill(request, pk):
+    bill = Boleta.objects.get(pk=pk)
+    data = {
+        'form': BoletaForm(instance=bill),
+    }
+    if request.method == 'POST':
+        formulario = BoletaForm(data=request.POST, instance=bill)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Boleta modificado correctamente'
+            return redirect(to='adm-boleta')
+        data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
+    return render(request,'store/edit_bill.html', data)
