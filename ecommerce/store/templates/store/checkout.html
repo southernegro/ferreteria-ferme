@@ -43,7 +43,48 @@
 			<br>
 			<div class="box-element hidden" id="payment-info">
 				<small>Paypal Options</small>
-				<button id="make-payment">Pagar</button>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+				  Pagar - Boleta
+				</button>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Transacción Completada</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <!-- Datos de Perfil -->
+					<h2><i class="fa fa-list-alt"></i>Boleta</h2>
+					<h5>Numero de Boleta</h5>
+					<p>#{{order.id}}</p> <!--No muestra ID al comprar como Guest, revisar!-->
+					<h6>Vendedor</h6>
+					{% if user.profile.seller %}
+					<p>{{ user.profile.name}}</p>
+					{% else %}
+					<p>Tienda Ferme</p>
+					{% endif %}
+					<h6>Productos</h6>
+					{% for item in items %}
+					<div class="cart-row">
+						<div style="flex:2"><p>{{item.product.name}}</p></div>
+						<div style="flex:1"><p>${{item.product.price}}</p></div>
+						<div style="flex:1"><p>x{{item.quantity}}</p></div>
+					</div>
+					{% endfor %}
+					<h6>Total Venta</h6>
+					<p>${{order.get_cart_total|floatformat:2}}</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver al Carro</button>
+			        <button id="make-payment">Finalizar Compra</button>
+			      </div>
+			    </div>
+			  </div>
 			</div>
 			
 		</div>
@@ -70,6 +111,9 @@
 	<script type="text/javascript">
 		var shipping = '{{order.shipping}}'
 		var total = '{{order.get_cart_total}}'
+		//Prueba Boleta
+		var tipo_usuario = '{{request.user.profile.tipo}}'
+		// --
 
 		if (shipping == 'False'){
 			document.getElementById('shipping-info').innerHTML = ''

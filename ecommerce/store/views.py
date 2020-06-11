@@ -8,22 +8,12 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
 
-#Borrar esta vista
-class TableView(tables.SingleTableView):
-    table_class = ProfileTable
-    queryset = Profile.objects.all()
-    template_name = 'admin/users.html'
-#Borrar
-def users(request):
-    users = Profile.objects.all()
-    table = ProfileTable( users )
-    context = {'table': table}
-    return render(request, 'admin/users.html', context)
+
 #Listado Usuarios
 def listUser(request):
     users = Profile.objects.all()
@@ -31,6 +21,7 @@ def listUser(request):
         'users': users
     }
     return render(request, 'admin/listado_usuarios.html', data)
+
 #Eliminar usuario desde tabla
 def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
@@ -38,6 +29,7 @@ def deleteUser(request, pk):
     user.delete()
     perfil.delete()
     return redirect(to='listado_usuarios')
+
 #Editar usuario desde tabla
 def editUser(request, pk):
     usuario = User.objects.get(pk=pk)
@@ -59,8 +51,7 @@ def editUser(request, pk):
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
 
-
-
+#Editar Producto
 def editProductPage(request, id):
     producto = Producto.objects.get(id=id)
     data = {
@@ -74,7 +65,7 @@ def editProductPage(request, id):
         data['form']=ProductoForm(instance=Producto.objects.get(id=id))
     return render(request,'admin/edit-product.html', data)
 
-#Registrar Cliente
+#Registrar Cliente desde Admin
 def registerClient(request):
     data = {
        'form': CustomUserForm(),
@@ -102,7 +93,8 @@ def registerClient(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_client.html', data)
-#Registrar Vendedor
+
+#Registrar Vendedor desde Admin
 def registerSeller(request):
     data = {
        'form': CustomUserForm(),
@@ -131,7 +123,8 @@ def registerSeller(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_seller.html', data)
-#Registrar Proveedor
+
+#Registrar Proveedor desde Admin
 def registerSupplier(request):
     data = {
        'form': CustomUserForm(),
@@ -160,7 +153,8 @@ def registerSupplier(request):
         data['form']=form
         data['profile']=profile
     return render(request, 'accounts/register_supplier.html', data)
-#Registrar Empleado
+
+#Registrar Empleado desde Admin
 def registerEmployee(request):
     data = {
        'form': CustomUserForm(),
@@ -190,6 +184,7 @@ def registerEmployee(request):
         data['profile']=profile
     return render(request, 'accounts/register_employee.html', data)
 
+#Editar Cuenta de usuario que se encuentra logueado "EDITAR MI CUENTA"
 def editLoggedUser(request, pk):
     usuario = User.objects.get(pk=pk)
     perfil = request.user.profile
@@ -209,7 +204,8 @@ def editLoggedUser(request, pk):
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
-#Registro de usuario
+
+#Registro de usuario NORMAL
 def registerPage(request):
     data = {
        'form': CustomUserForm(),
@@ -241,6 +237,7 @@ def registerPage(request):
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
 
+#Editar Usuario desde Admin
 def editPage(request, id):
     usuario = User.objects.get(id=id)
     perfil = request.user.profile
@@ -261,6 +258,7 @@ def editPage(request, id):
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'accounts/edit.html', data)
 
+#Eliminar Usuario desde Admin
 def deletePage(request):
     user = request.user
     user.delete()
@@ -283,10 +281,12 @@ def loginPage(request):
             messages.info('Usuario o Contraseña incorrectos')
     context= {}
     return render(request, 'accounts/login.html', context)
+
 #Log Out
 def logoutUser(request):
     logout(request)
     return redirect('')
+
 #Pagina Principal
 def store(request):
 
@@ -296,6 +296,7 @@ def store(request):
     products = Producto.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
+
 #Carrito de Compra
 def cart(request):
 
@@ -306,6 +307,7 @@ def cart(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
+
 #Check Out
 def checkout(request):
 
@@ -316,6 +318,7 @@ def checkout(request):
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
+
 #Actualizar productos del carro
 def updateItems(request):
     data = json.loads(request.body)
@@ -342,6 +345,7 @@ def updateItems(request):
         orderItems.delete()
 
     return JsonResponse('Producto agregado', safe=False)
+
 #Generar Venta
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
@@ -390,7 +394,8 @@ def processOrder(request):
             zipcode=data['shipping']['zipcode'],
         )
     return JsonResponse('Pago realizado', safe=False)
-#Administracion de Productos
+
+#Administracion de Productos (LISTADO)
 def adm_productos(request):
     prods = Producto.objects.all()
     data={
@@ -398,6 +403,7 @@ def adm_productos(request):
     }
     return render(request, 'store/adm-producto.html', data)
 
+#Agregar Productos
 def agregar_producto(request):
     data={
     'form': ProductoForm()
@@ -412,6 +418,7 @@ def agregar_producto(request):
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
 
+# ---------------------TEMPLATES "EN PROCESO"-----------------------
 #3Iteracion
 def terceraIFacturas(request):
     data = {}
@@ -424,8 +431,39 @@ def terceraIBoletas(request):
 def terceraIOrdenesCompra(request):
     data = {}
     return render(request, 'store/adm-factura.html', data)    
+#-------------------------------------------------------------------
 
+#Eliminar Producto
 def eliminar_producto(request, pk):
     producto = Producto.objects.get(pk=pk)
     producto.delete()
-    return redirect(to='adm-producto')   
+    return redirect(to='adm-producto')
+
+#Listado Boleta
+def adm_boletas(request):
+    bills = Boleta.objects.all()
+    context={
+        'bills': bills,
+    }
+    return render(request, 'store/adm-boleta.html', context)
+
+#Eliminar/Anular Boleta desde tabla
+def delete_bill(request, pk):
+    bill = Boleta.objects.get(pk=pk)
+    bill.delete()
+    return redirect(to='adm-boleta')
+
+#Editar boleta desde tabla
+def edit_bill(request, pk):
+    bill = Boleta.objects.get(pk=pk)
+    data = {
+        'form': BoletaForm(instance=bill),
+    }
+    if request.method == 'POST':
+        formulario = BoletaForm(data=request.POST, instance=bill)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Boleta modificado correctamente'
+            return redirect(to='adm-boleta')
+        data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
+    return render(request,'store/edit_bill.html', data)
