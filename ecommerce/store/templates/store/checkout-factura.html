@@ -1,0 +1,238 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+     <div class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+				<form id="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="name" placeholder="Name..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="email" name="email" placeholder="Email..">
+						</div>
+					</div>
+
+					<div id="fact-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="rut" id="rut-info" placeholder="Rut..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="text" name="razon" id="razon-info" placeholder="Razon Social..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="text" name="giro" id="giro-info" placeholder="Giro..">
+						</div>
+					</div>
+					
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+						</div>
+					</div>
+
+					<hr>
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+				</form>
+			</div>
+
+			<br>
+			<div class="box-element hidden" id="payment-info">
+				<small>Paypal Options</small>
+				<button type="button" class="btn btn-success" onclick="showInput();" data-toggle="modal" data-target="#exampleModal">
+				  Pagar - Boleta
+				</button>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Transacción Completada</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <!-- Datos de Perfil -->
+					<h2><i class="fa fa-list-alt"></i>Factura</h2>
+					<h5>Numero de Factura</h5>
+					<p>#{{order.id}}</p> <!--No muestra ID al comprar como Guest, revisar!-->
+					<h6>Vendedor</h6>
+					{% if user.profile.seller %}
+					<p>{{ user.profile.name}}</p>
+					{% else %}
+					<p>Tienda Ferme</p>
+					{% endif %}
+					<h6>Productos</h6>
+					{% for item in items %}
+					<div class="cart-row">
+						<div style="flex:2"><p>{{item.product.name}}</p></div>
+						<div style="flex:1"><p>${{item.product.price}}</p></div>
+						<div style="flex:1"><p>x{{item.quantity}}</p></div>
+					</div>
+					{% endfor %}
+					<h6>Rut</h6>
+					<p><span id='display1'></span></p>
+					<h6>Razon Social</h6>
+					<p><span id='display2'></span></p>
+					<h6>Giro</h6>
+					<p><span id='display3'></span></p>
+					<h6>Total Venta</h6>
+					<p>${{order.get_cart_total|floatformat:2}}</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver al Carro</button>
+			        <button id="make-payment">Finalizar Compra</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+		</div>
+
+		<div class="col-lg-6">
+			<div class="box-element">
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+				<hr>
+				<h3>Order Summary</h3>
+				<hr>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				</div>
+				{% endfor %}
+				<h5>Items:   {{order.get_cart_items}}</h5>
+				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var shipping = '{{order.shipping}}'
+		var total = '{{order.get_cart_total}}'
+		//Prueba Boleta
+		var tipo_usuario = '{{request.user.profile.tipo}}'
+		// --
+
+		if (shipping == 'False'){
+			document.getElementById('shipping-info').innerHTML = ''
+		}
+
+		if (user != 'AnonymousUser'){
+			document.getElementById('user-info').innerHTML = ''
+		}
+
+		if (shipping == 'False' && user != 'AnonymousUser'){
+			//Se oculta todo el formulario si el usuario esta logeado y si 'shipping' es False
+			document.getElementById('form-wrapper').classList.add("hidden")
+			//Se muestra el pago si el usuario, ya logeado, quiere comprar un producto que no requiere 'shipping'
+			document.getElementById('payment-info').classList.remove("hidden")
+		}
+
+		var form = document.getElementById('form')
+
+		form.addEventListener('submit', function(e){
+			e.preventDefault()
+			console.log('Enviado')
+			document.getElementById('form-button').classList.add("hidden")
+			document.getElementById('payment-info').classList.remove("hidden")
+		})
+
+		document.getElementById('make-payment').addEventListener('click', function(e){
+			submitFormData();
+		})
+
+		function submitFormData(){
+			console.log('Botón pagar clickeado')
+			console.log(user.id)
+
+			var userFormData = {
+				'name':null,
+				'email':null,
+				'total':total,
+			}
+		
+			var shippingInfo = {
+				'address':null,
+				'city':null,
+				'state':null,
+				'zipcode':null,
+			}
+
+			var facturaInfo = {
+				'rut':null,
+				'razon':null,
+				'giro':null,
+			}
+
+			if (shipping != 'False'){
+				shippingInfo.address = form.address.value
+				shippingInfo.city = form.city.value
+				shippingInfo.state = form.state.value
+				shippingInfo.zipcode = form.zipcode.value
+			}
+
+			if (user == 'AnonymousUser'){
+				userFormData.name = form.name.value
+				userFormData.email = form.email.value
+			}
+			
+			facturaInfo.rut = form.rut.value
+			facturaInfo.razon = form.razon.value
+			facturaInfo.giro = form.giro.value
+
+			var url = "/process_orderfact/"
+			fetch(url, {
+				method : 'POST',
+				headers:{
+					'Content-Type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				//console.log(body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}));
+				body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo, 'factura':facturaInfo})
+			})
+			//.then((response) => response.json())
+		    .then((response) =>{
+		    	console.log('Success:', response)
+    			return response.json();
+			})
+			.then((data) => {
+				console.log('Success:', data)
+				alert('Transaction Completed')
+			cart = {}
+			document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+				window.location.href = "{% url 'store' %}"
+			})
+
+			//console.log('Shipping Info:', shippingInfo)
+			//console.log('User Info:', userFormData)
+		}
+		function showInput() {
+        document.getElementById('display1').innerHTML = 
+                    document.getElementById("rut-info").value;
+        document.getElementById('display2').innerHTML = 
+                    document.getElementById("razon-info").value;
+        document.getElementById('display3').innerHTML = 
+                    document.getElementById("giro-info").value;
+    }
+	</script>
+{% endblock content %}

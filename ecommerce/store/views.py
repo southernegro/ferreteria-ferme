@@ -467,3 +467,75 @@ def edit_bill(request, pk):
             return redirect(to='adm-boleta')
         data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
     return render(request,'store/edit_bill.html', data)
+
+#Check Out Factura
+def checkoutfact(request):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    context = {'items':items, 'order':order, 'cartItems': cartItems}
+    return render(request, 'store/checkout-factura.html', context)
+
+#Generar Venta Factura
+def processOrderFact(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    total  = float(data['form']['total'])
+    rut = data['factura']['rut']
+    razon = data['factura']['razon']
+    giro = data['factura']['giro']
+
+    if request.user.is_authenticated:
+        usuario = request.user.profile
+        order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
+        if usuario.tipo == 'Vendedor':
+            factura = Factura.objects.get_or_create(
+            order=order,
+            n_factura=transaction_id,
+            total=total,
+            vendedor = usuario.name,
+            rut = rut,
+            razon = razon,
+            giro = giro
+        )
+        else:
+            factura = Factura.objects.get_or_create(
+            order=order,
+            n_factura=transaction_id,
+            total=total,
+            vendedor = 'Tienda Ferme',
+            rut = rut,
+            razon = razon,
+            giro = giro
+        )
+    else:
+       usuario, order = guestOrder(request, data)
+       factura = Factura.objects.get_or_create(
+        order=order,
+        n_factura=transaction_id,
+        total=total,
+        vendedor = 'Tienda Ferme',
+        rut = rut,
+        razon = razon,
+        giro = giro
+        )
+
+    order.transaction_id = transaction_id
+
+    if total == order.get_cart_total:
+        order.complete = True
+    order.save()
+
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            usuario=usuario,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
+    return JsonResponse('Pago realizado', safe=False)
