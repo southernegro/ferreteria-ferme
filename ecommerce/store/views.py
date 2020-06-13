@@ -539,3 +539,11 @@ def processOrderFact(request):
             zipcode=data['shipping']['zipcode'],
         )
     return JsonResponse('Pago realizado', safe=False)
+
+#Listado Boleta
+def adm_facturas(request):
+    facts = Factura.objects.all()
+    context={
+        'facts': facts
+    }
+    return render(request, 'store/adm-factura.html', context)

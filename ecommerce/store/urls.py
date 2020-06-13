@@ -47,7 +47,7 @@ urlpatterns = [
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
 
-	path("adm-factura",views.terceraIFacturas, name='adm-factura'),
+	path("adm-factura",views.adm_facturas, name='adm-factura'),
 	path("adm-boleta",views.adm_boletas, name='adm-boleta'),
 	path("adm-ordencompra",views.terceraIOrdenesCompra, name='adm-ordencompra'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
