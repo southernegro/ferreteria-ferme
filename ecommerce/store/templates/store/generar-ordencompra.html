@@ -1,0 +1,31 @@
+{% extends 'store/main.html'%}
+
+{% load static %}
+{% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <h2>Subir Material</h2>
+    <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{form.proveedor}}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{form.detalle}}
+        </div>
+        <div class="py-4">
+            <input class="btn btn-success" type="submit" name="btnsave" value="Guardar y enviar mas tarde">
+            <input class="btn btn-success" type="submit" name="btnsend" value="Enviar">
+        </div>
+    </form>
+
+    {{ mensaje }}
+    <a  class="btn btn-outline-dark" href="{% url 'adm-ordencompra' %}">&#x2190; Volver al Listado</a>
+</div>
+
+{% endblock %}
