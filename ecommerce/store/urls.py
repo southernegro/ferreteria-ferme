@@ -16,8 +16,10 @@ urlpatterns = [
 
 	path('cart/', views.cart, name="cart"),
 	path('checkout/', views.checkout, name="checkout"),
+	path('checkoutfact/', views.checkoutfact, name="checkoutfact"),
 	path('update_items/', views.updateItems, name="update_items"),
 	path('process_order/', views.processOrder, name="process_order"),
+	path('process_orderfact/', views.processOrderFact, name="process_orderfact"),
 	path('reset_password/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"), name="reset_password"),
 	path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="accounts/password_reset_sent.html"), name="password_reset_done"),
 	path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_form.html"), name="password_reset_confirm"),
@@ -45,9 +47,10 @@ urlpatterns = [
 	path("admin/users/registersupplier",views.registerSupplier, name='register_supplier'),
 	path("admin/users/registeremployee",views.registerEmployee, name='register_employee'),
 
-	path("adm-factura",views.terceraIFacturas, name='adm-factura'),
+	path("adm-factura",views.adm_facturas, name='adm-factura'),
 	path("adm-boleta",views.adm_boletas, name='adm-boleta'),
-	path("adm-ordencompra",views.terceraIOrdenesCompra, name='adm-ordencompra'),
+	path("adm-ordencompra",views.adm_ordencompra, name='adm-ordencompra'),
+	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
 ]

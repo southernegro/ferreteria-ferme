@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Cliente, Producto, Seller, Supplier, Employee, Boleta
+from .models import Profile, Cliente, Producto, Seller, Supplier, Employee, Boleta, Factura, OrdenCompra
 
 class CustomUserForm(UserCreationForm):
     class Meta:
@@ -46,3 +46,9 @@ class BoletaForm(ModelForm):
     class Meta:
         model = Boleta
         fields = ['order', 'n_boleta', 'vendedor', 'total']
+
+class OrdenCompraForm(ModelForm):
+    class Meta:
+        model = OrdenCompra
+        fields = ['remitente', 'fecha', 'enviado', 'proveedor', 'detalle']
+        exclude = ['remitente', 'fecha', 'enviado',]

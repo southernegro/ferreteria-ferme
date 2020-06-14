@@ -8,7 +8,7 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, OrdenCompraForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
@@ -199,7 +199,7 @@ def editLoggedUser(request, pk):
             formulario.save()
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
-            login(request, usuario)
+            #login(request, usuario) #NO ES NECESARIO
             return redirect(to='store')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
@@ -415,6 +415,7 @@ def agregar_producto(request):
             #formulario.user = request.user
             formulario.save()
             data['mensaje']='Producto agregado con éxito'
+            return redirect(to='adm-producto')
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
 
@@ -467,3 +468,110 @@ def edit_bill(request, pk):
             return redirect(to='adm-boleta')
         data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
     return render(request,'store/edit_bill.html', data)
+
+#Check Out Factura
+def checkoutfact(request):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    context = {'items':items, 'order':order, 'cartItems': cartItems}
+    return render(request, 'store/checkout-factura.html', context)
+
+#Generar Venta Factura
+def processOrderFact(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    total  = float(data['form']['total'])
+    rut = data['factura']['rut']
+    razon = data['factura']['razon']
+    giro = data['factura']['giro']
+
+    if request.user.is_authenticated:
+        usuario = request.user.profile
+        order, created = Order.objects.get_or_create(usuario=usuario, complete=False)
+        if usuario.tipo == 'Vendedor':
+            factura = Factura.objects.get_or_create(
+            order=order,
+            n_factura=transaction_id,
+            total=total,
+            vendedor = usuario.name,
+            rut = rut,
+            razon = razon,
+            giro = giro
+        )
+        else:
+            factura = Factura.objects.get_or_create(
+            order=order,
+            n_factura=transaction_id,
+            total=total,
+            vendedor = 'Tienda Ferme',
+            rut = rut,
+            razon = razon,
+            giro = giro
+        )
+    else:
+       usuario, order = guestOrder(request, data)
+       factura = Factura.objects.get_or_create(
+        order=order,
+        n_factura=transaction_id,
+        total=total,
+        vendedor = 'Tienda Ferme',
+        rut = rut,
+        razon = razon,
+        giro = giro
+        )
+
+    order.transaction_id = transaction_id
+
+    if total == order.get_cart_total:
+        order.complete = True
+    order.save()
+
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            usuario=usuario,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
+    return JsonResponse('Pago realizado', safe=False)
+
+#Listado Boleta
+def adm_facturas(request):
+    facts = Factura.objects.all()
+    context={
+        'facts': facts
+    }
+    return render(request, 'store/adm-factura.html', context)
+
+#Listado Boleta
+def adm_ordencompra(request):
+    orden = OrdenCompra.objects.all()
+    context={
+        'orden': orden
+    }
+    return render(request, 'store/adm-ordencompra.html', context)
+
+#Generar Orden de Compra
+def orden_compra(request):
+    remitente = request.user.profile
+    data={
+        'remitente': remitente, 'form': OrdenCompraForm()
+    }
+    if request.method=='POST':
+        formulario = OrdenCompraForm(request.POST)
+        if formulario.is_valid():
+            formulario = formulario.save(commit=False)
+            formulario.remitente = remitente
+            if 'btnsend' in request.POST:
+                formulario.enviado = True
+            formulario.save()
+            data['mensaje']='Producto agregado con éxito'
+            return redirect(to='adm-ordencompra')
+        data['form'] = formulario
+    return render(request, 'store/generar-ordencompra.html', data)

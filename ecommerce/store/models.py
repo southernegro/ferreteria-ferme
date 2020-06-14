@@ -225,3 +225,25 @@ class Boleta(models.Model):
 
     def __str__(self):
         return 'Boleta: ' + self.n_boleta
+
+class Factura(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    n_factura = models.CharField(max_length=200, null=False)
+    vendedor = models.CharField(default="Tienda Ferme", max_length=200, null=False)
+    total = models.CharField(max_length=200, null=False)
+    rut = models.CharField(max_length=200, null=False)
+    razon = models.CharField(max_length=200, null=False)
+    giro = models.CharField(max_length=200, null=False)
+
+    def __str__(self):
+        return 'Factura: ' + self.n_factura
+
+class OrdenCompra(models.Model):
+    remitente = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+    enviado = models.BooleanField(default=False, null=True, blank=False)
+    proveedor = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
+    detalle = models.TextField(max_length=200, null=True)
+
+    def __str__(self):
+        return str(self.id)
