@@ -575,3 +575,9 @@ def orden_compra(request):
             return redirect(to='adm-ordencompra')
         data['form'] = formulario
     return render(request, 'store/generar-ordencompra.html', data)
+
+#Eliminar Orden de Compra
+def eliminar_orden_compra(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    orden.delete()
+    return redirect(to='adm-ordencompra')    
