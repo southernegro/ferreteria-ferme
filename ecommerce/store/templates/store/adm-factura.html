@@ -39,7 +39,7 @@
                 <td scope="row">${{f.total}} CLP</td>
                 <td scope="row">{{f.order.get_cart_items}}</td>
                 <td scope="row">
-                  <a class="btn btn-outline-info" href="#!">
+                  <a class="btn btn-outline-info" href="{% url 'edit_receipt' pk=f.id %}">
                       <i class="far fa-edit fa-2x"></i></a>
                 </td>
                 <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta boleta?" href="#!" target="_blank">Eliminar</a>

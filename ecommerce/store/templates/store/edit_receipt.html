@@ -1,0 +1,67 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <title>Editar Factura</title>
+<body>
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <h3><class class="form-tittle">MODIFICAR FACTURA</class></h3>
+                </div>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.order }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.n_factura }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.vendedor }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.order }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.total }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.rut }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.raazon }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"></span>
+                        </div>
+                        {{ form.giro }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}
