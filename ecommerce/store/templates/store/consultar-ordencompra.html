@@ -1,0 +1,42 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <form method="POST" action="" enctype="multipart/form-data">
+        <fieldset disabled>
+            {% csrf_token %}
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{form.remitente}}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            {{form.fecha}}
+        </div>
+        <div class="input-group mb-2">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            {{form.enviado}}
+        </div>
+        <div class="input-group mb-2">
+            <div class="input-group-append" >
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            {{form.proveedor}}
+        </div>      
+        <div class="input-group mb-2">
+            <div class="input-group-append" >
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            {{form.detalle}}
+        </div>                  
+        </fieldset>
+    </form>
+</div>
+
+{% endblock content %}

@@ -581,3 +581,13 @@ def eliminar_orden_compra(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     orden.delete()
     return redirect(to='adm-ordencompra')    
+#Vista de proveedor, para consultar ordenes de compra    
+def vista_proveedor(request):
+    return render(request, 'store/proveedor-ordencompra.html')
+#Consultar Orden de Compra
+def consultar_orden_compra(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    data = {
+        'form': OrdenCompraForm(instance=orden),
+    }
+    return render(request, 'store/consultar-ordencompra.html', data)   
