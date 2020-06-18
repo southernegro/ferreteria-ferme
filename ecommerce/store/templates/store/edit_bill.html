@@ -11,27 +11,31 @@
                 </div>
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <h6>Orden de compra</h6>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text"><i class="fa fa-hashtag"></i></span>
                         </div>
                         {{form.order}}
                     </div>
+                    <h6>Número de boleta</h6>
 					<div class="input-group mb-3">
 						<div class="input-group-append">
 							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 						</div>
 						{{form.n_boleta}}
-					</div>
+                    </div>
+                    <h6>Vendedor</h6>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         {{form.vendedor}}
                     </div>
+                    <h6>Total</h6>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            <span class="input-group-text"><i class="fa fa-usd"></i></span>
                         </div>
                         {{form.total}}
                     </div>
@@ -42,7 +46,7 @@
 	         </div>
 	    </div>
 	</div>
-	    <div class="alert alert-warning" role="alert">
+	    <div class="alert alert-warning" role="alert" style="margin-top: 10vh;">
 		  <strong>OJO!</strong> Modificar una boleta implica que conoces los riesgos de realizar esta acción. Si modificas esta boleta, es porque también realizará la notificación al SII.
 		</div>
     <script>
@@ -51,10 +55,6 @@
         */
         //Query All input fields
         var form_fields = document.getElementsByTagName('input')
-        form_fields[1].placeholder='Usuario..';
-        form_fields[2].placeholder='Email..';
-        form_fields[3].placeholder='Enter password...';
-        form_fields[4].placeholder='Re-enter Password...';
         for (var field in form_fields){
         form_fields[field].className += ' form-control'
         }
