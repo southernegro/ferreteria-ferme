@@ -51,7 +51,9 @@ urlpatterns = [
 	path("adm-boleta",views.adm_boletas, name='adm-boleta'),
 	path("adm-ordencompra",views.adm_ordencompra, name='adm-ordencompra'),
 	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
+	path('eliminar-ordencompra/<pk>/',views.eliminar_orden_compra, name='eliminar-ordencompra'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
-	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt')
+	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
+	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
 ]
