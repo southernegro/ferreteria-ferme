@@ -548,6 +548,11 @@ def adm_facturas(request):
         'facts': facts
     }
     return render(request, 'store/adm-factura.html', context)
+#Eliminar Factura
+def eliminar_factura(request, pk):    
+    factura = Factura.objects.get(pk=pk)
+    factura.delete()
+    return redirect(to='adm-factura')    
 
 #Listado Boleta
 def adm_ordencompra(request):
