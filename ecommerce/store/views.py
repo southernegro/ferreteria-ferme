@@ -8,7 +8,7 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, OrdenCompraForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, FacturaForm, OrdenCompraForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
@@ -468,6 +468,21 @@ def edit_bill(request, pk):
             return redirect(to='adm-boleta')
         data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
     return render(request,'store/edit_bill.html', data)
+
+#Editar factura
+def edit_receipt(request, pk):
+    receipt = Factura.objects.get(pk=pk)
+    data = {
+        'form': FacturaForm(instance=receipt),
+    }
+    if request.method == 'POST':
+        formulario = FacturaForm(data=request.POST, instance=receipt)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Factura modificada correctamente'
+            return redirect(to='adm-factura')
+        data['form']=FacturaForm(instance=Factura.objects.get(pk=pk))
+    return render(request,'store/edit_receipt.html', data)
 
 #Check Out Factura
 def checkoutfact(request):
