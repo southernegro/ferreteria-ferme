@@ -55,4 +55,4 @@ urlpatterns = [
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
 	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
-]
+	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
