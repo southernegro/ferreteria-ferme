@@ -53,5 +53,6 @@ urlpatterns = [
 	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
-	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt')
+	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
+	path('edit_order/<pk>/',views.edit_order, name='edit_order')
 ]

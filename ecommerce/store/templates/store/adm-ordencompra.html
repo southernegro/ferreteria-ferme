@@ -36,7 +36,7 @@
                 {% endif %}
                 <td scope="row">{{o.proveedor.profile.name}}</td>
                 <td scope="row">
-                  <a class="btn btn-outline-info" href="#!">
+                  <a class="btn btn-outline-info" href="{% url 'edit_order' pk=o.id %}">
                       <i class="far fa-edit fa-2x"></i></a>
                 </td>
                 {% if o.enviado == False  %}

@@ -484,6 +484,21 @@ def edit_receipt(request, pk):
         data['form']=FacturaForm(instance=Factura.objects.get(pk=pk))
     return render(request,'store/edit_receipt.html', data)
 
+#Editar Orden de compra
+def edit_order(request, pk):
+    order = OrdenCompra.objects.get(pk=pk)
+    data = {
+        'form': OrdenCompraForm(instance=order),
+    }
+    if request.method == 'POST':
+        formulario = OrdenCompraForm(data=request.POST, instance=order)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Orden de compra modificada correctamente'
+            return redirect(to='adm-ordencompra')
+        data['form']=OrdenCompraForm(instance=OrdenCompra.objects.get(pk=pk))
+    return render(request,'store/edit_order.html', data)
+
 #Check Out Factura
 def checkoutfact(request):
 
