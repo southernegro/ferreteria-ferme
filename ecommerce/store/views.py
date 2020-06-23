@@ -578,6 +578,11 @@ def adm_facturas(request):
         'facts': facts
     }
     return render(request, 'store/adm-factura.html', context)
+#Eliminar Factura
+def eliminar_factura(request, pk):    
+    factura = Factura.objects.get(pk=pk)
+    factura.delete()
+    return redirect(to='adm-factura')    
 
 #Listado Boleta
 def adm_ordencompra(request):
@@ -605,3 +610,9 @@ def orden_compra(request):
             return redirect(to='adm-ordencompra')
         data['form'] = formulario
     return render(request, 'store/generar-ordencompra.html', data)
+
+#Eliminar Orden de Compra
+def eliminar_orden_compra(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    orden.delete()
+    return redirect(to='adm-ordencompra')    
