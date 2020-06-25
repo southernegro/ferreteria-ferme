@@ -8,7 +8,7 @@ import datetime
 from .models import *
 from django_tables2 import SingleTableView
 from .tables import ProfileTable
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, OrdenCompraForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, FacturaForm, OrdenCompraForm
 from .utils import cookieCart, cartData, guestOrder
 import django_tables2 as tables
 
@@ -469,6 +469,36 @@ def edit_bill(request, pk):
         data['form']=BoletaForm(instance=Boleta.objects.get(pk=pk))
     return render(request,'store/edit_bill.html', data)
 
+#Editar factura
+def edit_receipt(request, pk):
+    receipt = Factura.objects.get(pk=pk)
+    data = {
+        'form': FacturaForm(instance=receipt),
+    }
+    if request.method == 'POST':
+        formulario = FacturaForm(data=request.POST, instance=receipt)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Factura modificada correctamente'
+            return redirect(to='adm-factura')
+        data['form']=FacturaForm(instance=Factura.objects.get(pk=pk))
+    return render(request,'store/edit_receipt.html', data)
+
+#Editar Orden de compra
+def edit_order(request, pk):
+    order = OrdenCompra.objects.get(pk=pk)
+    data = {
+        'form': OrdenCompraForm(instance=order),
+    }
+    if request.method == 'POST':
+        formulario = OrdenCompraForm(data=request.POST, instance=order)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='Orden de compra modificada correctamente'
+            return redirect(to='adm-ordencompra')
+        data['form']=OrdenCompraForm(instance=OrdenCompra.objects.get(pk=pk))
+    return render(request,'store/edit_order.html', data)
+
 #Check Out Factura
 def checkoutfact(request):
 
@@ -548,6 +578,11 @@ def adm_facturas(request):
         'facts': facts
     }
     return render(request, 'store/adm-factura.html', context)
+#Eliminar Factura
+def eliminar_factura(request, pk):    
+    factura = Factura.objects.get(pk=pk)
+    factura.delete()
+    return redirect(to='adm-factura')    
 
 #Listado Boleta
 def adm_ordencompra(request):

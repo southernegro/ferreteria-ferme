@@ -47,6 +47,11 @@ class BoletaForm(ModelForm):
         model = Boleta
         fields = ['order', 'n_boleta', 'vendedor', 'total']
 
+class FacturaForm(ModelForm):
+    class Meta:
+        model = Factura
+        fields = ['order', 'n_factura', 'vendedor', 'total', 'rut', 'razon', 'giro']
+
 class OrdenCompraForm(ModelForm):
     class Meta:
         model = OrdenCompra
