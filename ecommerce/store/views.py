@@ -622,7 +622,14 @@ def vista_proveedor(request):
 #Consultar Orden de Compra
 def consultar_orden_compra(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
-    data = {
-        'form': OrdenCompraForm(instance=orden),
-    }
-    return render(request, 'store/consultar-ordencompra.html', data)   
+    if orden is not None:
+        data = {
+            'form': OrdenCompraForm(instance=orden),
+        }
+        return render(request, 'store/consultar-ordencompra.html', data)
+    else:
+        return redirect(to='page_not_found')
+
+#Pagina 404
+def page_not_found(request):
+    return render(request, 'store/page_not_found.html')

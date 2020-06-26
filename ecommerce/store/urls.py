@@ -59,4 +59,6 @@ urlpatterns = [
 	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
 	path('edit_order/<pk>/',views.edit_order, name='edit_order'),
 	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
+	
+	path('page_not_found', views.page_not_found, name='page_not_found'),
 ]
