@@ -621,7 +621,7 @@ def vista_proveedor(request):
     return render(request, 'store/proveedor-ordencompra.html')
 #Consultar Orden de Compra
 def consultar_orden_compra(request, pk):
-    orden = OrdenCompra.objects.get(pk=pk)
+    orden = OrdenCompra.objects.filter(pk=pk).first()
     if orden is not None:
         data = {
             'form': OrdenCompraForm(instance=orden),
