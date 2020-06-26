@@ -50,6 +50,8 @@ urlpatterns = [
 	path("adm-factura",views.adm_facturas, name='adm-factura'),
 	path("adm-boleta",views.adm_boletas, name='adm-boleta'),
 	path("adm-ordencompra",views.adm_ordencompra, name='adm-ordencompra'),
+	path('consultar_orden', views.vista_proveedor, name='proveedor-ordencompra'),
+	path('consultar_orden/<pk>/', views.consultar_orden_compra, name='consultar-ordencompra'),
 	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
 	path('eliminar-ordencompra/<pk>/',views.eliminar_orden_compra, name='eliminar-ordencompra'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
@@ -57,4 +59,6 @@ urlpatterns = [
 	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
 	path('edit_order/<pk>/',views.edit_order, name='edit_order'),
 	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
+	
+	path('page_not_found', views.page_not_found, name='page_not_found'),
 ]

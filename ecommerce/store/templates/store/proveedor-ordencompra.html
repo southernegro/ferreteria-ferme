@@ -1,0 +1,32 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+    <div class='row'>
+        <h2 class="pt-2 pb-4" style='margin-left: 2vh'>Consultar Orden de Compra</h1>
+    </div>
+    <div>
+        <div>
+            <label for="basic-url">ID de la Orden</label>
+            <input type="text" class="form-control" id="id-orden" placeholder="Ej: 1234">
+        </div>
+        <div class="pt-4">
+            <a onclick="getOrderId()" class="btn btn-primary" id="href-button"  href="{% url 'proveedor-ordencompra' %}">Consultar</a>                                                                    
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    document.getElementById('id-orden').validity.valid
+    button = document.getElementById('href-button')
+    oldUrlString = button.attributes.href.nodeValue
+    function getOrderId() {
+        value = document.getElementById('id-orden').value
+        newUrl = oldUrlString.concat(`${"/"}${value}`)
+        button.attributes.href.nodeValue = newUrl
+    }
+
+
+</script>
+{% endblock content %}

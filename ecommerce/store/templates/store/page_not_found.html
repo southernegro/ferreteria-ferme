@@ -1,0 +1,21 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <title>Pagina no encontrada</title>
+<body>
+    
+
+	<div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <h3 class="form-tittle">Error 404, pagina no encontrada</h3>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <a type="button" class="btn btn-outline-primary" href="{% url 'store' %}">Volver al inicio</a>
+                </div> 
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

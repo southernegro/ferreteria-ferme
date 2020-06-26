@@ -616,3 +616,20 @@ def eliminar_orden_compra(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     orden.delete()
     return redirect(to='adm-ordencompra')    
+#Vista de proveedor, para consultar ordenes de compra    
+def vista_proveedor(request):
+    return render(request, 'store/proveedor-ordencompra.html')
+#Consultar Orden de Compra
+def consultar_orden_compra(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    if orden is not None:
+        data = {
+            'form': OrdenCompraForm(instance=orden),
+        }
+        return render(request, 'store/consultar-ordencompra.html', data)
+    else:
+        return redirect(to='page_not_found')
+
+#Pagina 404
+def page_not_found(request):
+    return render(request, 'store/page_not_found.html')
