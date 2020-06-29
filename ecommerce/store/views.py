@@ -412,12 +412,20 @@ def agregar_producto(request):
         formulario = ProductoForm(request.POST, files=request.FILES)
         if formulario.is_valid():
             #formulario = formulario.save(commit=False)
-            #formulario.user = request.user
+            #formulario.sku = idproducto
             formulario.save()
+
             data['mensaje']='Producto agregado con éxito'
             return redirect(to='adm-producto')
         data['form']=formulario
     return render(request, 'store/agregar-producto.html', data)
+
+def id_producto(request):
+    productos = Producto.objects.all()
+    sku = productos.skuProducto
+    for i in productos:
+        productos.sku = sku
+    return redirect(to='agregar-producto')
 
 # ---------------------TEMPLATES "EN PROCESO"-----------------------
 #3Iteracion
