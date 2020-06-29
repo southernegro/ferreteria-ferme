@@ -7,15 +7,42 @@
 			<img class="thumbnail" src="{{product.imageURL}}">
 			<div class="box-element product">
 				<h6><strong>{{product.name}}</strong></h6>
+				<small>ID Producto: {{product.skuProducto}}</small>
 				<hr>
 
-				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
+				<button data-product={{product.id}} data-action="add" class="btn btn-outline-primary add-btn update-cart">Add to Cart</button>
+				<a class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal{{product.id}}">Ver</a>
 				<h4 style="float: right">
 				${{product.price|floatformat:2}}</h4>
 			</div>
 		</div>
+		<div class="modal fade" id="exampleModal{{product.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel"><b>{{product.name}}</b></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      	<img class="thumbnail" src="{{product.imageURL}}">
+			        <p><strong>Nombre del Producto:</strong> {{product.name}}</p>
+	                <p><strong>ID del Producto:</strong> {{product.skuProducto}}</p>
+	                <p><strong>Precio:</strong> ${{product.price}} CLP</p>
+	                <p><strong>Stock:</strong> {{product.stock}}</p>
+	                <p><strong>Proveedor:</strong> {{product.proveedor}}</p>
+	                <p><strong>Familia del Producto:</strong> {{product.familia}}</p>
+	                <p><strong>Tipo de Producto:</strong> {{product.tipo_producto}}</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Volver</button>
+			      </div>
+			    </div>
+			  </div>
+		</div>
 			{% endfor %}
 	</div>
+
 
 {% endblock content %}

@@ -129,7 +129,7 @@ class Producto(models.Model):
     sku = models.CharField(max_length=200, null=True)
     price = models.FloatField()
     despacho = models.BooleanField(default=False, null=True, blank=True)
-    fecha_exp = models.CharField(max_length=8,default=False, null=True, blank=True)
+    fecha_exp = models.CharField(max_length=10,default='31/12/2020', null=True, blank=True)
     stock = models.IntegerField(default=0, null=True, blank=True)
     critic_stock = models.IntegerField(default=10, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
@@ -149,19 +149,16 @@ class Producto(models.Model):
         return url
     @property
     def skuProducto(self):
-        sku_prod == ''
-        cod_prov == '000'
-        cod_fam == '000'
+        sku_prod = ''
+        cod_prov = '000'
+        cod_fam = '000'
+        cod_fecha_venc = '00000000'
+        cod_prov = self.proveedor.supplier_id
+        cod_fam = self.familia.id_familia
         cod_fecha_venc == '00000000'
-        if(self.proveedor != null and self.familia != null):
-            cod_prov = self.proveedor.supplier_id
-            cod_fam = self.familia.id_familia
-            if(self.fecha_exp == ''):
-                cod_fecha_venc == '00000000'
-            else:
-                cod_fecha_venc = self.fecha_exp.value_to_string()
-            sku_prod = cod_prov+cod_fam+cod_fecha_venc
-            self.sku = sku_prod
+        id_prod = str(self.id)
+        sku_prod = id_prod+cod_prov+cod_fam+cod_fecha_venc
+        self.sku = sku_prod
         return sku_prod
 
 class Order(models.Model):
