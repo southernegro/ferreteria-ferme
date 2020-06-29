@@ -25,7 +25,7 @@ SECRET_KEY = '4y7-=w9^v4sa(0jc+km)1lo-d+ot^sf8l1l9)a@n%u_%6m1wa8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ferreteriaferme.pythonanywhere.com', 'localhost',]
 
 
 # Application definition
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
-    "django_tables2",
 ]
 
 MIDDLEWARE = [
