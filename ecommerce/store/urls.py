@@ -28,9 +28,7 @@ urlpatterns = [
 	path('agregar-producto/', views.agregar_producto, name="agregar-producto"),
 
 	path('edit-product/<id>/', views.editProductPage, name="edit-product"),
-
-
-
+	path("id_producto",views.id_producto, name='id_producto'),
 	path("adm-producto/delete/<pk>/",views.eliminar_producto, name='eliminar_producto'),
 
 	path('admin/listado_usuarios/',views.listUser, name="listado_usuarios"),

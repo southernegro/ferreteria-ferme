@@ -39,8 +39,9 @@ class EmployeeForm(ModelForm):
 class ProductoForm(ModelForm):
     class Meta:
         model = Producto
-        fields = ['name', 'price', 'despacho', 'fecha_exp', 
+        fields = ['name', 'sku','price', 'despacho', 'fecha_exp', 
         'stock', 'critic_stock', 'image', 'proveedor', 'familia', 'tipo_producto']
+        exclude = ['sku','fecha_exp',]
 
 class BoletaForm(ModelForm):
     class Meta:

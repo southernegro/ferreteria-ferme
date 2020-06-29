@@ -7,7 +7,7 @@
 
 {% endblock %}
 {% block content %}
-<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+<div class="pb-5 pt-3 container shadow-lg">
     <h2 class="pt-2 pb-4">Catálogo</h2>
     <table class="table ">
         <thead>
@@ -37,13 +37,13 @@
                     <td scope="row"><img src="{% static 'img/captura.png' %}" class="card-img-top" alt="imagen"></td>
                 {% endif %}
                 <td scope="row">{{p.name}}</td>
-                <td scope="row">{{p.sku}}</td>
+                <td scope="row">{{p.skuProducto}}</td>
                 <td scope="row">${{p.price}} CLP</td>
                 <td scope="row">{{p.despacho}}</td>
                 <td scope="row">{{p.stock}}</td>
                 <td scope="row">{{p.proveedor}}</td>
                 <td scope="row">{{p.familia}}</td>
-                <td scope="row">{{p.tipo}}</td>
+                <td scope="row">{{p.tipo_producto}}</td>
                 <td scope="row">
                   <a class="btn btn-outline-info" href="{% url 'edit-product' id=p.id %}">
                       <i class="far fa-edit fa-2x"></i></a>
@@ -60,4 +60,6 @@
         <i class="fa fa-user-plus"></i>Agregar Nuevo Producto</a>
 
 </div>
+
+
 {% endblock %}
