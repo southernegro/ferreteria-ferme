@@ -59,7 +59,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-	  <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme.png' %}" id="logo"/></a>
+	  <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme-b.png' %}" id="logo"/></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -68,26 +68,26 @@
 	    	<ul class="navbar-nav mr-auto">
 
 	      		<li class="nav-item active">
-	        		<a class="nav-link" href="{% url 'store' %}">Inicio <span class="sr-only">(current)</span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'store' %}">Inicio <span class="sr-only">(current)</span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-facturation">
-	        		<a class="nav-link" href="{% url 'adm-factura' %}">Facturas<span class="sr-only"></span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'adm-factura' %}">Facturas<span class="sr-only"></span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-bill">
-	        		<a class="nav-link" href="{% url 'adm-boleta' %}">Boletas<span class="sr-only"></span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'adm-boleta' %}">Boletas<span class="sr-only"></span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-product">
-	        		<a class="nav-link" href="{% url 'adm-producto' %}">Productos<span class="sr-only"></span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'adm-producto' %}">Productos<span class="sr-only"></span></a>
 		  		</li>
 		  		<li class="nav-item active" id="adm-order">
-	        		<a class="nav-link" href="{% url 'adm-ordencompra' %}">Ordenes de Compra<span class="sr-only"></span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'adm-ordencompra' %}">Ordenes de Compra<span class="sr-only"></span></a>
 				  </li>
 					<li class="nav-item active" id="adm-users">
-	        		<a class="nav-link" href="{% url 'listado_usuarios' %}">Usuarios<span class="sr-only"></span></a>
+	        		<a class="nav-link"  style="color: black;" href="{% url 'listado_usuarios' %}">Usuarios<span class="sr-only"></span></a>
 	        	  </li>
 	        	  {% if user.is_authenticated %}
 	        	  	<li class="nav-item active" id="cuenta">
-						<a class="nav-link" href="{% url 'edit' user.id %}">Mi Cuenta<span class="sr-only"></span></a>
+						<a class="nav-link"  style="color: black;" href="{% url 'edit' user.id %}">Mi Cuenta<span class="sr-only"></span></a>
 					</li>
 				   {% endif %}
 			</ul>
@@ -95,11 +95,13 @@
 
 	    <div class="form-inline my-2 my-lg-0">
 			{% if user.is_authenticated  %}
-			Hola {{ user.profile.tipo }} {{ user.profile.name }}!
-			<a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
+			<div style="padding-right: 10px; color: black;">Hola {{ user.profile.tipo }} {{ user.profile.name }}!
+			<br><a href="{% url 'logout' %}" style="color: red;">Cerrar Sesión</a></div>
+
+
 			{% else %}
-  			<p>No estás registrado </p>
-			 <a href="{% url 'login' %}"class="btn btn-warning">Login</a>
+  			<div style="padding-right: 10px; color: black;">No estás registrado
+			<br><a href="{% url 'login' %}" style="color: green;">Iniciar Sesión</a></div>
 			{% endif %}
 
 	     	<a href="{% url 'cart' %}">
@@ -119,9 +121,9 @@
             {% endblock content %}
     </div>
 	<!-- Footer -->
-<footer class="page-footer font-small unique-color-dark">
+<footer class="page-footer font-small unique-color-dark" style="background-color: #110d01">
 
-  <div style="background-color: #4f868c;">
+  <div style="background-color: #FFC107;">
     <div class="container">
 
       <!-- Grid row-->
@@ -129,12 +131,12 @@
 
         <!-- Grid column -->
         <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-          <h6 class="mb-0">Contáctanos en R.R.S.S!</h6>
+          <h6 class="mb-0" style="color: black;">Contáctanos en R.R.S.S!</h6>
         </div>
         <!-- Grid column -->
 
         <!-- Grid column -->
-        <div class="col-md-6 col-lg-7 text-center text-md-right">
+        <div class="col-md-6 col-lg-7 text-center text-md-right" style="color: black;">
 
           <!-- Facebook -->
           <a class="fb-ic">
@@ -176,9 +178,10 @@
       <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
         <!-- Content -->
-        <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme.png' %}" id="logo"/></a>
-        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-        <p>FERME es una empresa familiar dedicada a la venta de productos de ferretería, orientada principalmente a dar un servicio a dueños o dueñas de casa que han obtenido recientemente su propiedad. </p>
+        <div >
+        <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme-y.png' %}" id="logo"/></a></div>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;" >
+        <p style="text-align: left;">FERME es una empresa familiar dedicada a la venta de productos de ferretería, orientada principalmente a entregar un servicio a dueños o dueñas de casa que han obtenido recientemente su propiedad. </p>
 
       </div>
       <!-- Grid column -->
@@ -187,16 +190,16 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Products</h6>
+        <h6 class="text-uppercase font-weight-bold">Productos</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>
-          <a href="#!">Cátalogo</a>
+          <a href="{% url 'store' %}">Cátalogo</a>
         </p>
         <p>
-          <a href="#!">Familias de Productos</a>
+          Familias de Productos
         </p>
         <p>
-          <a href="#!">Ofertas</a>
+          Ofertas
         </p>
 
       </div>
@@ -206,20 +209,24 @@
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+        <h6 class="text-uppercase font-weight-bold">Accesos</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        {% if request.user.is_authenticated %}
         <p>
           <a href="{% url 'edit' user.id %}">Mi Cuenta</a>
         </p>
+        {% endif %}
         <p>
           <a href="{% url 'register' %}">Regístrate</a>
         </p>
         <p>
-          <a href="#!">Trabaja con Nosotros</a>
+          Trabaja con Nosotros
         </p>
+        {% if request.user.profile.supplier.is_supplier %}
         <p>
           <a href="{% url 'proveedor-ordencompra' %}">Acceso Proveedores</a>
         </p>
+        {% endif %}
 
       </div>
       <!-- Grid column -->
@@ -228,12 +235,12 @@
       <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <h6 class="text-uppercase font-weight-bold">Contacto</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>
           <i class="fas fa-home mr-3"></i> Santiago Centro, San Diego 5505, RM</p>
         <p>
-          <i class="fas fa-envelope mr-3"></i> contactoferme@gmail.com</p>
+          <i class="fas fa-envelope mr-3"></i> fermecontacto@gmail.com</p>
         <p>
           <i class="fas fa-phone mr-3"></i> + 56 9 8877 6655</p>
 
@@ -247,8 +254,8 @@
   <!-- Footer Links -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="#!"> Proyecto Portafolio de Título, Duoc UC.</a>
+  <div class="footer-copyright text-center py-3" style="color: #FFC107;">
+  	© 2020 Copyright; Proyecto Portafolio de Título, Duoc UC.
   </div>
   <!-- Copyright -->
 

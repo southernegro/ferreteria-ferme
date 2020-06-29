@@ -35,7 +35,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .bg-dark{
-	background-color: #4f868c!important;
+	background-color: #FFC107!important;
 }
 
 #cart-icon{
@@ -112,4 +112,20 @@ h1,h2,h3,h4,h5,h6{
 
 footer{
     margin-top: 150px;
+}
+
+#nav-link{
+	color: black;
+}
+
+footer p{
+	color: #FFC107;
+}
+
+footer h6{
+	color: #FFC107;
+}
+
+footer a{
+	color: #FFC107;
 }
