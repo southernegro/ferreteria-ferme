@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+import csv
+from django.http import HttpResponse
 import json
 import datetime
 from .models import *
@@ -641,3 +643,29 @@ def consultar_orden_compra(request, pk):
 #Pagina 404
 def page_not_found(request):
     return render(request, 'store/page_not_found.html')
+#exportacion de la tabla de profiles a formato csv
+def exportar_usuarios(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_usuario.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Usuario', 'Nombre', 'Apellido', 'Telefono', 'Correo', 'Tipo de Usuario'])
+
+    users = Profile.objects.all().values_list('user', 'name', 'last_name', 'phone_number', 'email', 'tipo')
+    for user in users:
+        writer.writerow(user)
+
+    return response
+#exportacion de la tabla de producto a formato csv
+def exportar_productos(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_productos.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Nombre', 'SKU', 'Apellido', 'Telefono', 'Correo', 'Tipo de Usuario'])
+
+    users = Profile.objects.all().values_list('user', 'name', 'last_name', 'phone_number', 'email', 'tipo')
+    for user in users:
+        writer.writerow(user)
+
+    return response    
