@@ -57,8 +57,9 @@ urlpatterns = [
 	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),
 	path('edit_order/<pk>/',views.edit_order, name='edit_order'),
 	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
+	path('export/csv/productos', views.exportar_productos, name='exportar_productos'),
+    path('export/csv/usuarios', views.exportar_usuarios, name='exportar_usuarios'),
 	
-    path(r'^export/csv/$', views.exportar_usuarios, name='exportar_usuarios'),
 
 	path('page_not_found', views.page_not_found, name='page_not_found'),
 ]

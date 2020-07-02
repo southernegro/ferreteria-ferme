@@ -647,25 +647,19 @@ def page_not_found(request):
 def exportar_usuarios(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="reporte_usuario.csv"'
-
     writer = csv.writer(response)
-    writer.writerow(['Usuario', 'Nombre', 'Apellido', 'Telefono', 'Correo', 'Tipo de Usuario'])
-
+    writer.writerow(['Usuario', 'Nombre', 'Apellido', 'Teléfono', 'Correo', 'Tipo de Usuario'])
     users = Profile.objects.all().values_list('user', 'name', 'last_name', 'phone_number', 'email', 'tipo')
     for user in users:
         writer.writerow(user)
-
     return response
 #exportacion de la tabla de producto a formato csv
 def exportar_productos(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="reporte_productos.csv"'
-
     writer = csv.writer(response)
-    writer.writerow(['Nombre', 'SKU', 'Apellido', 'Telefono', 'Correo', 'Tipo de Usuario'])
-
-    users = Profile.objects.all().values_list('user', 'name', 'last_name', 'phone_number', 'email', 'tipo')
-    for user in users:
-        writer.writerow(user)
-
+    writer.writerow(['Nombre', 'SKU', 'Precio', 'Despacho Disponible','Stock', 'Proveedor', 'Familia', 'Tipo de Producto'])
+    productos = Producto.objects.all().values_list('name', 'sku', 'price', 'despacho', 'stock', 'critic_stock', 'proveedor', 'familia', 'tipo_producto')
+    for producto in productos:
+        writer.writerow(producto)
     return response    
