@@ -662,4 +662,14 @@ def exportar_productos(request):
     productos = Producto.objects.all().values_list('name', 'sku', 'price', 'despacho', 'stock', 'critic_stock', 'proveedor', 'familia', 'tipo_producto')
     for producto in productos:
         writer.writerow(producto)
-    return response    
+    return response 
+#exportacion de la tabla de boleta a formato csv    
+def exportar_boletas(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_boletas.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID de Venta', 'N° de Boleta', 'Vendedor','Total'])
+    boletas = Boleta.objects.all().values_list('order', 'n_boleta', 'vendedor', 'total')
+    for boleta in boletas:
+        writer.writerow(boleta)
+    return response        
