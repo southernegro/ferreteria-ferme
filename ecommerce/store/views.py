@@ -646,7 +646,7 @@ def page_not_found(request):
 #exportacion de la tabla de profiles a formato csv
 def exportar_usuarios(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="reporte_usuario.csv"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_de_usuario.csv"'
     writer = csv.writer(response)
     writer.writerow(['Usuario', 'Nombre', 'Apellido', 'Teléfono', 'Correo', 'Tipo de Usuario'])
     users = Profile.objects.all().values_list('user', 'name', 'last_name', 'phone_number', 'email', 'tipo')
@@ -656,7 +656,7 @@ def exportar_usuarios(request):
 #exportacion de la tabla de producto a formato csv
 def exportar_productos(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="reporte_productos.csv"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_de_productos.csv"'
     writer = csv.writer(response)
     writer.writerow(['Nombre', 'SKU', 'Precio', 'Despacho Disponible','Stock', 'Proveedor', 'Familia', 'Tipo de Producto'])
     productos = Producto.objects.all().values_list('name', 'sku', 'price', 'despacho', 'stock', 'critic_stock', 'proveedor', 'familia', 'tipo_producto')
@@ -666,20 +666,30 @@ def exportar_productos(request):
 #exportacion de la tabla de boleta a formato csv    
 def exportar_boletas(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="reporte_boletas.csv"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_de_boletas.csv"'
     writer = csv.writer(response)
     writer.writerow(['ID de Venta', 'N° de Boleta', 'Vendedor','Total'])
     boletas = Boleta.objects.all().values_list('order', 'n_boleta', 'vendedor', 'total')
     for boleta in boletas:
         writer.writerow(boleta)
     return response  
- #exportacion de la tabla de factura a formato csv    
+#exportacion de la tabla de factura a formato csv    
 def exportar_facturas(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="reporte_facturas.csv"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_de_facturas.csv"'
     writer = csv.writer(response)
     writer.writerow(['ID de Venta', 'N° de Factura', 'Vendedor', 'Rut', 'Razón Social', 'Giro', 'Total'])
     facturas = Factura.objects.all().values_list('order', 'n_factura', 'vendedor', 'rut', 'razon', 'giro', 'total')
     for factura in facturas:
         writer.writerow(factura)
-    return response           
+    return response
+#exportacion de la tabla de ordenes de compra a formato csv    
+def exportar_ordenes(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_de_ordenes_de_compra.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Remitente', 'Fecha de Creacion', 'Enviada', 'Proveedor', 'Detalle'])
+    ordenes = OrdenCompra.objects.all().values_list('remitente', 'fecha', 'enviado', 'proveedor', 'detalle')
+    for orden in ordenes:
+        writer.writerow(orden)
+    return response              

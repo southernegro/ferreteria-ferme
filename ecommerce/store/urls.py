@@ -60,6 +60,7 @@ urlpatterns = [
 	path('export/csv/productos', views.exportar_productos, name='exportar_productos'),
 	path('export/csv/boletas', views.exportar_boletas, name='exportar_boletas'),
 	path('export/csv/facturas', views.exportar_facturas, name='exportar_facturas'),
+	path('export/csv/ordenes', views.exportar_ordenes, name='exportar_ordenes'),
     path('export/csv/usuarios', views.exportar_usuarios, name='exportar_usuarios'),
 	
 
