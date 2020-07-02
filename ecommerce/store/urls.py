@@ -59,6 +59,7 @@ urlpatterns = [
 	path('eliminar_factura/<pk>/' ,views.eliminar_factura, name='eliminar-factura'),
 	path('export/csv/productos', views.exportar_productos, name='exportar_productos'),
 	path('export/csv/boletas', views.exportar_boletas, name='exportar_boletas'),
+	path('export/csv/facturas', views.exportar_facturas, name='exportar_facturas'),
     path('export/csv/usuarios', views.exportar_usuarios, name='exportar_usuarios'),
 	
 

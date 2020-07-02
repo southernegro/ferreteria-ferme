@@ -672,4 +672,14 @@ def exportar_boletas(request):
     boletas = Boleta.objects.all().values_list('order', 'n_boleta', 'vendedor', 'total')
     for boleta in boletas:
         writer.writerow(boleta)
-    return response        
+    return response  
+ #exportacion de la tabla de factura a formato csv    
+def exportar_facturas(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_facturas.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID de Venta', 'N° de Factura', 'Vendedor', 'Rut', 'Razón Social', 'Giro', 'Total'])
+    facturas = Factura.objects.all().values_list('order', 'n_factura', 'vendedor', 'rut', 'razon', 'giro', 'total')
+    for factura in facturas:
+        writer.writerow(factura)
+    return response           
