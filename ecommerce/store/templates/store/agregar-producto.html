@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+<div class="pb-5 pt-3 container shadow-lg">
     <h2>Agregar Producto</h2>
     <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -11,7 +11,7 @@
         </table> 
         <div class="py-4">
             <input class="btn btn-success" type="submit" value="Agregar">
-            <a class="btn btn-primary" href="{% url 'store'%}">Visualizar Productos</a>
+            <a class="btn btn-primary" href="{% url 'adm-producto'%}">Visualizar Productos</a>
         </div> 
         
     </form>

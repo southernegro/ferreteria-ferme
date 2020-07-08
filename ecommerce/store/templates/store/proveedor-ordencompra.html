@@ -1,9 +1,12 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-<div class="pb-5 pt-3 container shadow-lg" style="margin-bottom: 100vh;">
+<div class="pb-5 pt-3 container shadow-lg">
     <div class='row'>
         <h2 class="pt-2 pb-4" style='margin-left: 2vh'>Consultar Orden de Compra</h1>
+    </div>
+    <div class="alert alert-info" role="alert">
+        <strong>Hola {{request.user.profile.name}}!</strong> Para revisar el detalle de la Orden de Compra, ingresa el ID de esta, la cual te fue entregada al momento en que recibiste la Orden.
     </div>
     <div>
         <div>
@@ -11,10 +14,9 @@
             <input type="text" class="form-control" id="id-orden" placeholder="Ej: 1234">
         </div>
         <div class="pt-4">
-            <a onclick="getOrderId()" class="btn btn-outline-primary" id="href-button"  href="{% url 'proveedor-ordencompra' %}">Consultar</a>                                                                    
+            <a onclick="getOrderId()" class="btn btn-outline-primary" id="href-button"  href="{% url 'proveedor-ordencompra' %}">Consultar</a>                           
         </div>
     </div>
-
 </div>
 
 <script type="text/javascript">

@@ -1,6 +1,30 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+<a data-toggle="modal" data-target="#exampleModalInfo"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+<div class="modal fade" id="exampleModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><strong>Manual de Ayuda</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p><strong>Carrito de Compras de Ferretería Ferme</strong></p>
+				<p>Al hacer click en el botón "Continuar Comprando", volverás a la página principal de la tienda.</p>
+				<p>Debajo, podrás visualizar la cantidad productos que agregaste al carrito. También verás el total a pagar. Y podrás escoger entre generar una Boleta o una Factura para tu compra.</p>
+				<p>Además, podrás visualizar el precio, la cantidad y el total de cada producto que has agregado.</p>
+				<p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Volver</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="box-element">
