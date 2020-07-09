@@ -52,6 +52,7 @@ urlpatterns = [
 	path('consultar_orden/<pk>/', views.consultar_orden_compra, name='consultar-ordencompra'),
 	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
 	path('eliminar-ordencompra/<pk>/',views.eliminar_orden_compra, name='eliminar-ordencompra'),
+	path('revisar-ordencompra/<pk>/',views.review_order, name='review_order'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
 	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),

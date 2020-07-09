@@ -507,6 +507,14 @@ def edit_order(request, pk):
         data['form']=OrdenCompraForm(instance=OrdenCompra.objects.get(pk=pk))
     return render(request,'store/edit_order.html', data)
 
+#Revisión orden de compra
+def review_order(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    context={
+        'orden': orden
+    }
+    return render(request, 'store/review_order.html',context)
+
 #Check Out Factura
 def checkoutfact(request):
 

@@ -15,6 +15,7 @@
                 <th scope="col">Proveedor</th>
                 <th scope="col">Detalle/Modificar</th>
                 <th scope="col">Eliminar</th>
+                <th scope="col">Revisar</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +40,10 @@
                 <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta Orden de Compra?" href="{% url 'eliminar-ordencompra' pk=o.id %}" target="_blank">Eliminar</a>
                 </td>
                 {% endif %}
-
+                <td scope="row">
+                    <a class="btn btn-outline-info" href="{% url 'review_order' pk=o.id%}">
+                        <i class="fa fa-arrow-right fa-2x"></i></a>
+                </td>
             </tr>
 
             {% endfor %}
