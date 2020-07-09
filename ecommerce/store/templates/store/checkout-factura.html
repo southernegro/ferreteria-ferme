@@ -1,6 +1,32 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+<a data-toggle="modal" data-target="#exampleModalInfo"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+<div class="modal fade" id="exampleModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><strong>Manual de Ayuda</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p><strong>Checkout con Factura de Ferretería Ferme</strong></p>
+				<p>En el lado izquierdo tu pantalla, verás un formulario. Si no estás registrado en nuestra web, deberás ingresar tu Nombre e Email. Y también, al ser una venta con factura, deberás ingresar la información de tu empresa.</p>
+				<p>Debajo, visualizarás otro formulario donde deberás ingresar tus datos de despacho, es decir, dónde quieres recibir tus productos. Si realizarás retiro en tienda, simplemente deja en blanco este formulario.</p>
+				<p>Después de hacer click en "Continuar", visualizarás el botón "Pagar". Al hacer click se desplegará una ventana con la información de tu compra. A continuación tendrás dos opciones, clickear el botón "Volver" o bien, clickear el botón "Finalizar Compra", con esta última opción, se cerrará esta ventana y se te redirigirá a nuestra página principal.</p>
+				<p>En el lado derecho tu pantalla, verás el botón de "Volver al Carro", el cual lógicamente, te devuelve al carro de compras.</p>
+				<p>Finalmente, debajo de este botón, visualizarás un pequeño resumen de tu compra.</p>
+				<p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Volver</button>
+			</div>
+		</div>
+	</div>
+</div>
+
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">

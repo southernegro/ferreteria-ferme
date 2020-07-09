@@ -3,6 +3,30 @@
 {% load static %}
 
 {% block content %}
+<a data-toggle="modal" data-target="#exampleModalInfo"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+<div class="modal fade" id="exampleModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><strong>Manual de Ayuda</strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Administración de Ordenes de Compra de Ferretería Ferme</strong></p>
+                <p>En este módulo, visualizarás un listado con todas las ordenes de compra que se han generado en el sitio, con su respectiva información.</p>
+                <p>Al final de cada Orden, visualizarás dos botones, el primero te permitirá editar esta orden. El segundo, te permitirá eliminar la misma.</p>
+                <p>Finalmente, al final de este listado, verás dos botones: "Generar Nueva Orden de Compra" y "Exportar", el primero, te permitirá generar una nueva orden, la cual podrás guardar como borrador, o enviarla directamente al Proveedor que hayas escogido. El segundo exportará todo este listado a un archivo CSV, el cual puedes visualizar con la aplicación Microsoft Excel, LibreOffice o desde GoogleDocs.</p>
+                <p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Volver</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="pb-5 pt-3 container shadow-lg">
     <h2 class="pt-2 pb-4">Ordenes de Compra</h2>
     <table class="table ">
@@ -51,6 +75,8 @@
     </table>
     <a class="btn btn-outline-primary" href="{% url 'generar-ordencompra' %}">
         <i class="fa fa-user-plus"></i>Generar Nueva Orden de Compra</a>
+    <a class="btn btn-outline-success" href="{% url 'exportar_ordenes'%}" style='float: right; margin-right: 2vw;'>
+        Exportar <i class="fa fa-file-excel-o"></i></a>    
 
 </div>
 {% endblock %}

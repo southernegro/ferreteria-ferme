@@ -1,13 +1,37 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+<a data-toggle="modal" data-target="#exampleModalInfo"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+<div class="modal fade" id="exampleModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><strong>Manual de Ayuda</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p><strong>Esta es la página principal de Ferretería Ferme</strong></p>
+				<p>Aquí podrás encontrar todos nuestros productos disponibles.</p>
+				<p>Al hacer click en el botón Comprar, el producto se agregará automáticamente al carrito de compras. Este carrito puedes visualizarlo en la esquina superior derecha de tu pantalla.</p>
+				<p>Al hacer click en el botón Ver Más, podrás acceder a la información completa de cada producto.</p>
+				<p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Volver</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <img class="d-block w-100" src="{% static 'img/slide1.png' %}" data-src="holder.js/900x400?theme=social" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{% static 'img/slide2.png' %}" data-src="holder.js/900x400?theme=industrial" alt="Second slide">
+      <img class="d-block w-100" src="{% static 'img/slide3.png' %}" data-src="holder.js/900x400?theme=industrial" alt="Second slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -31,7 +55,7 @@
 				<hr>
 
 				<button data-product={{product.id}} data-action="add" class="btn btn-warning add-btn update-cart">Comprar</button>
-				<a class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal{{product.id}}">Ver más...</a>
+				<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal{{product.id}}">Ver más...</button>
 				<h4 style="float: right">
 				$ {{product.price|floatformat:0}}</h4>
 			</div>
