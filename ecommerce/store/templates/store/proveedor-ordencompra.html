@@ -6,29 +6,45 @@
         <h2 class="pt-2 pb-4" style='margin-left: 2vh'>Consultar Orden de Compra</h1>
     </div>
     <div class="alert alert-info" role="alert">
-        <strong>Hola {{request.user.profile.name}}!</strong> Para revisar el detalle de la Orden de Compra, ingresa el ID de esta, la cual te fue entregada al momento en que recibiste la Orden.
+        <strong>Hola {{request.user.profile.name}}!</strong> Aquí encontrarás todas las Ordenes de Compra que te han sido enviadas. Para revisar el detalle, haz click en el botón Revisar
     </div>
-    <div>
-        <div>
-            <label for="basic-url">ID de la Orden</label>
-            <input type="text" class="form-control" id="id-orden" placeholder="Ej: 1234">
-        </div>
-        <div class="pt-4">
-            <a onclick="getOrderId()" class="btn btn-outline-primary" id="href-button"  href="{% url 'proveedor-ordencompra' %}">Consultar</a>                           
-        </div>
-    </div>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">Id Orden</th>
+                <th scope="col">Remitente</th>
+                <th scope="col">Fecha Solicitud</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Revisar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in orden %}
+            {% if o.proveedor.pk == prov.pk %}
+            {% if o.enviado == True %}
+            <tr>
+                <td scope="row">{{o.id}}</td>
+                <td scope="row">{{o.remitente.name}}</td>
+                <td scope="row">{{o.fecha}}</td>
+                {% if o.enviado == True %}
+                <td scope="row">Enviado</td>
+                {% endif %}
+                {% if o.enviado == False  %}
+                <td scope="row">En Espera</td>
+                {% endif %}
+                <td scope="row">{{o.proveedor.profile.name}}</td>
+                <td scope="row">
+                  <a class="btn btn-outline-info" href="{% url 'check_order' pk=o.id %}">
+                      <i class="fa fa-eye fa-2x"></i></a>
+                </td>
+
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-<script type="text/javascript">
-    document.getElementById('id-orden').validity.valid
-    button = document.getElementById('href-button')
-    oldUrlString = button.attributes.href.nodeValue
-    function getOrderId() {
-        value = document.getElementById('id-orden').value
-        newUrl = oldUrlString.concat(`${"/"}${value}`)
-        button.attributes.href.nodeValue = newUrl
-    }
-
-
-</script>
 {% endblock content %}

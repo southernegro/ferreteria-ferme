@@ -82,6 +82,7 @@ def registerClient(request):
             new_user = form.save()
             profile = profile.save(commit=False)
             profile.user = new_user
+            profile.tipo = 'Cliente'
             profile.save()
             client = client.save(commit=False)
             client.profile = profile
@@ -111,8 +112,8 @@ def registerSeller(request):
             new_user = form.save()
             profile = profile.save(commit=False)
             profile.user = new_user
+            profile.tipo = 'Vendedor'
             profile.save()
-            #if client.is_valid():
             seller = seller.save(commit=False)
             seller.profile = profile
             seller.save()
@@ -141,8 +142,8 @@ def registerSupplier(request):
             new_user = form.save()
             profile = profile.save(commit=False)
             profile.user = new_user
+            profile.tipo = 'Proveedor'
             profile.save()
-            #if client.is_valid():
             supplier = supplier.save(commit=False)
             supplier.profile = profile
             supplier.save()
@@ -171,8 +172,8 @@ def registerEmployee(request):
             new_user = form.save()
             profile = profile.save(commit=False)
             profile.user = new_user
+            profile.tipo = 'Empleado'
             profile.save()
-            #if client.is_valid():
             employee = employee.save(commit=False)
             employee.profile = profile
             employee.save()
@@ -594,7 +595,7 @@ def eliminar_factura(request, pk):
     factura.delete()
     return redirect(to='adm-factura')    
 
-#Listado Boleta
+#Listado Ordenes
 def adm_ordencompra(request):
     orden = OrdenCompra.objects.all()
     context={
@@ -628,17 +629,20 @@ def eliminar_orden_compra(request, pk):
     return redirect(to='adm-ordencompra')    
 #Vista de proveedor, para consultar ordenes de compra    
 def vista_proveedor(request):
-    return render(request, 'store/proveedor-ordencompra.html')
+    prov = request.user.profile.supplier
+    orden = OrdenCompra.objects.all()
+    context={
+        'orden': orden, 'prov': prov
+    }
+    return render(request, 'store/proveedor-ordencompra.html', context)
+
 #Consultar Orden de Compra
-def consultar_orden_compra(request, pk):
-    orden = OrdenCompra.objects.filter(pk=pk).first()
-    if orden is not None:
-        data = {
-            'form': OrdenCompraForm(instance=orden),
-        }
-        return render(request, 'store/consultar-ordencompra.html', data)
-    else:
-        return redirect(to='page_not_found')
+def check_order(request, pk):
+    order = OrdenCompra.objects.get(pk=pk)
+    data = {
+        'order':order
+    }
+    return render(request,'store/check_order.html', data)
 
 #Pagina 404
 def page_not_found(request):
