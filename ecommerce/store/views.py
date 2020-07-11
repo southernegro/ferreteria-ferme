@@ -38,7 +38,8 @@ def editUser(request, pk):
     perfil = Profile.objects.get(user_id=pk)
     data = {
         'form': CustomUserForm(instance=usuario),
-        'profile': ProfileForm(instance=perfil)
+        'profile': ProfileForm(instance=perfil),
+        'perfil':perfil
     }
     if request.method == 'POST':
         formulario = CustomUserForm(data=request.POST, instance=usuario)
@@ -57,7 +58,7 @@ def editUser(request, pk):
 def editProductPage(request, id):
     producto = Producto.objects.get(id=id)
     data = {
-        'form': ProductoForm(instance=producto)
+        'form': ProductoForm(instance=producto), 'producto':producto
     }
     if request.method == 'POST':
         formulario = ProductoForm(data=request.POST, instance=producto)
@@ -499,7 +500,7 @@ def edit_receipt(request, pk):
 def edit_order(request, pk):
     order = OrdenCompra.objects.get(pk=pk)
     data = {
-        'form': OrdenCompraForm(instance=order),
+        'form': OrdenCompraForm(instance=order), 'order':order
     }
     if request.method == 'POST':
         formulario = OrdenCompraForm(data=request.POST, instance=order)

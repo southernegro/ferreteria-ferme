@@ -3,6 +3,8 @@
 {% block content %}
 
 <div class="pb-5 pt-3 container shadow-lg">
+    <a  class="btn btn-outline-dark" href="{% url 'adm-producto' %}">&#x2190; Volver al Listado</a>
+    <p></p>
     <h2>Agregar Producto</h2>
     <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -10,8 +12,7 @@
             {{ form.as_table }}
         </table> 
         <div class="py-4">
-            <input class="btn btn-success" type="submit" value="Agregar">
-            <a class="btn btn-primary" href="{% url 'adm-producto'%}">Visualizar Productos</a>
+            <input class="btn btn-outline-success" type="submit" value="Guardar y Publicar">
         </div> 
         
     </form>

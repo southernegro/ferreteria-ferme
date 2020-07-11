@@ -17,7 +17,7 @@
                 <p><strong>Administración de Facturas de Ferretería Ferme</strong></p>
                 <p>En este módulo, visualizarás un listado con todas las facturas que se han generado en el sitio, con su respectiva información.</p>
                 <p>Al final de cada factura, visualizarás dos botones, el primero te permitirá editar esta factura. El segundo, te permitirá eliminar la misma.</p>
-                <p>Finalmente, al final de este listado, verás un botón "Exportar", el cual exportará todo este listado a un archivo CSV, el cual puedes visualizar con la aplicación Microsoft Excel, LibreOffice o desde GoogleDocs.</p>
+                <p>Finalmente, en la esquina superior derecha de tu pantalla, verás un botón "Exportar", el cual exportará todo este listado a un archivo CSV, el cual puedes visualizar con la aplicación Microsoft Excel, LibreOffice o desde GoogleDocs.</p>
                 <p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
             </div>
             <div class="modal-footer">
@@ -28,6 +28,8 @@
 </div>
 
 <div class="pb-5 pt-3 container shadow-lg">
+    <a class="btn btn-outline-success" href="{% url 'exportar_facturas'%}" style='float: right; margin-right: 1vw;'>
+        Exportar <i class="fa fa-file-excel-o"></i></a>
     <h2 class="pt-2 pb-4">Facturas</h2>
     <table class="table ">
         <thead>
@@ -69,7 +71,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-outline-success" href="{% url 'exportar_facturas'%}" style='float: right; margin-right: 1vw;'>
-        Exportar <i class="fa fa-file-excel-o"></i></a>
 </div>
 {% endblock %}

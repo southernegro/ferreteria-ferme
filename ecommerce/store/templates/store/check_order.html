@@ -5,10 +5,11 @@
     
 
 	<div class="container h-100">
+        <a  class="btn btn-outline-dark" href="{% url 'proveedor-ordencompra' %}">&#x2190; Volver al Listado</a>
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
                 <div class="d-flex justify-content-center">
-                    <h3 class="form-tittle">REVISAR ORDEN DE COMPRA</h3>
+                    <h3 class="form-tittle">ORDEN DE COMPRA #{{order.id}}</h3>
                 </div>
                 <div>
                     <div class="input-group mb-3">
@@ -23,9 +24,6 @@
                             <span class="input-group-text"><i class="fa fa-comment-o"></i></span>
                         </div>
                         {{order.detalle}}
-                    </div>
-                    <div>
-                        <a href="{% url 'proveedor-ordencompra' %}" class="btn btn-outline-info">Volver</a>
                     </div>
                 </div>
             </div>
