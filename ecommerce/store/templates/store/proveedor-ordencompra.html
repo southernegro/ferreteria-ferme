@@ -14,6 +14,7 @@
                 <th scope="col">Id Orden</th>
                 <th scope="col">Remitente</th>
                 <th scope="col">Fecha Solicitud</th>
+                <th scope="col">Recepción</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Revisar</th>
@@ -27,6 +28,7 @@
                 <td scope="row">{{o.id}}</td>
                 <td scope="row">{{o.remitente.name}}</td>
                 <td scope="row">{{o.fecha}}</td>
+                <td scope="row">{{o.status}}</td>
                 {% if o.enviado == True %}
                 <td scope="row">Enviado</td>
                 {% endif %}
