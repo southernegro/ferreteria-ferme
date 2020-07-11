@@ -621,6 +621,7 @@ def orden_compra(request):
         if formulario.is_valid():
             formulario = formulario.save(commit=False)
             formulario.remitente = remitente
+            formulario.status = 1
             if 'btnsend' in request.POST:
                 formulario.enviado = True
             formulario.save()
