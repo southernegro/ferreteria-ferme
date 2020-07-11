@@ -63,6 +63,10 @@
                 {% if o.enviado == False  %}
                 <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta Orden de Compra?" href="{% url 'eliminar-ordencompra' pk=o.id %}" >Eliminar</a>
                 </td>
+                {% else %}
+                <td scope="row">
+                    <a class="btn btn-large btn-danger disabled">Eliminar</a>
+                </td>
                 {% endif %}
                 <td scope="row">
                     <a class="btn btn-outline-info" href="{% url 'review_order' pk=o.id%}">

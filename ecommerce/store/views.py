@@ -515,6 +515,12 @@ def review_order(request, pk):
     context={
         'orden': orden
     }
+    if 'btnapproved':
+        orden.status='Aprobado'
+        orden.save()
+    if 'btnreject':
+        orden.status='Rechazado'
+        orden.save()
     return render(request, 'store/review_order.html',context)
 
 #Check Out Factura
@@ -621,7 +627,6 @@ def orden_compra(request):
         if formulario.is_valid():
             formulario = formulario.save(commit=False)
             formulario.remitente = remitente
-            formulario.status = 1
             if 'btnsend' in request.POST:
                 formulario.enviado = True
             formulario.save()
