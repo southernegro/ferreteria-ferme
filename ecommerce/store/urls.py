@@ -31,6 +31,10 @@ urlpatterns = [
 	path("id_producto",views.id_producto, name='id_producto'),
 	path("adm-producto/delete/<pk>/",views.eliminar_producto, name='eliminar_producto'),
 
+	path("store/enviar-orden/<pk>", views.send_order, name='send_order'),
+	path("store/aprobar/<pk>/", views.aprobarOrden, name='aprobarOrden'),
+	path("store/rechazar/<pk>/", views.rechazarOrden, name='rechazarOrden'),
+
 	path('admin/listado_usuarios/',views.listUser, name="listado_usuarios"),
 	path('admin/users/edit/<pk>/' ,views.editUser, name='edit_user'),
 	path('admin/users/delete/<pk>/',views.deleteUser, name='delete_user'),
@@ -52,6 +56,7 @@ urlpatterns = [
 	path('check_order/<pk>/', views.check_order, name='check_order'),
 	path('generar-ordencompra',views.orden_compra, name='generar-ordencompra'),
 	path('eliminar-ordencompra/<pk>/',views.eliminar_orden_compra, name='eliminar-ordencompra'),
+	path('revisar-ordencompra/<pk>/',views.review_order, name='review_order'),
 	path('delete_bill/<pk>/',views.delete_bill, name='delete_bill'),
 	path('edit_bill/<pk>/' ,views.edit_bill, name='edit_bill'),
 	path('edit_receipt/<pk>/', views.edit_receipt, name='edit_receipt'),

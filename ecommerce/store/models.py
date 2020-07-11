@@ -235,12 +235,22 @@ class Factura(models.Model):
     def __str__(self):
         return 'Factura: ' + self.n_factura
 
+
+ordenCompra_status = (
+    ('En espera', 'En espera'),
+    ('Aprobado', 'Aprobado'),
+    ('Rechazado', 'Rechazado')
+)
+   
+
+
 class OrdenCompra(models.Model):
     remitente = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
     fecha = models.DateTimeField(auto_now_add=True)
     enviado = models.BooleanField(default=False, null=True, blank=False)
     proveedor = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
     detalle = models.TextField(max_length=200, null=True)
+    status = models.CharField(max_length=50,null=False, blank=False,choices=ordenCompra_status,default='En espera')
 
     def __str__(self):
         return str(self.id)

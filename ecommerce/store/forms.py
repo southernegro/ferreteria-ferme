@@ -56,5 +56,5 @@ class FacturaForm(ModelForm):
 class OrdenCompraForm(ModelForm):
     class Meta:
         model = OrdenCompra
-        fields = ['remitente', 'fecha', 'enviado', 'proveedor', 'detalle']
-        exclude = ['remitente', 'fecha', 'enviado',]
+        fields = ['remitente', 'fecha', 'enviado', 'proveedor', 'detalle', 'status']
+        exclude = ['remitente', 'fecha', 'enviado','status']
