@@ -18,10 +18,14 @@
                 <h2>Estado de orden</h2>
                 {{ orden.status }}
                 <div style="padding-top: 30vh;">
-                    <button type="button" class="btn btn-success" name="btnapproved">
+                    <button type="button" class="btn btn-success"
+                            data-toggle="confirmation" data-title="¿ Aprobar orden ?"
+                            href="{% url 'aprobarOrden' pk=orden.pk %}">
                         <i class="fa fa-check">Aprobar Orden</i>
                     </button>
-                    <button type="button" class="btn btn-danger" name="btnreject">
+                    <button type="button" class="btn btn-danger"
+                            data-toggle="confirmation" data-title="¿ Rechazar orden ?"
+                            href="{% url 'rechazarOrden' pk=orden.pk %}">
                         <i class="fa fa-times">Rechazar Orden</i>
                     </button>
                 </div>

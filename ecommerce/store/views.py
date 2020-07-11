@@ -503,11 +503,27 @@ def edit_order(request, pk):
     if request.method == 'POST':
         formulario = OrdenCompraForm(data=request.POST, instance=order)
         if formulario.is_valid():
+            if 'btnsend' in request.POST:
+                order.enviado = True
+                formulario.save()
             formulario.save()
             data['mensaje']='Orden de compra modificada correctamente'
             return redirect(to='adm-ordencompra')
         data['form']=OrdenCompraForm(instance=OrdenCompra.objects.get(pk=pk))
     return render(request,'store/edit_order.html', data)
+
+def send_order(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    if request.method=='POST':
+        formulario = OrdenCompraForm(request.POST)
+        if formulario.is_valid():
+            formulario = formulario.save(commit=False)
+            if 'btnsend' in request.POST:
+                formulario.enviado = True
+            formulario.save()
+            data['mensaje']='Producto agregado con éxito'
+        return redirect(to='adm-ordencompra')
+    return redirect(to='adm-ordencompra')
 
 #Revisión orden de compra
 def review_order(request, pk):
@@ -515,14 +531,19 @@ def review_order(request, pk):
     context={
         'orden': orden
     }
-    if 'btnapproved':
-        orden.status='Aprobado'
-        orden.save()
-    if 'btnreject':
-        orden.status='Rechazado'
-        orden.save()
     return render(request, 'store/review_order.html',context)
 
+def aprobarOrden(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    orden.status='Aprobado'
+    orden.save()
+    return redirect(to='adm-ordencompra')
+
+def rechazarOrden(request, pk):
+    orden = OrdenCompra.objects.get(pk=pk)
+    orden.status='Rechazado'
+    orden.save()
+    return redirect(to='adm-ordencompra')
 #Check Out Factura
 def checkoutfact(request):
 

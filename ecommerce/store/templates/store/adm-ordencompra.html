@@ -35,6 +35,7 @@
             	<th scope="col">Id Orden</th>
             	<th scope="col">Remitente</th>
                 <th scope="col">Fecha Solicitud</th>
+                <th scope="col">Recepcion</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Detalle/Modificar</th>
@@ -49,6 +50,7 @@
             	<td scope="row">{{o.id}}</td>
                 <td scope="row">{{o.remitente.name}}</td>
                 <td scope="row">{{o.fecha}}</td>
+                <td scope="row">{{o.status}}</td>
                 {% if o.enviado == True %}
                 <td scope="row">Enviado</td>
                 {% endif %}
@@ -61,17 +63,24 @@
                       <i class="far fa-edit fa-2x"></i></a>
                 </td>
                 {% if o.enviado == False  %}
-                <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta Orden de Compra?" href="{% url 'eliminar-ordencompra' pk=o.id %}" >Eliminar</a>
+                <td scope="row"><a class="btn btn-large btn-danger" data-toggle="confirmation" data-title="¿Seguro quiere eliminar esta Orden de Compra?" href="{% url 'eliminar-ordencompra' pk=o.id %}">Eliminar</a>
                 </td>
                 {% else %}
                 <td scope="row">
                     <a class="btn btn-large btn-danger disabled">Eliminar</a>
                 </td>
                 {% endif %}
+                {% if o.enviado == True %}
+                    <td scope="row">
+                        <a class="btn btn-outline-info" href="{% url 'review_order' pk=o.id%}">
+                            <i class="fa fa-arrow-right fa-2x"></i></a>
+                    </td>
+                {% else %}
                 <td scope="row">
-                    <a class="btn btn-outline-info" href="{% url 'review_order' pk=o.id%}">
+                    <a class="btn btn-outline-info disabled" href="{% url 'review_order' pk=o.id%}">
                         <i class="fa fa-arrow-right fa-2x"></i></a>
                 </td>
+                {% endif %}
             </tr>
 
             {% endfor %}

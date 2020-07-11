@@ -31,6 +31,10 @@ urlpatterns = [
 	path("id_producto",views.id_producto, name='id_producto'),
 	path("adm-producto/delete/<pk>/",views.eliminar_producto, name='eliminar_producto'),
 
+	path("store/enviar-orden/<pk>", views.send_order, name='send_order'),
+	path("store/aprobar/<pk>/", views.aprobarOrden, name='aprobarOrden'),
+	path("store/rechazar/<pk>/", views.rechazarOrden, name='rechazarOrden'),
+
 	path('admin/listado_usuarios/',views.listUser, name="listado_usuarios"),
 	path('admin/users/edit/<pk>/' ,views.editUser, name='edit_user'),
 	path('admin/users/delete/<pk>/',views.deleteUser, name='delete_user'),
