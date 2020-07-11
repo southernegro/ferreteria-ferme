@@ -17,6 +17,7 @@
                 <p><strong>Administración de Ordenes de Compra de Ferretería Ferme</strong></p>
                 <p>En este módulo, visualizarás un listado con todas las ordenes de compra que se han generado en el sitio, con su respectiva información.</p>
                 <p>Al final de cada Orden, visualizarás dos botones, el primero te permitirá editar esta orden. El segundo, te permitirá eliminar la misma.</p>
+                <p>La columna Recepción, hace referencia al momento en que se recibe la orden de compra en la ferretería. Si en el envío no hay problemas, esta se aprueba. Si hace falta algún producto, o llegó defectuoso, será rechazada.</p>
                 <p>Finalmente, al final de este listado, verás dos botones: "Generar Nueva Orden de Compra" y "Exportar", el primero, te permitirá generar una nueva orden, la cual podrás guardar como borrador, o enviarla directamente al Proveedor que hayas escogido. El segundo exportará todo este listado a un archivo CSV, el cual puedes visualizar con la aplicación Microsoft Excel, LibreOffice o desde GoogleDocs.</p>
                 <p style="float: right;"><small>Ferretería Ferme. <br> En tu barrio, siempre.</small> </p>
             </div>
@@ -28,7 +29,16 @@
 </div>
 
 <div class="pb-5 pt-3 container shadow-lg">
+    <div class="alert alert-warning" role="alert" >
+          <strong>OJO!</strong> Una Orden de Compra que ya ha sido enviada a su Proveedor, no permite ser eliminada.
+    </div>
+
+    
     <h2 class="pt-2 pb-4">Ordenes de Compra</h2>
+    <a class="btn btn-outline-success" href="{% url 'exportar_ordenes'%}" style='float: right; margin-right: 2vw;'>
+        Exportar <i class="fa fa-file-excel-o"></i></a>
+        <a class="btn btn-outline-primary" href="{% url 'generar-ordencompra' %}" style='float: right; margin-right: 2vw;'>
+        <i class="fa fa-plus"></i> Generar Nueva Orden de Compra</a>
     <table class="table ">
         <thead>
             <tr>
@@ -86,10 +96,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-outline-primary" href="{% url 'generar-ordencompra' %}">
-        <i class="fa fa-user-plus"></i>Generar Nueva Orden de Compra</a>
-    <a class="btn btn-outline-success" href="{% url 'exportar_ordenes'%}" style='float: right; margin-right: 2vw;'>
-        Exportar <i class="fa fa-file-excel-o"></i></a>    
+    
 
 </div>
 {% endblock %}

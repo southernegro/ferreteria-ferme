@@ -4,6 +4,7 @@
     <title>Editar Factura</title>
 <body>
     <div class="container h-100">
+        <a  class="btn btn-outline-dark" href="{% url 'adm-factura' %}">&#x2190; Volver al Listado</a>
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
                 <div class="d-flex justify-content-center">
@@ -68,7 +69,7 @@
         </div>
     </div>
     <div class="alert alert-warning" role="alert" style="margin-top: 10vh;">
-        <strong>OJO!</strong> Modificar una factura implica que conoces los riesgos de realizar esta acción. Si modificas esta factura, es porque también realizará la notificación al SII.
+        <strong>OJO!</strong> Modificar una factura implica que conoces los riesgos de realizar esta acción. Si modificas esta factura, es porque también conoces tu deber de realizar la respectiva notificación al SII.
     </div>
     <script>
         /* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
