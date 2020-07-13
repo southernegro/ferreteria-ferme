@@ -2,21 +2,20 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import csv
 from django.http import HttpResponse
 import json
 import datetime
 from .models import *
-#from django_tables2 import SingleTableView
-#from .tables import ProfileTable
 from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, FacturaForm, OrdenCompraForm
 from .utils import cookieCart, cartData, guestOrder
-#import django_tables2 as tables
 
 
 
 #Listado Usuarios
+@login_required
 def listUser(request):
     users = Profile.objects.all()
     data={
@@ -25,6 +24,7 @@ def listUser(request):
     return render(request, 'admin/listado_usuarios.html', data)
 
 #Eliminar usuario desde tabla
+@login_required
 def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
     perfil = Profile.objects.get(user_id=pk)
@@ -33,6 +33,7 @@ def deleteUser(request, pk):
     return redirect(to='listado_usuarios')
 
 #Editar usuario desde tabla
+@login_required
 def editUser(request, pk):
     usuario = User.objects.get(pk=pk)
     perfil = Profile.objects.get(user_id=pk)
@@ -55,6 +56,7 @@ def editUser(request, pk):
     return render(request,'admin/edit_user.html', data)
 
 #Editar Producto
+@login_required
 def editProductPage(request, id):
     producto = Producto.objects.get(id=id)
     data = {
@@ -69,6 +71,7 @@ def editProductPage(request, id):
     return render(request,'admin/edit-product.html', data)
 
 #Registrar Cliente desde Admin
+@login_required
 def registerClient(request):
     data = {
        'form': CustomUserForm(),
@@ -99,6 +102,7 @@ def registerClient(request):
     return render(request, 'accounts/register_client.html', data)
 
 #Registrar Vendedor desde Admin
+@login_required
 def registerSeller(request):
     data = {
        'form': CustomUserForm(),
@@ -129,6 +133,7 @@ def registerSeller(request):
     return render(request, 'accounts/register_seller.html', data)
 
 #Registrar Proveedor desde Admin
+@login_required
 def registerSupplier(request):
     data = {
        'form': CustomUserForm(),
@@ -159,6 +164,7 @@ def registerSupplier(request):
     return render(request, 'accounts/register_supplier.html', data)
 
 #Registrar Empleado desde Admin
+@login_required
 def registerEmployee(request):
     data = {
        'form': CustomUserForm(),
@@ -189,6 +195,7 @@ def registerEmployee(request):
     return render(request, 'accounts/register_employee.html', data)
 
 #Editar Cuenta de usuario que se encuentra logueado "EDITAR MI CUENTA"
+@login_required
 def editLoggedUser(request, pk):
     usuario = User.objects.get(pk=pk)
     perfil = request.user.profile
@@ -242,6 +249,7 @@ def registerPage(request):
     return render(request, 'accounts/register.html', data)
 
 #Editar Usuario desde Admin
+@login_required
 def editPage(request, id):
     usuario = User.objects.get(id=id)
     perfil = request.user.profile
@@ -263,6 +271,7 @@ def editPage(request, id):
     return render(request,'accounts/edit.html', data)
 
 #Eliminar Usuario desde Admin
+@login_required
 def deletePage(request):
     user = request.user
     user.delete()
@@ -400,6 +409,7 @@ def processOrder(request):
     return JsonResponse('Pago realizado', safe=False)
 
 #Administracion de Productos (LISTADO)
+@login_required
 def adm_productos(request):
     prods = Producto.objects.all()
     data={
@@ -408,6 +418,7 @@ def adm_productos(request):
     return render(request, 'store/adm-producto.html', data)
 
 #Agregar Productos
+@login_required
 def agregar_producto(request):
     data={
     'form': ProductoForm()
@@ -447,12 +458,14 @@ def terceraIOrdenesCompra(request):
 #-------------------------------------------------------------------
 
 #Eliminar Producto
+@login_required
 def eliminar_producto(request, pk):
     producto = Producto.objects.get(pk=pk)
     producto.delete()
     return redirect(to='adm-producto')
 
 #Listado Boleta
+@login_required
 def adm_boletas(request):
     bills = Boleta.objects.all()
     context={
@@ -461,12 +474,14 @@ def adm_boletas(request):
     return render(request, 'store/adm-boleta.html', context)
 
 #Eliminar/Anular Boleta desde tabla
+@login_required
 def delete_bill(request, pk):
     bill = Boleta.objects.get(pk=pk)
     bill.delete()
     return redirect(to='adm-boleta')
 
 #Editar boleta desde tabla
+@login_required
 def edit_bill(request, pk):
     bill = Boleta.objects.get(pk=pk)
     data = {
@@ -482,6 +497,7 @@ def edit_bill(request, pk):
     return render(request,'store/edit_bill.html', data)
 
 #Editar factura
+@login_required
 def edit_receipt(request, pk):
     receipt = Factura.objects.get(pk=pk)
     data = {
@@ -497,6 +513,7 @@ def edit_receipt(request, pk):
     return render(request,'store/edit_receipt.html', data)
 
 #Editar Orden de compra
+@login_required
 def edit_order(request, pk):
     order = OrdenCompra.objects.get(pk=pk)
     data = {
@@ -514,6 +531,7 @@ def edit_order(request, pk):
         data['form']=OrdenCompraForm(instance=OrdenCompra.objects.get(pk=pk))
     return render(request,'store/edit_order.html', data)
 
+@login_required
 def send_order(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     if request.method=='POST':
@@ -528,6 +546,7 @@ def send_order(request, pk):
     return redirect(to='adm-ordencompra')
 
 #Revisión orden de compra
+@login_required
 def review_order(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     context={
@@ -535,17 +554,20 @@ def review_order(request, pk):
     }
     return render(request, 'store/review_order.html',context)
 
+@login_required
 def aprobarOrden(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     orden.status='Aprobado'
     orden.save()
     return redirect(to='adm-ordencompra')
 
+@login_required
 def rechazarOrden(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     orden.status='Rechazado'
     orden.save()
     return redirect(to='adm-ordencompra')
+
 #Check Out Factura
 def checkoutfact(request):
 
@@ -619,19 +641,23 @@ def processOrderFact(request):
     return JsonResponse('Pago realizado', safe=False)
 
 #Listado Boleta
+@login_required
 def adm_facturas(request):
     facts = Factura.objects.all()
     context={
         'facts': facts
     }
     return render(request, 'store/adm-factura.html', context)
+
 #Eliminar Factura
+@login_required
 def eliminar_factura(request, pk):    
     factura = Factura.objects.get(pk=pk)
     factura.delete()
     return redirect(to='adm-factura')    
 
 #Listado Ordenes
+@login_required
 def adm_ordencompra(request):
     orden = OrdenCompra.objects.all()
     context={
@@ -640,6 +666,7 @@ def adm_ordencompra(request):
     return render(request, 'store/adm-ordencompra.html', context)
 
 #Generar Orden de Compra
+@login_required
 def orden_compra(request):
     remitente = request.user.profile
     data={
@@ -659,11 +686,14 @@ def orden_compra(request):
     return render(request, 'store/generar-ordencompra.html', data)
 
 #Eliminar Orden de Compra
+@login_required
 def eliminar_orden_compra(request, pk):
     orden = OrdenCompra.objects.get(pk=pk)
     orden.delete()
-    return redirect(to='adm-ordencompra')    
-#Vista de proveedor, para consultar ordenes de compra    
+    return redirect(to='adm-ordencompra')
+
+#Vista de proveedor, para consultar ordenes de compra
+@login_required
 def vista_proveedor(request):
     prov = request.user.profile.supplier
     orden = OrdenCompra.objects.all()
@@ -673,6 +703,7 @@ def vista_proveedor(request):
     return render(request, 'store/proveedor-ordencompra.html', context)
 
 #Consultar Orden de Compra
+@login_required
 def check_order(request, pk):
     order = OrdenCompra.objects.get(pk=pk)
     data = {
@@ -683,6 +714,7 @@ def check_order(request, pk):
 #Pagina 404
 def page_not_found(request):
     return render(request, 'store/page_not_found.html')
+
 #exportacion de la tabla de profiles a formato csv
 def exportar_usuarios(request):
     response = HttpResponse(content_type='text/csv')
@@ -733,3 +765,23 @@ def exportar_ordenes(request):
     for orden in ordenes:
         writer.writerow(orden)
     return response              
+
+#Filtro por Familia de Productos
+def storeCategories(request, pk):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Producto.objects.filter(familia_id=pk)
+    context = {'products': products, 'cartItems': cartItems}
+    return render(request, 'store/store.html', context)
+
+#Filtro por Tipo de Productos
+def storeTypes(request, pk):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Producto.objects.filter(tipo_producto_id=pk)
+    context = {'products': products, 'cartItems': cartItems}
+    return render(request, 'store/store.html', context)

@@ -70,4 +70,8 @@ urlpatterns = [
 	
 
 	path('page_not_found', views.page_not_found, name='page_not_found'),
+
+	path('store/cat/<pk>', views.storeCategories, name="storeCategories"),
+	path('store/type/<pk>', views.storeTypes, name="storeTypes"),
+	
 ]

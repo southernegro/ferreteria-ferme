@@ -149,12 +149,12 @@ class Producto(models.Model):
         return url
     @property
     def skuProducto(self):
-        sku_prod = ''
+        #sku_prod = ''
         cod_prov = '000'
         cod_fam = '000'
         cod_fecha_venc = '00000000'
-        cod_prov = self.proveedor.supplier_id
-        cod_fam = self.familia.id_familia
+        cod_prov = str(self.proveedor.supplier_id)
+        cod_fam = str(self.familia.id_familia)
         cod_fecha_venc == '00000000'
         id_prod = str(self.id)
         sku_prod = id_prod+cod_prov+cod_fam+cod_fecha_venc

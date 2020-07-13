@@ -56,7 +56,6 @@
 
 </head>
 <body>
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
 	  <a class="navbar-brand" href="{% url 'store' %}"><img src="{% static 'img/logo-ferme-b.png' %}" id="logo"/></a>
@@ -70,6 +69,32 @@
 	      		<li class="nav-item active">
 	        		<a class="nav-link"  style="color: black;" href="{% url 'store' %}">Inicio <span class="sr-only">(current)</span></a>
 		  		</li>
+		  		<li class=" nav-item active dropdown">
+			        <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: black;" href="#">Familias
+			        </a>
+			        <ul class="dropdown-menu" style="background-color: #FFC107;">
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=1 %}">Construcción</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=2 %}">Carpintería</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=3 %}">Electricidad</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=4 %}">Herramientas Eléctricas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=5 %}">Pinturas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=6 %}">Quincallería</a></li>
+			        </ul>
+			      </li>
+
+			      <li class=" nav-item active dropdown">
+			        <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: black;" href="#">Tipo Productos
+			        </a>
+			        <ul class="dropdown-menu" style="background-color: #FFC107;">
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=1 %}">Taladros</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=2 %}">Clavos</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=3 %}">Martillos</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=4 %}">Esmaltes</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=5 %}">Cables</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=6 %}">Vigas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=7 %}">Candados</a></li>
+			        </ul>
+			      </li>
 		  		<li class="nav-item active" id="adm-facturation">
 	        		<a class="nav-link"  style="color: black;" href="{% url 'adm-factura' %}">Facturas<span class="sr-only"></span></a>
 		  		</li>
@@ -190,16 +215,19 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Productos</h6>
+        <h6 class="text-uppercase font-weight-bold">Ayuda</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>
-          <a href="{% url 'store' %}">Cátalogo</a>
+          Ayuda
         </p>
         <p>
-          Familias de Productos
+          Cambios y Devoluciones
         </p>
         <p>
-          Ofertas
+          Retiro en Tienda
+        </p>
+        <p>
+          Despacho a Domicilio
         </p>
 
       </div>
@@ -209,7 +237,7 @@
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
         <!-- Links -->
-        <h6 class="text-uppercase font-weight-bold">Accesos</h6>
+        <h6 class="text-uppercase font-weight-bold">Servicios</h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         {% if request.user.is_authenticated %}
         <p>
@@ -221,6 +249,9 @@
         </p>
         <p>
           Trabaja con Nosotros
+        </p>
+        <p>
+          Servicio Técnico
         </p>
         {% if request.user.profile.supplier.is_supplier %}
         <p>
