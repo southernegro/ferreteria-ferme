@@ -76,7 +76,7 @@
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=1 %}">Construcción</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=2 %}">Carpintería</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=3 %}">Electricidad</a></li>
-			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=4 %}">Herramientas Eléctricas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=4 %}">Herramientas</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=5 %}">Pinturas</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeCategories' pk=6 %}">Quincallería</a></li>
 			        </ul>
@@ -93,6 +93,11 @@
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=5 %}">Cables</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=6 %}">Vigas</a></li>
 			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=7 %}">Candados</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=8 %}">Planchas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=9 %}">Tornillos</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=10 %}">Enchufes</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=11 %}">Brochas</a></li>
+			          <li class="nav-item active"><a class="nav-link"  style="color: black;" href="{% url 'storeTypes' pk=12 %}">Cerrojos</a></li>
 			        </ul>
 			      </li>
 		  		<li class="nav-item active" id="adm-facturation">
@@ -156,7 +161,7 @@
 
         <!-- Grid column -->
         <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-          <h6 class="mb-0" style="color: black;">Contáctanos en R.R.S.S!</h6>
+          <h6 class="mb-0" style="color: black;"><strong>Contáctanos en R.R.S.S!</strong></h6>
         </div>
         <!-- Grid column -->
 
@@ -322,6 +327,9 @@
 		if (is_client == 'True'){
 			document.getElementById('adm-order').innerHTML = ''
 			document.getElementById('adm-users').innerHTML = ''
+			document.getElementById('adm-facturation').innerHTML = ''
+			document.getElementById('adm-bill').innerHTML = ''
+			document.getElementById('adm-product').innerHTML = ''
 		}
 		else if (is_seller == 'True'){
 			document.getElementById('adm-order').innerHTML = ''
