@@ -12,17 +12,17 @@
                 </div>
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h6>Orden de compra</h6>
+                    <h6>ID de Compra</h6>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-hashtag"></i></span>
                         </div>
                         {{ form.order }}
                     </div>
-                    <h6>Número de factura</h6>
+                    <h6>Número de Factura</h6>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <span class="input-group-text"><i class="fa fa-hashtag"></i></span>
                         </div>
                         {{ form.n_factura }}
                     </div>

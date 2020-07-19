@@ -27,19 +27,30 @@
     </div>
 </div>
 
+
+
 <div class="pb-5 pt-3 container shadow-lg">
 
     <h2 class="pt-2 pb-4">Listado de Usuarios</h2>
-    <a class="btn btn-outline-primary" href="{% url 'register_client'%}">
-        <i class="fa fa-user-plus"></i>Registrar Nuevo Cliente</a>
-    <a class="btn btn-outline-primary" href="{% url 'register_seller'%}">
-        <i class="fa fa-user-plus"></i>Registrar Nuevo Vendedor</a>
-    <a class="btn btn-outline-primary" href="{% url 'register_supplier'%}">
-        <i class="fa fa-user-plus"></i>Registrar Nuevo Proveedor</a>
-    <a class="btn btn-outline-primary" href="{% url 'register_employee'%}">
-        <i class="fa fa-user-plus"></i>Registrar Nuevo Empleado</a>
-    <a class="btn btn-outline-success" href="{% url 'exportar_usuarios'%}" style='float: right; margin-right: 2vw;'>
+    <a class="btn btn-outline-success mb-3" href="{% url 'exportar_usuarios'%}" style='float: right; margin-right: 2vw;'>
        Exportar <i class="fa fa-file-excel-o"></i></a>
+       <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+    <a class="nav-link" href="{% url 'listado_usuarios' %}">Todos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'userClients' %}">Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'userSellers' %}">Vendedores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'userSuppliers' %}">Proveedores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'userEmployees' %}">Empleados</a>
+      </li>
+    </ul>
     <table class="table ">
         <thead>
             <tr>
@@ -77,6 +88,13 @@
             {% endfor %}
         </tbody>
     </table>
-    
+    <a class="btn btn-outline-primary" href="{% url 'register_client'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Cliente</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_seller'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Vendedor</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_supplier'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Proveedor</a>
+    <a class="btn btn-outline-primary" href="{% url 'register_employee'%}">
+        <i class="fa fa-user-plus"></i>Registrar Nuevo Empleado</a>
 </div>
 {% endblock %}

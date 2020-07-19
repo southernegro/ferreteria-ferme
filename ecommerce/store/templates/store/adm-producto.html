@@ -27,15 +27,15 @@
     </div>
 </div>
 
-<div class="pb-5 pt-3 container-fluid shadow-lg" style='min-width: 1150px'>
-    
-    
-    
-    
-    
-    <h2 class="pt-2 pb-4">Catálogo de Productos</h2>
+<div class="pb-5 pt-3 container-fluid shadow-lg"  style='min-width: 1150px'>
+
+
+
+
+
+    <h2 class="pt-2 pb-4">Administración de Productos</h2>
     <a class="btn btn-outline-success" href="{% url 'exportar_productos'%}" style='float: right; margin-right: 1vw'>  Exportar <i class="fa fa-file-excel-o"></i></a>
-    <a class="btn btn-outline-primary" href="{% url 'agregar-producto'%}" style="float: right; margin-right: 1vw">
+    <a class="btn btn-outline-primary mb-3" href="{% url 'agregar-producto'%}" style="float: right; margin-right: 1vw">
         <i class="fa fa-plus"></i> Agregar Nuevo Producto</a>
     <table class="table ">
         <thead>
@@ -45,7 +45,6 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">SKU</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Despacho Disponible</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Familia</th>
@@ -67,12 +66,6 @@
                 <td scope="row">{{p.name}}</td>
                 <td scope="row">{{p.skuProducto}}</td>
                 <td scope="row">${{p.price}} CLP</td>
-                {% if p.despacho == True %}
-                <td scope="row">Si</td>
-                {% endif %}
-                {% if p.despacho == False  %}
-                <td scope="row">No</td>
-                {% endif %}
                 <td scope="row">{{p.stock}}</td>
                 <td scope="row">{{p.proveedor}}</td>
                 <td scope="row">{{p.familia}}</td>
