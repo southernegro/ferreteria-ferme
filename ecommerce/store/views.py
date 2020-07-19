@@ -363,7 +363,8 @@ def updateItems(request):
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-    total  = float(data['form']['total'])
+    string_total = data['form']['total']
+    total  = float(string_total.replace(',','.'))
 
     if request.user.is_authenticated:
         usuario = request.user.profile
@@ -583,7 +584,8 @@ def checkoutfact(request):
 def processOrderFact(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-    total  = float(data['form']['total'])
+    string_total = data['form']['total']
+    total  = float(string_total.replace(',','.'))
     rut = data['factura']['rut']
     razon = data['factura']['razon']
     giro = data['factura']['giro']
