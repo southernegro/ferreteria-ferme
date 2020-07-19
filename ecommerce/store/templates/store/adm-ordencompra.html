@@ -96,7 +96,34 @@
             {% endfor %}
         </tbody>
     </table>
-    
+</div>
+<br>
+<div class="pb-5 pt-3 container shadow-lg">
 
+    <h2 class="pt-2 pb-4">Listado de Proveedores</h2>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            {% if u.user %}
+
+            <tr>
+                <td scope="row">{{u.name}}</td>
+                <td scope="row">{{u.last_name}}</td>
+                <td scope="row">{{u.phone_number}}</td>
+                <td scope="row">{{u.email}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    
 </div>
 {% endblock %}

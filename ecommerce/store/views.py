@@ -49,7 +49,6 @@ def editUser(request, pk):
             formulario.save()
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
-            login(request, usuario)
             return redirect(to='listado_usuarios')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
@@ -264,7 +263,7 @@ def editPage(request, id):
             formulario.save()
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
-            login(request, usuario)
+            #login(request, usuario)
             return redirect(to='store')
         data['form']=CustomUserForm(instance=User.objects.get(id=id))
         data['profile']=ProfileForm(instance=perfil)
@@ -660,8 +659,9 @@ def eliminar_factura(request, pk):
 @login_required
 def adm_ordencompra(request):
     orden = OrdenCompra.objects.all()
+    users = Profile.objects.filter(tipo='Proveedor')
     context={
-        'orden': orden
+        'orden': orden, 'users':users
     }
     return render(request, 'store/adm-ordencompra.html', context)
 
@@ -785,3 +785,29 @@ def storeTypes(request, pk):
     products = Producto.objects.filter(tipo_producto_id=pk)
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
+
+#Filtro Usuarios por Tipo --------------------------------------------------------------
+def userClients(request):
+    users = Profile.objects.filter(tipo='Cliente')
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+def userEmployees(request):
+    users = Profile.objects.filter(tipo='Empleado')
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+def userSuppliers(request):
+    users = Profile.objects.filter(tipo='Proveedor')
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)
+def userSellers(request):
+    users = Profile.objects.filter(tipo='Vendedor')
+    data={
+        'users': users
+    }
+    return render(request, 'admin/listado_usuarios.html', data)

@@ -73,5 +73,10 @@ urlpatterns = [
 
 	path('store/cat/<pk>', views.storeCategories, name="storeCategories"),
 	path('store/type/<pk>', views.storeTypes, name="storeTypes"),
+
+	path('admin/filter/clients', views.userClients, name="userClients"),
+	path('admin/filter/employees', views.userEmployees, name="userEmployees"),
+	path('admin/filter/suppliers', views.userSuppliers, name="userSuppliers"),
+	path('admin/filter/sellers', views.userSellers, name="userSellers"),
 	
 ]
