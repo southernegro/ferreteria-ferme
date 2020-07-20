@@ -3,21 +3,30 @@
 {% load static %}
 {% block content %}
 
-<div class="pb-5 pt-3 container shadow-lg">
+
+
+<div class="container h-100">
     <a  class="btn btn-outline-dark" href="{% url 'adm-ordencompra' %}">&#x2190; Volver al Listado</a>
-    <p></p>
-    <h2>Generar Nueva Orden de Compra</h2>
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title">NUEVA ORDEN DE COMPRA</h3>
+            </div>
+        <div class="d-flex justify-content-center form_container">
+
     <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <h6><strong>Proveedor</strong></h6>
         <div class="input-group mb-3">
             <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-user"> Proveedor</i></span>
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
             {{form.proveedor}}
         </div>
+        <h6><strong>Detalle</strong></h6>
         <div class="input-group mb-3">
             <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-user"> Detalle</i></span>
+                <span class="input-group-text"><i class="fa fa-comment"></i></span>
             </div>
             {{form.detalle}}
         </div>
@@ -26,9 +35,10 @@
             <input class="btn btn-success" type="submit" name="btnsend" value="Enviar">
         </div>
     </form>
-
+    </div>
     {{ mensaje }}
-    
+        </div>
+    </div>
 </div>
 
 {% endblock %}
