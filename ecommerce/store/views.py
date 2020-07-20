@@ -406,6 +406,13 @@ def processOrder(request):
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
+    
+
+    items = OrderItems.objects.filter(order = order)
+    for i in items:
+        i.product.stock = i.product.stock - i.quantity
+        i.product.save()
+
     return JsonResponse('Pago realizado', safe=False)
 
 #Administracion de Productos (LISTADO)
@@ -639,6 +646,12 @@ def processOrderFact(request):
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
+
+    items = OrderItems.objects.filter(order = order)
+    for i in items:
+        i.product.stock = i.product.stock - i.quantity
+        i.product.save()
+
     return JsonResponse('Pago realizado', safe=False)
 
 #Listado Boleta
