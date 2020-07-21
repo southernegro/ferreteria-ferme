@@ -288,7 +288,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('')
+            return redirect('store')
         else:
             messages.info(request, 'Usuario o Contraseña incorrectos')
             return redirect('loginn')
@@ -298,7 +298,7 @@ def loginPage(request):
 #Log Out
 def logoutUser(request):
     logout(request)
-    return redirect('')
+    return redirect('store')
 
 #Pagina Principal
 def store(request):
