@@ -195,7 +195,7 @@ def registerEmployee(request):
 
 #Editar Cuenta de usuario que se encuentra logueado "EDITAR MI CUENTA"
 @login_required
-def editLoggedUser(request, pk):
+def editLoggedUser(request, pk):     #NO EXISTE EN URL
     usuario = User.objects.get(pk=pk)
     perfil = request.user.profile
     data = {
@@ -247,7 +247,7 @@ def registerPage(request):
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
 
-#Editar Usuario desde Admin
+#Editar Usuario desde MI CUENTA
 @login_required
 def editPage(request, id):
     usuario = User.objects.get(id=id)
@@ -263,8 +263,10 @@ def editPage(request, id):
             formulario.save()
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
-            #login(request, usuario)
+            login(request, usuario)
             return redirect(to='store')
+        else:
+            messages.info(request, 'Usuario ya existe o contraseña no cumple condiciones.')
         data['form']=CustomUserForm(instance=User.objects.get(id=id))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'accounts/edit.html', data)
