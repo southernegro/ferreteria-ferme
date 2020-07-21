@@ -348,7 +348,11 @@ def updateItems(request):
     orderItems, created = OrderItems.objects.get_or_create(order=order, product=product)
 
     if action == 'add':
-        orderItems.quantity = (orderItems.quantity + 1)
+        if orderItems.product.stock > orderItems.quantity:
+            orderItems.quantity = (orderItems.quantity + 1)
+        else:
+            messages.info(request, 'No hay stock suficiente para ' + orderItems.product.name)
+            messages.info(request, 'Actualmente, ' + orderItems.product.name + ' posee un stock de ' + str(orderItems.product.stock))
     elif action == 'remove':
         orderItems.quantity = (orderItems.quantity - 1)
 
