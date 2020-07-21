@@ -66,7 +66,15 @@
                 <td scope="row">{{p.name}}</td>
                 <td scope="row">{{p.skuProducto}}</td>
                 <td scope="row">${{p.price}} CLP</td>
-                <td scope="row">{{p.stock}}</td>
+                {% if p.stock > p.critic_stock %}
+                <td scope="row">
+                    <h6 class="alert alert-success" role="alert"><strong>{{p.stock}}</strong></h6> 
+                </td>
+                {% else %}
+                <td scope="row" >
+                    <h6 class="alert alert-danger" role="alert"><strong>{{p.stock}}</strong></h6>  
+                </td>
+                {%endif%}
                 <td scope="row">{{p.proveedor}}</td>
                 <td scope="row">{{p.familia}}</td>
                 <td scope="row">{{p.tipo_producto}}</td>

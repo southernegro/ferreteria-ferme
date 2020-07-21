@@ -242,7 +242,7 @@
 			})
 			.then((data) => {
 				console.log('Success:', data)
-				alert('Transaction Completed')
+				alert('Compra realizada con éxito')
 			cart = {}
 			document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 				window.location.href = "{% url 'store' %}"
