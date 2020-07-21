@@ -16,10 +16,16 @@
                 <br>
                 <h3>Detalle</h3>
                 {{ orden.detalle }}
-                <br>
-                <br>
-                <h3>Estado de orden</h3>
-                {{ orden.status }}
+                <h3 class='my-4'>Estado de orden</h3>
+                {% if orden.status == 'Aprobado' %}
+                <div class="alert alert-success" role="alert" style="align-content: center;">
+                    <p class='alert-text pt-2' style="text-align: center; font-size: 1.2rem; font-weight: bold;">Orden de compra aprobada.</p>
+                </div>
+                {% elif orden.status == 'Rechazado' %}
+                <div class="alert alert-danger" role="alert" style="text-align: center; font-size: 1.2rem; font-weight: bold;">
+                    <p class='alert-text pt-2'>Orden de compra rechazada.</p>
+                </div>
+                {% else %}
                 <div style="padding-top: 10vh;">
                     <button type="button" class="btn btn-success"
                             data-toggle="confirmation" data-title="¿ Aprobar orden ?"
@@ -32,7 +38,7 @@
                         <i class="fa fa-times">Rechazar Orden</i>
                     </button>
                 </div>
-                
+                {% endif %}
             </div>
         </div>
 

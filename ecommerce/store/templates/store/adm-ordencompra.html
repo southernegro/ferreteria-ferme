@@ -45,7 +45,7 @@
             	<th scope="col">Id Orden</th>
             	<th scope="col">Remitente</th>
                 <th scope="col">Fecha Solicitud</th>
-                <th scope="col">Recepcion</th>
+                <th scope="col">Recepción</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Detalle/Modificar</th>
@@ -70,8 +70,8 @@
                 <td scope="row">{{o.proveedor.profile.name}}</td>
                 {% if o.enviado == False  %}
                 <td scope="row">
-                  <a class="btn btn-outline-info" href="{% url 'edit_order' pk=o.id %}">
-                      <i class="far fa-edit fa-2x"></i></a>
+                    <a class="btn btn-outline-info" href="{% url 'edit_order' pk=o.id %}">
+                        <i class="far fa-edit fa-2x"></i></a>
                 </td>
                 {% else %}
                 <td scope="row">
@@ -99,7 +99,6 @@
                 </td>
                 {% endif %}
             </tr>
-
             {% endfor %}
         </tbody>
     </table>

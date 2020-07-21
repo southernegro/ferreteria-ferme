@@ -290,9 +290,10 @@ def loginPage(request):
             login(request, user)
             return redirect('')
         else:
-            messages.info('Usuario o Contraseña incorrectos')
+            messages.info(request, 'Usuario o Contraseña incorrectos')
+            return redirect('loginn')
     context= {}
-    return render(request, 'accounts/login.html', context)
+    return render(request, 'registration/login.html', context)
 
 #Log Out
 def logoutUser(request):
