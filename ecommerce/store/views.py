@@ -264,7 +264,7 @@ def editPage(request, id):
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
             login(request, usuario)
-            return redirect(to='store')
+            return redirect(to='edit')
         else:
             messages.info(request, 'Usuario ya existe o contraseña no cumple condiciones.')
         data['form']=CustomUserForm(instance=User.objects.get(id=id))
