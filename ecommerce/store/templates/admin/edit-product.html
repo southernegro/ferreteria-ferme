@@ -2,22 +2,89 @@
 {% load static %}
 {% block content %}
 
-<div class="pb-5 pt-3 container shadow-lg">
+<div class="container h-100">
     <a  class="btn btn-outline-dark" href="{% url 'adm-producto' %}">&#x2190; Volver al Listado</a>
-    <p></p>
-    <h2>Editando {{producto.name}}</h2>
-    <form class="container py-3" action="" method="POST" enctype="multipart/form-data">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h2>Editando {{producto.name}}</h2>
+            </div>
+    <div class="d-flex justify-content-center form_container">
+    <form class="container py-3 " action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <div class="py-4">
-            <input class="btn btn-outline-success" type="submit" value="Guardar Cambios">
+        <h6><strong>Nombre Producto</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-tag"></i></span>
+            </div>
+            {{form.name}}
         </div>
-
+        <h6><strong>Precio</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-usd"></i></span>
+            </div>
+            {{form.price}}
+        </div>
+        <h6><strong>Despacho Disponible</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-truck"></i></span>
+            </div>
+            {{form.despacho}}
+        </div>
+        <h6><strong>Stock</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-sort"></i></span>
+            </div>
+            {{form.stock}}
+        </div>
+        <h6><strong>Stock Crítico</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-exclamation"></i></span>
+            </div>
+            {{form.critic_stock}}
+        </div>
+        <h6><strong>Imagen</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-file-image-o"></i></span>
+            </div>
+            <p>
+            {{form.image}}
+            </p>
+        </div>
+        <h6><strong>Proveedor</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+            </div>
+            {{form.proveedor}}
+        </div>
+        <h6><strong>Familia de Producto</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-users"></i></span>
+            </div>
+            {{form.familia}}
+        </div>
+        <h6><strong>Tipo de Producto</strong></h6>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-bookmark"></i></span>
+            </div>
+            {{form.tipo_producto}}
+        </div>
+        <div class="py-4">
+            <input class="btn btn-outline-success" type="submit" value="Guardar y Publicar">
+        </div>  
     </form>
-
+    </div>
     {{ mensaje }}
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
