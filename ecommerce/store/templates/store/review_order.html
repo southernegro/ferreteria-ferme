@@ -16,19 +16,14 @@
                 <br>
                 <h3>Detalle</h3>
                 {{ orden.detalle }}
-                <br>
-                <br>
-                <h3>Estado de orden</h3>
-                <div style="padding-bottom: 10vh;">
-                    {{ orden.status }}
-                </div>
+                <h3 class='my-4'>Estado de orden</h3>
                 {% if orden.status == 'Aprobado' %}
                 <div class="alert alert-success" role="alert" style="align-content: center;">
-                    <p style="text-align: center;">Orden de compra aprobada.</p>
+                    <p class='alert-text pt-2' style="text-align: center; font-size: 1.2rem; font-weight: bold;">Orden de compra aprobada.</p>
                 </div>
                 {% elif orden.status == 'Rechazado' %}
-                <div class="alert alert-danger" role="alert" style="align-content: center;">
-                    <p style="text-align: center;">Orden de compra rechazada.</p>
+                <div class="alert alert-danger" role="alert" style="text-align: center; font-size: 1.2rem; font-weight: bold;">
+                    <p class='alert-text pt-2'>Orden de compra rechazada.</p>
                 </div>
                 {% else %}
                 <div style="padding-top: 10vh;">

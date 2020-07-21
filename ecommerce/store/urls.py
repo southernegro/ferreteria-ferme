@@ -7,7 +7,7 @@ urlpatterns = [
 	#Leave as empty string for base url
 	path('', views.store, name="store"),
 
-	path('login/', views.loginPage, name="login"),
+	path('login/', views.loginPage, name="loginn"),
 	#path('register/', views.registerPage, name="register"),
 	path('register/', views.registerPage, name="register"),
 	path('edit/<id>/', views.editPage, name="edit"),

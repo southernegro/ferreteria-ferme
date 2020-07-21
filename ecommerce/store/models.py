@@ -133,9 +133,9 @@ class Producto(models.Model):
     stock = models.IntegerField(default=0, null=True, blank=True)
     critic_stock = models.IntegerField(default=10, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
-    proveedor = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
-    familia = models.ForeignKey(FamiliaProducto, on_delete=models.SET_NULL, null=True, blank=True)
-    tipo_producto = models.ForeignKey(TipoProducto, on_delete=models.SET_NULL, null=True, blank=True)
+    proveedor = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=False, blank=False, default=1)
+    familia = models.ForeignKey(FamiliaProducto, on_delete=models.CASCADE, null=False, blank=False, default=1)
+    tipo_producto = models.ForeignKey(TipoProducto, on_delete=models.CASCADE, null=False, blank=False, default=1)
 
     def __str__(self):
         return self.name
