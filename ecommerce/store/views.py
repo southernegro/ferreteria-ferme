@@ -50,6 +50,8 @@ def editUser(request, pk):
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
             return redirect(to='listado_usuarios')
+        else:
+            messages.info(request, 'Usuario o contraseña incorrectos.')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
@@ -264,9 +266,9 @@ def editPage(request, id):
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
             login(request, usuario)
-            return redirect(to='edit')
+            messages.success(request, 'Usuario modificado correctamente.')
         else:
-            messages.info(request, 'Usuario ya existe o contraseña no cumple condiciones.')
+            messages.info(request, 'Usuario o contraseña incorrectos.')
         data['form']=CustomUserForm(instance=User.objects.get(id=id))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'accounts/edit.html', data)
@@ -499,7 +501,7 @@ def delete_bill(request, pk):
 def edit_bill(request, pk):
     bill = Boleta.objects.get(pk=pk)
     data = {
-        'form': BoletaForm(instance=bill),
+        'form': BoletaForm(instance=bill), 'bill':bill
     }
     if request.method == 'POST':
         formulario = BoletaForm(data=request.POST, instance=bill)
@@ -515,7 +517,7 @@ def edit_bill(request, pk):
 def edit_receipt(request, pk):
     receipt = Factura.objects.get(pk=pk)
     data = {
-        'form': FacturaForm(instance=receipt),
+        'form': FacturaForm(instance=receipt), 'receipt':receipt
     }
     if request.method == 'POST':
         formulario = FacturaForm(data=request.POST, instance=receipt)

@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
                 <div class="d-flex justify-content-center">
-                    <h3 class="form-tittle">MODIFICAR BOLETA</h3>
+                    <h3 class="form-tittle">MODIFICANDO BOLETA #{{bill.id}}</h3>
                 </div>
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -17,14 +17,14 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-hashtag"></i></span>
                         </div>
-                        {{form.order}}
+                        {{bill.order.id}}
                     </div>
                     <h6>Número de Boleta</h6>
 					<div class="input-group mb-3">
 						<div class="input-group-append">
 							<span class="input-group-text"><i class="fa fa-hashtag"></i></span>
 						</div>
-						{{form.n_boleta}}
+						{{bill.n_boleta}}
                     </div>
                     <h6>Vendedor</h6>
                     <div class="input-group mb-2">
@@ -38,7 +38,7 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-usd"></i></span>
                         </div>
-                        {{form.total}}
+                        {{bill.total|floatformat:0}}
                     </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
                          <input class="btn btn-outline-success" type="submit" value="Modificar Boleta">
@@ -47,8 +47,8 @@
 	         </div>
 	    </div>
 	</div>
-	    <div class="alert alert-warning" role="alert" style="margin-top: 10vh;">
-		  <strong>OJO!</strong> Modificar una boleta implica que conoces los riesgos de realizar esta acción. Si modificas esta boleta, es porque también conoces tu deber de realizar la respectiva notificación al SII.
+	    <div class="alert alert-warning" role="alert" style="margin-top: 10vh; text-align: center; font-size: 1.2rem;">
+		  <strong>OJO!</strong> Por motivos legales, solo puedes modificar el nombre del vendedor que realizo la venta de esta boleta.
 		</div>
     <script>
         /* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
