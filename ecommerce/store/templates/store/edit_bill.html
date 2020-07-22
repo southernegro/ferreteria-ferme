@@ -40,6 +40,14 @@
                         </div>
                         {{bill.total|floatformat:0}}
                     </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><h6> Productos:</h6></span>
+                        </div>
+                    </div>
+                    {%for i in items%}
+                    <p>{{i.product}} x{{i.quantity}}</p>
+                    {%endfor%}
                     <div class="d-flex justify-content-center mt-3 login_container">
                          <input class="btn btn-outline-success" type="submit" value="Modificar Boleta">
                     </div>

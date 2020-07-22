@@ -78,5 +78,8 @@ urlpatterns = [
 	path('admin/filter/employees', views.userEmployees, name="userEmployees"),
 	path('admin/filter/suppliers', views.userSuppliers, name="userSuppliers"),
 	path('admin/filter/sellers', views.userSellers, name="userSellers"),
+
+	path('agregar-familia/', views.addFamily, name="agregar-familia"),
+	path('agregar-tipo/', views.addType, name="agregar-tipo")
 	
 ]
