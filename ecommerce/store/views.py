@@ -9,7 +9,7 @@ from django.http import HttpResponse
 import json
 import datetime
 from .models import *
-from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, FacturaForm, OrdenCompraForm
+from .forms import  ProfileForm, CustomUserForm, ClientForm, ProductoForm, SellerForm, EmployeeForm, SupplierForm, BoletaForm, FacturaForm, OrdenCompraForm, FamiliaProductoForm, TipoProductoForm
 from .utils import cookieCart, cartData, guestOrder
 
 
@@ -500,8 +500,9 @@ def delete_bill(request, pk):
 @login_required
 def edit_bill(request, pk):
     bill = Boleta.objects.get(pk=pk)
+    items = OrderItems.objects.filter(order_id=bill.order.id)
     data = {
-        'form': BoletaForm(instance=bill), 'bill':bill
+        'form': BoletaForm(instance=bill), 'bill':bill, 'items':items
     }
     if request.method == 'POST':
         formulario = BoletaForm(data=request.POST, instance=bill)
@@ -516,8 +517,9 @@ def edit_bill(request, pk):
 @login_required
 def edit_receipt(request, pk):
     receipt = Factura.objects.get(pk=pk)
+    items = OrderItems.objects.filter(order_id=receipt.order.id)
     data = {
-        'form': FacturaForm(instance=receipt), 'receipt':receipt
+        'form': FacturaForm(instance=receipt), 'receipt':receipt, 'items':items
     }
     if request.method == 'POST':
         formulario = FacturaForm(data=request.POST, instance=receipt)
@@ -835,3 +837,33 @@ def userSellers(request):
         'users': users
     }
     return render(request, 'admin/listado_usuarios.html', data)
+def addFamily(request):
+    data={
+    'form': FamiliaProductoForm()
+    }
+    if request.method=='POST':
+        formulario = FamiliaProductoForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+
+            data['mensaje']='Familia agregado con éxito'
+            return redirect(to='adm-producto')
+        else:
+            messages.info(request, 'Error, intenta otra vez')
+        data['form']=formulario
+    return render(request, 'store/agregar-familia.html', data)
+def addType(request):
+    data={
+    'form': TipoProductoForm()
+    }
+    if request.method=='POST':
+        formulario = TipoProductoForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+
+            data['mensaje']='Tipo agregado con éxito'
+            return redirect(to='adm-producto')
+        else:
+            messages.info(request, 'Error, intenta otra vez')
+        data['form']=formulario
+    return render(request, 'store/agregar-tipo.html', data)

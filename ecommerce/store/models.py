@@ -111,14 +111,14 @@ class Administrator(models.Model):
         return admin
 
 class FamiliaProducto(models.Model):
-    id_familia = models.CharField(max_length=3,default=False, null=True, blank=True)
+    id_familia = models.CharField(max_length=3,default='', null=True, blank=True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
 
 class TipoProducto(models.Model):
-    id_tipo = models.CharField(max_length=3, default=False, null=True, blank=True)
+    id_tipo = models.CharField(max_length=3, default='', null=True, blank=True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
