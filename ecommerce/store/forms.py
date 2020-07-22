@@ -53,6 +53,7 @@ class FacturaForm(ModelForm):
     class Meta:
         model = Factura
         fields = ['order', 'n_factura', 'vendedor', 'total', 'rut', 'razon', 'giro']
+        exclude = ['order', 'n_factura', 'total',]
 
 class OrdenCompraForm(ModelForm):
     class Meta:

@@ -754,7 +754,7 @@ def exportar_productos(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="reporte_de_productos.csv"'
     writer = csv.writer(response)
-    writer.writerow(['Nombre', 'SKU', 'Precio', 'Despacho Disponible','Stock', 'Proveedor', 'Familia', 'Tipo de Producto'])
+    writer.writerow(['Nombre', 'SKU', 'Precio', 'Despacho Disponible','Stock','Stock Critico', 'Proveedor', 'Familia', 'Tipo de Producto'])
     productos = Producto.objects.all().values_list('name', 'sku', 'price', 'despacho', 'stock', 'critic_stock', 'proveedor', 'familia', 'tipo_producto')
     for producto in productos:
         writer.writerow(producto)
