@@ -58,7 +58,7 @@
                 <td scope="row">{{f.rut}}</td>
                 <td scope="row">{{f.razon}}</td>
                 <td scope="row">{{f.giro}}</td>
-                <td scope="row">${{f.total}} CLP</td>
+                <td scope="row">${{f.total|floatformat:0}} CLP</td>
                 <td scope="row">{{f.order.get_cart_items}}</td>
                 <td scope="row">
                   <a class="btn btn-outline-info" href="{% url 'edit_receipt' pk=f.id %}">

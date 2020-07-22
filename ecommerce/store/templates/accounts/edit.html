@@ -123,7 +123,15 @@
 	                       <div class="d-flex justify-content-center mt-3 login_container">
 	                         <input class="btn btn-outline-success" type="submit" value="Editar Usuario">
 	                       </div>
+	                        
 						<div class="pt-5">
+							{% if messages %}
+			                    {% for message in messages %}
+			                    <div class="alert alert-info" role="alert" style="margin-top: 10px;">
+			                      <li class="{{ message.tags }}">{{ message }}</li>
+			                    </div>
+			                    {% endfor %}
+			                {% endif %}
 							<div class="alert alert-warning" role="alert">
 								<strong>OJO!</strong> Si deseas cambiar tu clave, escribe tu nueva clave en ambos campos. Si no deseas cambiar tu clave, escribe la que actualmente utilizas para confirmar los demás cambios.
 							</div>
@@ -132,9 +140,8 @@
 	            </div>
 	        </div>
 	    </div>
-		</div>
-							
-	</div>
+	</div>							
+</div>
 
     <script>
         /* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript

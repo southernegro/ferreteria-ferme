@@ -50,6 +50,8 @@ def editUser(request, pk):
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
             return redirect(to='listado_usuarios')
+        else:
+            messages.info(request, 'Usuario o contraseña incorrectos.')
         data['form']=CustomUserForm(instance=User.objects.get(pk=pk))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'admin/edit_user.html', data)
@@ -195,7 +197,7 @@ def registerEmployee(request):
 
 #Editar Cuenta de usuario que se encuentra logueado "EDITAR MI CUENTA"
 @login_required
-def editLoggedUser(request, pk):
+def editLoggedUser(request, pk):     #NO EXISTE EN URL
     usuario = User.objects.get(pk=pk)
     perfil = request.user.profile
     data = {
@@ -247,7 +249,7 @@ def registerPage(request):
         data['profile']=profile
     return render(request, 'accounts/register.html', data)
 
-#Editar Usuario desde Admin
+#Editar Usuario desde MI CUENTA
 @login_required
 def editPage(request, id):
     usuario = User.objects.get(id=id)
@@ -263,8 +265,10 @@ def editPage(request, id):
             formulario.save()
             profile.save()
             data['mensaje']='Usuario modificado correctamente'
-            #login(request, usuario)
-            return redirect(to='store')
+            login(request, usuario)
+            messages.success(request, 'Usuario modificado correctamente.')
+        else:
+            messages.info(request, 'Usuario o contraseña incorrectos.')
         data['form']=CustomUserForm(instance=User.objects.get(id=id))
         data['profile']=ProfileForm(instance=perfil)
     return render(request,'accounts/edit.html', data)
@@ -348,7 +352,11 @@ def updateItems(request):
     orderItems, created = OrderItems.objects.get_or_create(order=order, product=product)
 
     if action == 'add':
-        orderItems.quantity = (orderItems.quantity + 1)
+        if orderItems.product.stock > orderItems.quantity:
+            orderItems.quantity = (orderItems.quantity + 1)
+        else:
+            messages.info(request, 'No hay stock suficiente para ' + orderItems.product.name)
+            messages.info(request, 'Actualmente, ' + orderItems.product.name + ' posee un stock de ' + str(orderItems.product.stock))
     elif action == 'remove':
         orderItems.quantity = (orderItems.quantity - 1)
 
@@ -493,7 +501,7 @@ def delete_bill(request, pk):
 def edit_bill(request, pk):
     bill = Boleta.objects.get(pk=pk)
     data = {
-        'form': BoletaForm(instance=bill),
+        'form': BoletaForm(instance=bill), 'bill':bill
     }
     if request.method == 'POST':
         formulario = BoletaForm(data=request.POST, instance=bill)
@@ -509,7 +517,7 @@ def edit_bill(request, pk):
 def edit_receipt(request, pk):
     receipt = Factura.objects.get(pk=pk)
     data = {
-        'form': FacturaForm(instance=receipt),
+        'form': FacturaForm(instance=receipt), 'receipt':receipt
     }
     if request.method == 'POST':
         formulario = FacturaForm(data=request.POST, instance=receipt)

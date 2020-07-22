@@ -57,6 +57,15 @@
                        <div class="d-flex justify-content-center mt-3 login_container">
                          <input class="btn btn-outline-success" type="submit" value="Editar Usuario">
                        </div>
+                       {% if messages %}
+                          <ul class="messages">
+                            {% for message in messages %}
+                            <div class="alert alert-danger" role="alert" style="margin-top: 20px;">
+                              <li class="{{ message.tags }}">{{ message }}</li>
+                            </div>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
                 </form>
             </div>
         </div>

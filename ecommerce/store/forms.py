@@ -47,6 +47,7 @@ class BoletaForm(ModelForm):
     class Meta:
         model = Boleta
         fields = ['order', 'n_boleta', 'vendedor', 'total']
+        exclude = ['order', 'n_boleta', 'total',]
 
 class FacturaForm(ModelForm):
     class Meta:
