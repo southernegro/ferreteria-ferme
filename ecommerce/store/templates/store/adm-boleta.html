@@ -52,7 +52,7 @@
                 <td scope="row">{{b.order.id}}</td>
                 <td scope="row">{{b.order.transaction_id}}</td>
                 <td scope="row">{{b.vendedor}}</td>
-                <td scope="row">${{b.total}} CLP</td>
+                <td scope="row">${{b.total|floatformat:0}} CLP</td>
                 <td scope="row">{{b.order.get_cart_items}}</td>
                 <td scope="row">
                   <a class="btn btn-outline-info" href="{% url 'edit_bill' pk=b.id %}">
